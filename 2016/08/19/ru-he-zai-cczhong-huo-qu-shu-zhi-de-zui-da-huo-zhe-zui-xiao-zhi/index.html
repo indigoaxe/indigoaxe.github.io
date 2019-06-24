@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>如何在C++/C中获取数值的最大或者最小值 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在stackoverflow 看到这一问题。于是记录下来,顺便附上一些相关资料：C++:123456789#include &amp;lt;limits&amp;gt;then useint imin = std::numeric_limits&amp;lt;int&amp;gt;::min(); // minimum valueint imax = std::numeric_limits&amp;lt;int&amp;gt;::max();s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在C++&#x2F;C中获取数值的最大或者最小值">
+<meta property="og:url" content="http://yoursite.com/2016/08/19/ru-he-zai-cczhong-huo-qu-shu-zhi-de-zui-da-huo-zhe-zui-xiao-zhi/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在stackoverflow 看到这一问题。于是记录下来,顺便附上一些相关资料：C++:123456789#include &amp;lt;limits&amp;gt;then useint imin = std::numeric_limits&amp;lt;int&amp;gt;::min(); // minimum valueint imax = std::numeric_limits&amp;lt;int&amp;gt;::max();s">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2016-08-18T22:00:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何在C++&#x2F;C中获取数值的最大或者最小值">
+<meta name="twitter:description" content="在stackoverflow 看到这一问题。于是记录下来,顺便附上一些相关资料：C++:123456789#include &amp;lt;limits&amp;gt;then useint imin = std::numeric_limits&amp;lt;int&amp;gt;::min(); // minimum valueint imax = std::numeric_limits&amp;lt;int&amp;gt;::max();s">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ru-he-zai-cczhong-huo-qu-shu-zhi-de-zui-da-huo-zhe-zui-xiao-zhi" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/19/ru-he-zai-cczhong-huo-qu-shu-zhi-de-zui-da-huo-zhe-zui-xiao-zhi/" class="article-date">
+  <time datetime="2016-08-18T21:55:12.000Z" itemprop="datePublished">2016-08-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何在C++/C中获取数值的最大或者最小值
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在stackoverflow 看到这一<a href="http://stackoverflow.com/questions/1855459/maximum-value-of-int" target="_blank" rel="noopener">问题</a>。于是记录下来,顺便附上一些相关资料：<br>C++:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;limits&gt;</span><br><span class="line">then use</span><br><span class="line"></span><br><span class="line">int imin = std::numeric_limits&lt;int&gt;::min(); // minimum value</span><br><span class="line">int imax = std::numeric_limits&lt;int&gt;::max();</span><br><span class="line">std::numeric_limits is a template type which can be instantiated with other types:</span><br><span class="line"></span><br><span class="line">float fmin = std::numeric_limits&lt;float&gt;::min(); // minimum positive value</span><br><span class="line">float fmax = std::numeric_limits&lt;float&gt;::max();</span><br></pre></td></tr></table></figure></p>
+<p>C:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;limits.h&gt;</span><br><span class="line">then use</span><br><span class="line"></span><br><span class="line">int imin = INT_MIN; // minimum value</span><br><span class="line">int imax = INT_MAX;</span><br></pre></td></tr></table></figure></p>
+<p>or<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;float.h&gt;</span><br><span class="line"></span><br><span class="line">float fmin = FLT_MIN;  // minimum positive value</span><br><span class="line">double dmin = DBL_MIN; // minimum positive value</span><br><span class="line"></span><br><span class="line">float fmax = FLT_MAX;</span><br><span class="line">double dmax = DBL_MAX;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>以下内容转自：<a href="http://www.cnblogs.com/zhaoyx/articles/2339898.html" target="_blank" rel="noopener">http://www.cnblogs.com/zhaoyx/articles/2339898.html</a></p>
+<table><tr><td>Type</td><td>Size</td><td>数值范围</td></tr><tr><td>无值型void</td><td>0 byte</td><td>无值域</td></tr><tr><td>布尔型bool    </td><td>1 byte</td><td>true   false</td></tr><tr><td>有符号短整型short [int] /signed short [int]</td><td>2 byte</td><td>-32768~32767</td></tr><tr><td>无符号短整型unsigned short [int]  </td><td>2 byte</td><td>0~65535</td></tr><tr><td>有符号整型int /signed [int]</td><td>4 byte</td><td>-2147483648~2147483647</td></tr><tr><td>无符号整型unsigned [int]</td><td>4 byte</td><td>0~4294967295</td></tr><tr><td>有符号长整型long [int]/signed long [int]</td><td>4 byte</td><td>-2147483648~2147483647</td></tr><tr><td>无符号长整型unsigned long [int]</td><td>4 byte</td><td>0~4294967295</td></tr><tr><td>long long</td><td>8 byte</td><td>0~18446744073709552000</td></tr><tr><td>有符号字符型char/signed char</td><td>1 byte</td><td>-128~127</td></tr><tr><td>无符号字符型unsigned char</td><td>1 byte</td><td>0~255</td></tr><tr><td>宽字符型wchar_t (unsigned short.)</td><td>2 byte</td><td>0~65535</td></tr><tr><td>单精度浮点型float </td><td>4 byte</td><td>-3.4E-38~3.4E+38</td></tr><tr><td>双精度浮点型double</td><td>8 byte</td><td>1.7E-308~1.7E+308</td></tr><tr><td>long double</td><td>8 byte</td><td></td></tr></table>
+
+<p>说明：</p>
+<p>（1）类型修饰符signed和unsigned用于修饰字符型和整形。</p>
+<p>（2）类型修饰符short和long用于修饰字符型和整形。</p>
+<p>（3）当用signed和unsigned、short和long修饰int整形时，int可省略。</p>
+<p>（4）其中bool和wchar_t是C++特有的。</p>
+<p>（5）除上表以外，C/C++都可以自定义枚举enum、联合union和struct结构体类型。</p>
+<p>（6）以上sizeof通过Windows XP 32位平台测试，其中某些类型数据的字节数和数值范围由操作系统和编译平台决定。比如16位机上，sizeof(int) = 2，而32位机上sizeof(int) = 4；32位机上sizeof(long) = 4，而64位机上sizeof(long) = 8。除此之外，注意64位机上的pointer占8byte。</p>
+<p>（7）void的字面意思是“无类型”，不能用来定义变量。void真正发挥的作用在于：<1> 对函数返回和函数参数的限定，例如自定义既不带参数也无返回值的函数void MyFunc(void);<2>定义无类型通用指针void *，指向任何类型的数据。</2></1></p>
+<p>（8）标准C++库及STL还提供了通用数据结构：字符串类string；向量类模板vector；双端队列类模板deque；链表类模板list；容器适配器堆栈类stack（实现先进后出的操作）；容器适配器队列类queue（实现先进先出的操作）；集合类set；多重集合类multiset；映射类map；多重映射类multimap；位集合bitset；迭代器iterator (类似指针的功能,对容器的内容进行访问)。</p>
+<p>（9）在标准c++中，int的定义长度要依靠你的机器的字长，也就是说，如果你的机器是32位的，int的长度为32位，如果你的机器是64位的，那么int的标准长度就是64位，而vc中__int64是为在32机位机器长实现64位长度的整形数。</p>
+<p>（10）关于32位平台下的int和long</p>
+<p>long从字面上看，应该是64位才更合理，把long当成32位实在是一个历史的包袱。像C#那样新起炉灶的程序语言，由于没有需要支持老代码的问题，就把long当作64位来处理了。</p>
+<p>在32位平台下，long是相对short而言，long（short）类型是long（short） int类型的简称，sizeof(long) = sizeof(int) = 4。int和long的范围虽然一样,但输入输出格式不同,printf int的格式为%d，而printf long的格式为%ld。</p>
+<p>考虑到程序的可移植性，还是要将他们区分开来。但当要求的数值范围为4byte时，建议使用int类型，因为第一版的C语言只有一种类型，那就是int。</p>
+<p>（11）在Win32 API及MFC中为了使类型名称在语意上更明了，对以上基本类型进行了大量的typedef。例如WINDEF.H中的BYTE,WORD,DWORD。</p>
+<p>（12）计算机内部内存的基本单位是1byte(8个电子开关)。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/19/ru-he-zai-cczhong-huo-qu-shu-zhi-de-zui-da-huo-zhe-zui-xiao-zhi/" data-id="cjf6xd1ay000m39zpgob8wm0a" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/09/10/hackerrank-dijkstra-shortest-reach-2-ru-he-tong-guo-yi-xing-dai-ma-bi-mian-timeout/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [Hackerrank] Dijkstra: Shortest Reach 2 &amp; 如何通过一行代码避免TIMEOUT
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/15/xi-tong-she-ji-yu-shi-jian-part-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">系统设计与实践 part.3</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/24/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/10/hackerrank-dijkstra-shortest-reach-2-ru-he-tong-guo-yi-xing-dai-ma-bi-mian-timeout/">[Hackerrank] Dijkstra: Shortest Reach 2 &amp; 如何通过一行代码避免TIMEOUT</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/19/ru-he-zai-cczhong-huo-qu-shu-zhi-de-zui-da-huo-zhe-zui-xiao-zhi/">如何在C++/C中获取数值的最大或者最小值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/15/xi-tong-she-ji-yu-shi-jian-part-3/">系统设计与实践 part.3</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/07/xi-tong-she-ji-yu-shi-jian-part-2/">系统设计与实践 part.2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Alex Tang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

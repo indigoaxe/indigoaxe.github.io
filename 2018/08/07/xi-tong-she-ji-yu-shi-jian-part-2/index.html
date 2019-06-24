@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 分布式系统&amp;nbsp; &amp;nbsp; 1.1 什么是分布式系统？&amp;nbsp; &amp;nbsp; 1.2 分布式系统特点&amp;nbsp; &amp;nbsp; 1.3 ACID vs. BASE2. 数据库系统&amp;nbsp; &amp;nbsp; 2.1 设计原则:CAP理论&amp;nbsp; &amp;nbsp; 2.2 ACID vs. BASE&amp;nbsp; &amp;nbsp; 2.3 NoSQL数据库3. 大数据系统&amp;nbsp; &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统设计与实践 part.2">
+<meta property="og:url" content="http://yoursite.com/2018/08/07/xi-tong-she-ji-yu-shi-jian-part-2/index.html">
+<meta property="og:site_name" content="IndigoAxe">
+<meta property="og:description" content="1. 分布式系统&amp;nbsp; &amp;nbsp; 1.1 什么是分布式系统？&amp;nbsp; &amp;nbsp; 1.2 分布式系统特点&amp;nbsp; &amp;nbsp; 1.3 ACID vs. BASE2. 数据库系统&amp;nbsp; &amp;nbsp; 2.1 设计原则:CAP理论&amp;nbsp; &amp;nbsp; 2.2 ACID vs. BASE&amp;nbsp; &amp;nbsp; 2.3 NoSQL数据库3. 大数据系统&amp;nbsp; &amp;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-07T07:31:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="系统设计与实践 part.2">
+<meta name="twitter:description" content="1. 分布式系统&amp;nbsp; &amp;nbsp; 1.1 什么是分布式系统？&amp;nbsp; &amp;nbsp; 1.2 分布式系统特点&amp;nbsp; &amp;nbsp; 1.3 ACID vs. BASE2. 数据库系统&amp;nbsp; &amp;nbsp; 2.1 设计原则:CAP理论&amp;nbsp; &amp;nbsp; 2.2 ACID vs. BASE&amp;nbsp; &amp;nbsp; 2.3 NoSQL数据库3. 大数据系统&amp;nbsp; &amp;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/07/xi-tong-she-ji-yu-shi-jian-part-2/">
+
+
+
+
+
+  <title>系统设计与实践 part.2 | IndigoAxe</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IndigoAxe</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/xi-tong-she-ji-yu-shi-jian-part-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alex Tang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IndigoAxe">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">系统设计与实践 part.2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-07T09:04:03+08:00">
+                2018-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="#1">1. 分布式系统</a><br>&nbsp; &nbsp; <a href="#1001">1.1 什么是分布式系统？</a><br>&nbsp; &nbsp; <a href="#1002">1.2 分布式系统特点</a><br>&nbsp; &nbsp; <a href="#1003">1.3 ACID vs. BASE</a><br><a href="#2">2. 数据库系统</a><br>&nbsp; &nbsp; <a href="#2001">2.1 设计原则:CAP理论</a><br>&nbsp; &nbsp; <a href="#2002">2.2 ACID vs. BASE</a><br>&nbsp; &nbsp; <a href="#2003">2.3 NoSQL数据库</a><br><a href="#3">3. 大数据系统</a><br>&nbsp; &nbsp; <a href="#3001">3.1 大数据基础: Hadoop</a><br>&nbsp; &nbsp; <a href="#3002">3.2 Google 大数据的三驾马车</a>  </p>
+<hr>
+<h4 id="1">1. 分布式系统</h4>
+
+<h6 id="1001">1.1 什么是分布式系统？</h6>
+
+<p>分布式系统是一大批服务器组成一个集合，对于用户来说这个集合仍然是一个整体连贯系统。<br>首先来看看三位大师对分布式系统的定义：   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A. Tanenbaum的定义：分布式网络的计算机中的组件之间协调动作通过消息进行通讯。    </span><br><span class="line">G. Coulouris的定义：当你知道有一台电脑崩溃，但是你的软件运行从来不会停止。</span><br><span class="line">Leslie Lamport的定义：分布式系统是这样系统：旨在支持应用程序和服务的开发，可以利用物理架构由多个自治的处理元素，不共享主内存，但通过网络发送异步消息合作。</span><br></pre></td></tr></table></figure>
+
+<p>分布式系统与分层应用区别：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">分层的应用程序（例如，3层）是划分应用程序逻辑，是一种逻辑分层，而不是物理，而分布式系统DS是物理分层，和实际部署有关。</span><br></pre></td></tr></table></figure>
+
+<p>分布式系统与传统集中式系统相比：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">集中式系统是一种Scale out/in，纵向扩展，要么向上升级服务器到中大型机，要么升级多核，增加CPU核数，集中式纵向扩展适合计算聚合度比较高的数据，而分布式适合计算松散数据，非结构化或半结构化数据。无论采取哪种扩展伸缩方案，需要根据业务数据特点而定。</span><br><span class="line"></span><br><span class="line">任何分布式系统总是需要完成两个任务：计算和存储。计算和存储分离是分布式系统的重要特征。而通常在集中式或单机系统中，这两者是可能结合在一起，比如通过一个SQL语句实现查询后排序，查询是从存储中获得数据，排序是属于计算，因此这个SQL语句实际是将计算和存储耦合在一起。在应对大数据或大并发的情况下，这种方便的捆绑带来性能问题，而分布式计算和分布式存储虽然带来复杂性，但是也为系统的处理能力打开了上升拓展的空间。</span><br></pre></td></tr></table></figure>
+
+<h6 id="1002">1.2 分布式系统特点</h6>
+
+<p>并发性：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">共享资源，采取ACID或Base原则，见：CAP定理。</span><br><span class="line">分布式系统设计遵循CAP定理， CAP是：Consistency(一致性), Availability(可用性), 和 Partition tolerance(分区容错性) 可靠性 简称，CAP定理认为，CAP三种之中，只能同时满足其中两种。</span><br></pre></td></tr></table></figure>
+
+<p>高可扩展性:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">是指系统能够在*运行过程中*自由地对系统内部节点或现有功能进行扩充，而*不影响*现有服务的运行。</span><br></pre></td></tr></table></figure>
+
+<p>可靠性/可用性:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">故障发现和处理以及恢复容错处理。在一个正常运作系统中存在一个时间比例的条件。 如果一个用户不能访问系统比例增大，它被认为是不可用。可用性公式：</span><br><span class="line">Availability = uptime / (uptime + downtime)</span><br><span class="line">容错failover是指一个系统在错误发生的情况下，仍然一切运行正常。表示这个系统是宽容错误的。</span><br></pre></td></tr></table></figure>
+
+<p>透明性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">访问透明度： 使用相同的操作本地和远程资源</span><br><span class="line">位置透明：访问资源无需知道其物理或网络位置</span><br><span class="line">并发透明度：多个进程可以同时运行访问使用共享资源，当不能干扰堵塞 它们的处理进程</span><br><span class="line">复制透明性： 资源的多个实例可以被用来复制以提高可靠性和性能，但无需由用户编制专门的应用程序来实现。</span><br><span class="line">故障透明度：出现软件硬件故障时，使用户和应用方案能继续完成他们的任务不受影响。</span><br><span class="line">移动透明度：允许在 系统存在移动的资源和客户。</span><br><span class="line">性能透明度：允许系统重新配置以 提高性能负荷变化</span><br><span class="line">缩放透明度：在应用程序结构没有变化的情况下能够在规模上扩展或伸缩系统，以提高吞吐量处理能力。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="2">2. 数据库系统</h4>
+
+<h6 id="2001">2.1 设计原则:CAP理论</h6>
+CAP理论是分布式数据库中很重要的理论基础。CAP即Consistnecy 一致性，Avaliability 可用性，Partition-tolerance分区容忍性 的缩写。在分布式系统中，三者不可兼得，只能得到其中之二。所以就有了三个分类：CA数据库，CP数据库，AP数据库。
+
+<p>CA数据库不考虑分区容忍性，对应现实中是数据库就是普通的关系型数据库RDBMS，如MySQL, Oracle。<br>CP数据库考虑的是一致性和分区容忍性，这种数据库对分布式系统内的通信要求比较高，因为要保持数据的一致性，需要做大量的交互。目前常用的CP数据库：Bigtable，HBase。<br>AP数据库考虑的是实用性和分区容忍性，即外部访问数据，可以更快的得到回应。这时候，数据的一致性就可能得不到满足。比如一个数据，可能外部一个进程在改写这个数据，同时另一个进程在读这个数据，此时，数据显现是不一致的。但是有一点，就是数据库会满足一个最终一致性的概念，即过程可能是不一致的，但是到某一个终点，数据就会一致起来。比较出名的AP数据库：DynamoDB。</p>
+<h6 id="2002">2.2 ACID vs. BASE</h6>
+转自：[CAP原理和BASE思想](http://www.jdon.com/37625)  
+
+<p>关系数据库的ACID模型拥有 高一致性 + 可用性 很难进行分区：<br>Atomicity原子性：一个事务中所有操作都必须全部完成，要么全部不完成。<br>Consistency一致性. 在事务开始或结束时，数据库应该在一致状态。<br>Isolation隔离性：事务将假定只有它自己在操作数据库，彼此不知晓。<br>Durability持久性：一旦事务完成，就不能返回。</p>
+<p>==<strong>BASE思想</strong>==<br>主要强调基本的可用性，如果你需要高可用性，也就是纯粹的高性能，那么就要以一致性或容错性为牺牲，BASE思想的方案在性能上还是有潜力可挖的。</p>
+<p>BASE模型反ACID模型，完全不同ACID模型，牺牲高一致性，获得可用性或可靠性：<br>Basically Available基本可用。支持分区失败(e.g. sharding碎片划分数据库)<br>Soft state软状态 状态可以有一段时间不同步，异步。<br>Eventually consistent最终一致，最终数据是一致的就可以了，而不是时时高一致。</p>
+<p>BASE思想的主要实现有<br>1.按功能划分数据库<br>2.sharding碎片 </p>
+<p>BASE思想主要强调基本的可用性，如果你需要High 可用性，也就是纯粹的高性能，那么就要以一致性或容错性为牺牲，BASE思想的方案在性能上还是有潜力可挖的。</p>
+<p>现在NoSQL运动丰富了拓展了BASE思想，可按照具体情况定制特别方案，比如忽视一致性，获得高可用性等等，NOSQL应该有下面两个流派：</p>
+<ol>
+<li>Key-Value存储，如Amaze Dynamo等，可根据CAP三原则灵活选择不同倾向的数据库产品。</li>
+<li>领域模型 + 分布式缓存 + 存储 （Qi4j和NoSQL运动），可根据CAP三原则结合自己项目定制灵活的分布式方案，难度高。</li>
+</ol>
+<p>这两者共同点：都是关系数据库SQL以外的可选方案，逻辑随着数据分布，任何模型都可以自己持久化，将数据处理和数据存储分离，将读和写分离，存储可以是异步或同步，取决于对一致性的要求程度。</p>
+<p>不同点：NOSQL之类的Key-Value存储产品是和关系数据库头碰头的产品BOX，可以适合非Java如PHP RUBY等领域，是一种可以拿来就用的产品，而领域模型 + 分布式缓存 + 存储是一种复杂的架构解决方案，不是产品，但这种方式更灵活，更应该是架构师必须掌握的。</p>
+<h6 id="2003">2.3 NoSQL数据库</h6>
+
+<p>参考阅读:<a href="http://old.sebug.net/paper/databases/nosql/Nosql.html" target="_blank" rel="noopener">NoSQL数据库笔谈</a></p>
+<hr>
+<h4 id="3">3. 大数据系统</h4>
+
+<h6 id="3001">3.1 大数据基础: Hadoop</h6>
+==Hadoop核心==  
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hadoop的核心就是HDFS和MapReduce，而两者只是理论基础，不是具体可使用的高级应用，Hadoop旗下有很多经典子项目，比如HBase、Hive等，这些都是基于HDFS和MapReduce发展出来的。要想了解Hadoop，就必须知道HDFS和MapReduce是什么。</span><br></pre></td></tr></table></figure>
+
+<p>==HDFS==<br>HDFS(Hadoop Distributed File System，Hadoop分布式文件系统)，它是一个高度容错性的系统，适合部署在廉价的机器上。HDFS能提供高吞吐量的数据访问，适合那些有着超大数据集(large data set)的应用程序。<br>HDFS的设计特点是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、大数据文件，非常适合上T级别的大文件或者一堆大数据文件的存储，如果文件只有几个G甚至更小就没啥意思了。</span><br><span class="line">2、文件分块存储，HDFS会将一个完整的大文件平均分块存储到不同计算器上，它的意义在于读取文件时可以同时从多个主机取不同区块的文件，多主机读取比单主机读取效率要高得多得都。</span><br><span class="line">3、流式数据访问，一次写入多次读写，这种模式跟传统文件不同，它不支持动态改变文件内容，而是要求让文件一次写入就不做变化，要变化也只能在文件末添加内容。</span><br><span class="line">4、廉价硬件，HDFS可以应用在普通PC机上，这种机制能够让给一些公司用几十台廉价的计算机就可以撑起一个大数据集群。</span><br><span class="line">5、硬件故障，HDFS认为所有计算机都可能会出问题，为了防止某个主机失效读取不到该主机的块文件，它将同一个文件块副本分配到其它某几个主机上，如果其中一台主机失效，可以迅速找另一块副本取文件。</span><br></pre></td></tr></table></figure>
+
+<p>==HDFS的关键元素：==</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Block：将一个文件进行分块，通常是64M。</span><br><span class="line">NameNode：保存整个文件系统的目录信息、文件信息及分块信息，这是由唯一一台主机专门保存，当然这台主机如果出错，NameNode就失效了。在Hadoop2.*开始支持activity-standy模式----如果主NameNode失效，启动备用主机运行NameNode。</span><br><span class="line">DataNode：分布在廉价的计算机上，用于存储Block块文件。</span><br></pre></td></tr></table></figure>
+
+<p>==MapReduce==<br>通俗说MapReduce是一套从海量·源数据提取分析元素最后返回结果集的编程模型，将文件分布式存储到硬盘是第一步，而从海量数据中提取分析我们需要的内容就是MapReduce做的事了。</p>
+<p>参考阅读:<a href="http://tech.it168.com/a2011/1020/1261/000001261673_all.shtml" target="_blank" rel="noopener">深入浅出Hadoop： 高效处理大数据</a></p>
+<h6 id="3002">3.2 Google 大数据的三驾马车</h6>
+谈到分布式系统，就不得不提Google的三驾马车:  
+GFS(Google File System)[1],Mapreduce[2],Bigtable[3]。
+参考阅读：[分布式系统漫谈—— Google的三驾马车](http://storage.it168.com/a2011/0831/1240/000001240542.shtml)
+
+
+
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/01/xi-tong-she-ji-yu-shi-jian-part-1/" rel="next" title="系统设计与实践 part.1">
+                <i class="fa fa-chevron-left"></i> 系统设计与实践 part.1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/15/xi-tong-she-ji-yu-shi-jian-part-3/" rel="prev" title="系统设计与实践 part.3">
+                系统设计与实践 part.3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Alex Tang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">1. 分布式系统</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1001"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 什么是分布式系统？</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1002"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2 分布式系统特点</span></a></li></ol></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">2. 数据库系统</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2001"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 设计原则:CAP理论</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2002"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 ACID vs. BASE</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2003"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.3 NoSQL数据库</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3"><span class="nav-number">3.</span> <span class="nav-text">3. 大数据系统</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#3001"><span class="nav-number">3.0.1.</span> <span class="nav-text">3.1 大数据基础: Hadoop</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3002"><span class="nav-number">3.0.2.</span> <span class="nav-text">3.2 Google 大数据的三驾马车</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alex Tang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

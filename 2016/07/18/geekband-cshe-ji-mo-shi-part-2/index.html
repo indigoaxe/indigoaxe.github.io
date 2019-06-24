@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>[GeekBand] C++设计模式 part.2 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. Factory Method 工厂模式2. Abstract Factory 抽象工厂3. Prototype 原型模式4. Builder 构建器5. Facade 门面模式6. Proxy 代理模式7. Adapter 适配器模式8. Meidator 中介者模式   本周主要讲了两个大类的设计模式：创建对象模式和接口隔离模式。首先我们先来理解一下这两个大类，然后再一个一个的去了解。 在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[GeekBand] C++设计模式 part.2">
+<meta property="og:url" content="http://yoursite.com/2016/07/18/geekband-cshe-ji-mo-shi-part-2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. Factory Method 工厂模式2. Abstract Factory 抽象工厂3. Prototype 原型模式4. Builder 构建器5. Facade 门面模式6. Proxy 代理模式7. Adapter 适配器模式8. Meidator 中介者模式   本周主要讲了两个大类的设计模式：创建对象模式和接口隔离模式。首先我们先来理解一下这两个大类，然后再一个一个的去了解。 在">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2016-07-25T17:58:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[GeekBand] C++设计模式 part.2">
+<meta name="twitter:description" content="1. Factory Method 工厂模式2. Abstract Factory 抽象工厂3. Prototype 原型模式4. Builder 构建器5. Facade 门面模式6. Proxy 代理模式7. Adapter 适配器模式8. Meidator 中介者模式   本周主要讲了两个大类的设计模式：创建对象模式和接口隔离模式。首先我们先来理解一下这两个大类，然后再一个一个的去了解。 在">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-geekband-cshe-ji-mo-shi-part-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/18/geekband-cshe-ji-mo-shi-part-2/" class="article-date">
+  <time datetime="2016-07-18T07:07:40.000Z" itemprop="datePublished">2016-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [GeekBand] C++设计模式 part.2
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="#1">1. Factory Method 工厂模式</a><br><a href="#2">2. Abstract Factory 抽象工厂</a><br><a href="#3">3. Prototype 原型模式</a><br><a href="#4">4. Builder 构建器</a><br><a href="#5">5. Facade 门面模式</a><br><a href="#6">6. Proxy 代理模式</a><br><a href="#7">7. Adapter 适配器模式</a><br><a href="#7">8. Meidator 中介者模式</a>  </p>
+<p>本周主要讲了两个大类的设计模式：<strong>创建对象模式</strong>和<strong>接口隔离模式</strong>。首先我们先来理解一下这两个大类，然后再一个一个的去了解。</p>
+<p>在创建对象模式中，我们将对象的创建和使用分离，使得系统更加符合“单一职责原则”，有利于对功能的复用和系统的维护。我们将对象的创建和使用分离还有一个好处：防止用来实例化一个类的数据和代码在多个类中到处都是，可以将有关创建的知识搬移到一个工厂类中，这在Joshua Kerievsky的《重构与模式》一书中有专门的一节来进行介绍。因为有时候我们创建一个对象不只是简单调用其构造函数，还需要设置一些参数，可能还需要配置环境，如果将这些代码散落在每一个创建对象的客户类中，势必会出现代码重复、创建蔓延的问题，而这些客户类其实无须承担对象的创建工作，它们只需使用已创建好的对象就可以了。此时，可以引入工厂类来封装对象的创建逻辑和客户代码的实例化/配置选项。</p>
+<p>而符合接口隔离原则的模式和符合单一职责原则的模式又有什么区别呢？</p>
+<p>首先我们要理解隔离原则的要求：建立单一接口，不要建立臃肿庞大的接口。再通俗的一点讲：接口尽量细化，同时接口中的方法尽量的少。看到这里大家有可能要疑惑了，这与单一职责原则不是相同的吗？错，接口隔离原则与单一职责的定义的规则是不相同的，单一职责要求的是类和接口职责单一，注重的是职责，没有要求接口的方法减少，例如一个职责可能包含10个方法，这10个方法都放在一个接口中，并且提供给多个模块访问，各个模块按照规定的权限来访问，在系统外通过文档约束不使用的方法不要访问，按照单一职责原则是允许的，按照接口隔离原则是不允许的，因为它要求“尽量使用多个专门的接口”,专门的接口指什么？就是指提供给多个模块的接口，提供给几个模块就应该有几个接口，而不是建立一个庞大的臃肿的接口，所有的模块可以来访问。<br>单一职责原则是从业务角度上来对类进行接口的抽象和细分，而接口隔离原则是从代码角度来对接口进行细分。因为单一职责原则得到的接口可能比较庞大，这就需要我们进行接口隔离原则的实施了。</p>
+<p>引用：<br>[1] <a href="http://blog.csdn.net/nokianasty/article/details/11762379" target="_blank" rel="noopener">http://blog.csdn.net/nokianasty/article/details/11762379</a><br>[2] <a href="http://blog.csdn.net/lovelion/article/details/7523392/" target="_blank" rel="noopener">http://blog.csdn.net/lovelion/article/details/7523392/</a></p>
+<hr>
+<h4 id="1">Factory Method 工厂模式</h4>    
+
+
+<p><strong>对象创建</strong>模式<br>通过“对象创建”模式绕开new，来避免对象创建(new)过程中所导致的紧耦合（依赖具体类），从而支持对象创建的稳定，他是接口抽象之后的第一步工作。</p>
+<p><strong>典型创建对象模式</strong></p>
+<ul>
+<li>Factory Method</li>
+<li>Abstract Factory</li>
+<li>Prototype</li>
+<li>Builder</li>
+</ul>
+<p>==<strong>Factory Method模式定义：</strong>==</p>
+<blockquote>
+<p>定义一个用于创建对象的接口，让子类决定实例化哪一个类。Factory Method使得一个类的实例化延迟（目的：解耦，手段：虚函数）到子类<br>《设计模式》GoF</p>
+</blockquote>
+<p>==<strong>动机</strong>==</p>
+<p>在软件系统中，经常面临创建对象的工作，由于需求的变化，需要创建的对象的具体类型经常变化。</p>
+<p>定义一个创建对象的接口，让子类决定实例化哪一个类。Factory Method使得一个类的实例化延迟（目的：解耦，手段：虚函数）。</p>
+<p>==<strong>要点总结</strong>==  </p>
+<ul>
+<li>Factory Method模式用于隔离类对对象的使用者和具体类型之间的耦合关系。面对经常变化的具体类型，紧耦合关系（new）会导致软件的脆弱。</li>
+<li>Factory Method模式通过面向对象的手法，将所要创建的具体对象工作延迟到子类，从而实现一种扩展（而非更改）的策略，较好的解决了紧耦合关系。</li>
+<li>Factory Method模式解决“单个对象”的需求变化。缺点在于要求创建方法/参数相同。</li>
+</ul>
+<hr>
+<h4 id="2">Abstract Factory 抽象工厂</h4>
+
+<p>==<strong>动机</strong>==</p>
+<p>在软件系统中，经常面临着“一系列相互依赖的对象”的创建工作，同时，由于需求的变化，往往存在更多系列对象的创建工作。</p>
+<p>提供一个借口，让该接口负责创建一系列“现骨干或者相互依赖的对象”，无需指定他们具体的类。</p>
+<p>==<strong>要点总结</strong>==</p>
+<ul>
+<li>如果没有应对“多系列对象构建”的需求变化，则使用Factory Method就足够了。</li>
+<li>“系列对象”指的是在某一特定系列下的对象之间有相互依赖或作用的关系。不同系列的对象之间不能相互依赖。</li>
+<li>Abstract Factory模式主要在于应对“新系列”的需求变动（可以扩展一个系列），其缺点在于难以应对“新对象”的需求变动（某个已有系列需要增加新的对象）。</li>
+<li>设计模式主要解决稳定中有变化的情况，如果在两个极端情况，一是所有地方都有变化，二是所有地方都不变化，那么就根本没有必要使用设计模式了。</li>
+</ul>
+<p><strong>综上所看，可以说Factory Method是Abstract Factory的一个特例，所以可以统称为Factory模式。</strong></p>
+<hr>
+<h4 id="3">Prototype 原型模式</h4>
+
+<p>==<strong>动机</strong>==</p>
+<p>在软件系统中，经常面临着“某些结构复杂的对象”的创建工作；由于需求的变化，这些对象经常面临着剧烈的变化，但是他们却拥有比较稳定一致的接口。</p>
+<p>使用原型实例制定创建对象的种类，然后通过拷贝（深克隆）这些原型来创建新的对象。</p>
+<p>和工厂模式不同，它主要能够解决工厂模式要求创建方法/参数相同的问题，尤其适应“某些结构复杂的对象”的创建工作。</p>
+<p>==<strong>要点总结</strong>==</p>
+<ul>
+<li>Prototype模式同样用于隔离类对象的使用者和具体类型（易变类）之间的耦合。同样要求这些“易变类”拥有“稳定的接口”。</li>
+<li>Prototype模式对于“如何创建易变类的实体对象”曹勇“原型克隆”的方法来做，它使得我们可以非常灵活得动态创建“某些稳定接口”的新对象————所需工作仅仅是注册一个新类的对象，然后在任何需要的地方Clone。</li>
+<li>Prototype模式中的Clone方法可以利用某些框架中的序列化来实现深拷贝（C++使用拷贝构造函数即可）。</li>
+</ul>
+<hr>
+<h4 id="4">Builder 构建器</h4>
+
+<p>==<strong>动机</strong>==</p>
+<p>在软件系统中，经常面临着“一个复杂对象”的创建工作，其通常由各个部分的子对象用一定的算法构成；由于需求的变化，这个负责对象的各个部分经常面临着剧烈的变化，但是将他们组合在一起的算法却相对稳定。</p>
+<p>将一个复杂对象的构建与其表示相分离，使得同样的构建过程（稳定）可以创建不同的表示（变化）。</p>
+<p>==<strong>要点总结</strong>==</p>
+<ul>
+<li>Builder模式主要用于“分步骤构建一个负责的对象”。在这其中，“分步骤”是一个稳定的算法，而复杂对象的各个部分则经常变化。</li>
+<li>变化点在哪里，封装到哪里————Builder模式主要在于对应“复杂对象各个部分”的频繁需求变动。缺点在于难以应对“分步骤构建算法”的需求变动。</li>
+<li>在Builder模式中，要注意不同语言中构造器内调用虚函数的差别。</li>
+</ul>
+<hr>
+<h4 id="5">Facade 门面模式</h4>
+
+<p><strong>接口隔离模式</strong></p>
+<p>在组件构建过程中，某些接口之间直接的依赖常常会带来很多问题、甚至根本无法实现。采用添加一层间接（稳定）接口，来隔离本来互相紧密关联的接口。</p>
+<p>典型接口隔离模式</p>
+<ul>
+<li>Facade</li>
+<li>Proxy</li>
+<li>Adapter</li>
+<li>Mediator</li>
+</ul>
+<p>==<strong>动机</strong>==</p>
+<p>一些系统的问题在于组件的客户和组件中各种复杂的子系统有了过多的耦合，随着外部客户程序和各子系统的演化（变化），这种过多的耦合面临很多变化的挑战。</p>
+<p>为子系统中的一组接口提供一个一致（稳定）的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用（复用）。</p>
+<p>更多的体现的是一种设计原则和思想。关键在于子系统内外部的解耦。</p>
+<p>==<strong>要点总结</strong>==</p>
+<ul>
+<li>从客户程序的角度来看，Facade模式简化了整个组件系统的接口，对于组件内部与外部客户程序来说，达到了“解耦”的效果————子系统内部的任何变化不会影响到Facade接口的变化。</li>
+<li>Facade设计模式更注重从架构的层次去看整个系统，而不是单个类的层次。Facade很多时候更是一种架构设计模式。</li>
+<li>Facade设计模式并非一个集装箱，可以任意地放进任何多个对象。Facade模式中组件的内部应该是“相互耦合关系比较大的一系列组件”，而不是一个简单的功能集合。</li>
+</ul>
+<hr>
+<h4 id="6">Proxy 代理模式</h4>
+
+<p>==<strong>动机</strong>==</p>
+<p>在面向对象系统中，有些对象由于某种原因（比如对象创建的开销很大，或者某些操作需要安全控制，或者需要进程外的访问），直接的访问会给使用者、或者系统结构带来很多麻烦。如何在不是去透明操作对象的同事来管理/控制这些对象特有的负载型？</p>
+<p>为其他对象提供一种代理以控制（隔离，使用接口）对这个对象的访问。</p>
+<p>==<strong>要点总结</strong>==</p>
+<ul>
+<li>“增加一层间接层”是软件系统中对许多复杂问题的一种常见的解决方法。在面向对象系统中，直接使用某些对象会带来很多问题，作为间接层的Proxy对象便是解决这一问题的常用手段。</li>
+<li>具体的proxy设计模式的实现方法、实现粒度都相差很大，有些可能对单个对象做细粒度的控制，如copy-on-write技术，有些可能对组件模块提供抽象代理层，在架构层次对对象做Proxy。</li>
+<li>Proxy并不一定要求保持接口完整的一致性，只要能够实现间接控制，有时候损及一些透明性是可以接受的。</li>
+</ul>
+<hr>
+<h4 id="7">Adapter 适配器模式</h4>
+
+
+<p>==<strong>动机</strong>==</p>
+<p>在软件系统中，由于应用环境的变化，常常需要将“一些现存的对象”放在新的环境中使用，但是新环境要求的接口是这些现存对象所不满足的。</p>
+<p>将一个类的接口转换成客户希望的另一个接口。Adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
+<p>==<strong>要点总结</strong>==</p>
+<ul>
+<li>Adapter模式主要应用于“希望复用一些实现的类，但是接口又与复用环境要求不一致的情况”，在遗留代码复用和类库迁移时非常有用。</li>
+</ul>
+<p>GOF23 定义了两种Adapter模式的实现结构：</p>
+<p>1) 对象适配器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">classAdapter:publicITarget&#123;IAdaptee* pAdaptee;//非常灵活...                  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>非常灵活，pAdaptee可以指向任何可具体的实现类。</p>
+<p>2) 类适配器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">classAdapter:publicITarget,//共有接口protectedIAdaptee</span><br><span class="line">&#123;//多继承，实现继承...                  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>不是很好，有局限性，如果IAdaptee仅仅是个接口，没有实现，如果换做具体类，那就没有了灵活性，一般不推荐使用。C++中可以，但是在JAVA等语言中不支持。</p>
+<ul>
+<li>Adapter模式可以实现的非常灵活，不必拘泥于GOF23中定义的两种结构。</li>
+</ul>
+<hr>
+<h4 id="8">Mediator 中介者模式</h4>
+
+<p>==<strong>动机</strong>==</p>
+<p>在软件构建过程中，经常会出现多个对象互相关联交互的情况，对象之间常常会维持一种复杂的引用关系，如果遇到一些需求的更改，这种直接的引用关系将面临不断的变化。</p>
+<p>用一个中介对象来封装（封装变化）一系列的对象交互。中介者使各对象不需要显式的相互引用（编译时依赖to运行时依赖），从而使其耦合松散（管理变化），而且可以独立的改变他们之间的交互。</p>
+<p>==<strong>要点总结</strong>==</p>
+<ul>
+<li>将多个对象间复杂的关系关系解耦，Mediator模式将多个对象间的控制逻辑进行集中管理，变“多个对象互相关联”为“多个对象和一个中介者关联”，简化了系统的维护，抵御了可能的变化。</li>
+<li>随着控制逻辑的复杂化，Mediator具体对象的实现可能相当复杂（复杂的消息机制）。这时候可以对Mediator对象进行分解处理。</li>
+<li>Facade模式是解耦系统间（单向）的对象关联关系；Mediator模式是解耦系统内部各个对象之间（双向）的关联关系。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/18/geekband-cshe-ji-mo-shi-part-2/" data-id="cjf6xd1a0000839zp2skljhym" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/23/pattern-part3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [GeekBand]C++设计模式 part.3
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/11/geekband-cshe-ji-mo-shi-part-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[GeekBand] C++设计模式 part.1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/24/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/10/hackerrank-dijkstra-shortest-reach-2-ru-he-tong-guo-yi-xing-dai-ma-bi-mian-timeout/">[Hackerrank] Dijkstra: Shortest Reach 2 &amp; 如何通过一行代码避免TIMEOUT</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/19/ru-he-zai-cczhong-huo-qu-shu-zhi-de-zui-da-huo-zhe-zui-xiao-zhi/">如何在C++/C中获取数值的最大或者最小值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/15/xi-tong-she-ji-yu-shi-jian-part-3/">系统设计与实践 part.3</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/07/xi-tong-she-ji-yu-shi-jian-part-2/">系统设计与实践 part.2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Alex Tang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

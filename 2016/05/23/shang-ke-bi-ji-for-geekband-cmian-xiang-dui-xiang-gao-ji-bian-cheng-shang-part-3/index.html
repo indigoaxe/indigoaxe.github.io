@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>[上课笔记 for GeekBand] C++面向对象高级编程（上） part.3 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="第三周的主要内容有： 1. 组合与继承2. 虚函数与多态3. 委托相关设计    复合和继承关系下的构造和析构   组合与继承类与类之间主要有三种关系，在程序中，这三种关系能解决大部分问题：     Inheritance（继承） Composition（复合） Delegation（委托）  ==Inheritance（继承）==表示了一种is-a的关系，即子类继承了父类的部分：子类的遵循构造由">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[上课笔记 for GeekBand] C++面向对象高级编程（上） part.3">
+<meta property="og:url" content="http://yoursite.com/2016/05/23/shang-ke-bi-ji-for-geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第三周的主要内容有： 1. 组合与继承2. 虚函数与多态3. 委托相关设计    复合和继承关系下的构造和析构   组合与继承类与类之间主要有三种关系，在程序中，这三种关系能解决大部分问题：     Inheritance（继承） Composition（复合） Delegation（委托）  ==Inheritance（继承）==表示了一种is-a的关系，即子类继承了父类的部分：子类的遵循构造由">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/content/images/2016/05/interitance1.jpg">
+<meta property="og:image" content="http://yoursite.com/content/images/2016/05/composition1.jpg">
+<meta property="og:image" content="http://yoursite.com/content/images/2016/05/adapter.jpg">
+<meta property="og:image" content="http://yoursite.com/content/images/2016/05/delegation.jpg">
+<meta property="og:image" content="http://yoursite.com/content/images/2016/05/virtualmethod1.jpg">
+<meta property="og:image" content="http://yoursite.com/content/images/2016/05/composite1.jpg">
+<meta property="og:image" content="http://yoursite.com/content/images/2016/05/PrototypePattern.png">
+<meta property="og:updated_time" content="2016-05-26T19:17:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[上课笔记 for GeekBand] C++面向对象高级编程（上） part.3">
+<meta name="twitter:description" content="第三周的主要内容有： 1. 组合与继承2. 虚函数与多态3. 委托相关设计    复合和继承关系下的构造和析构   组合与继承类与类之间主要有三种关系，在程序中，这三种关系能解决大部分问题：     Inheritance（继承） Composition（复合） Delegation（委托）  ==Inheritance（继承）==表示了一种is-a的关系，即子类继承了父类的部分：子类的遵循构造由">
+<meta name="twitter:image" content="http://yoursite.com/content/images/2016/05/interitance1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-shang-ke-bi-ji-for-geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/05/23/shang-ke-bi-ji-for-geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3/" class="article-date">
+  <time datetime="2016-05-22T23:45:26.000Z" itemprop="datePublished">2016-05-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [上课笔记 for GeekBand] C++面向对象高级编程（上） part.3
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第三周的主要内容有：</p>
+<p><a href="#1">1. 组合与继承</a><br><a href="#2">2. 虚函数与多态</a><br><a href="#3">3. 委托相关设计</a>  </p>
+<ol>
+<li>复合和继承关系下的构造和析构</li>
+</ol>
+<hr>
+<h4 id="组合与继承"><a href="#组合与继承" class="headerlink" title="组合与继承"></a><a href="#1">组合与继承</a></h4><p>类与类之间主要有三种关系，在程序中，这三种关系能解决大部分问题：   </p>
+<ul>
+<li>Inheritance（继承）</li>
+<li>Composition（复合）</li>
+<li>Delegation（委托）</li>
+</ul>
+<p>==<strong>Inheritance（继承）</strong>==<br>表示了一种is-a的关系，即子类继承了父类的部分：<br><img src="/content/images/2016/05/interitance1.jpg" alt="inheritance1"><br>子类的遵循构造由内到外（从父类到子类），析构由外到内的规则。<br>注意：父类的析构函数必须是虚函数，否则会出现undifined behavior。  </p>
+<p>==<strong>Composition（复合）</strong>==<br>表示了一种has-a的关系，例如一间屋子里面有(has)许多房间，有屋子，就会有房间。而如果屋子被拆了(析构)，房间也会被“析构”。我们可以通过下图来直观地了解compositon。注意其中标红文字的部分，它们表示了编译器为派生类自动添加的代码。<br><img src="/content/images/2016/05/composition1.jpg" alt="composition"><br>利用composition来实现adapter设计模式:<br><img src="/content/images/2016/05/adapter.jpg" alt="adapter"></p>
+<p>==<strong>Delegation（委托）</strong>==<br>Delegation实际上是composition by reference。<br>这种实现方式又叫pimpl(pointer to implementation) 或是 handle/body。<br>Delegation是一种编译防火墙，如果把handle看作客户端，那么操作有改动的时候只需改动body，而不需要改动客户端。即客户端不需要重新编译，而只需要重新编译body部分。换而言之，delegation将某个类的成员函数交给另外一个类去实现，从客观上减少了该类的代码实现。例子如下:<br><img src="/content/images/2016/05/delegation.jpg" alt="delegation"></p>
+<hr>
+<h4 id="虚函数与多态"><a href="#虚函数与多态" class="headerlink" title="虚函数与多态"></a><a href="#2">虚函数与多态</a></h4><p>继承的强大，大多是靠虚函数来实现的。子类继承父类的成员变量会占用同样的内存空间，而对于父类的成员函数则继承的是调用权。函数的继承，有下面三种：<br><img src="/content/images/2016/05/virtualmethod1.jpg" alt="virtualmethod1"></p>
+<ul>
+<li>override = 重新定义</li>
+<li>如果把虚函数写成空函数，它跟纯虚函数还是有区别的。区别就在于子类必须override纯虚函数，而非纯虚函数则不用</li>
+<li>关于虚函数的使用，老师介绍了<strong>template method（模板方法）</strong>模式这一最常用的使用案例。<br><strong>模板方法</strong>：准备一个抽象类，将部分逻辑以具体方法以及具体构造子的形式实现，然后声明一些抽象方法来迫使子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对剩余的逻辑有不同的实现。模版方法模式需要开发抽象类和具体子类的设计师之间的协作。一个设计师负责给出一个算法的轮廓和骨架，另一些设计师则负责给出这个算法的各个逻辑步骤。代表这些具体逻辑步骤的方法称做基本方法（primitive method）；而将这些基本法方法总汇起来的方法叫做模版方法（template method），这个设计模式的名字就是从此而来。  </li>
+</ul>
+<hr>
+<h4 id="委托相关设计"><a href="#委托相关设计" class="headerlink" title="委托相关设计"></a><a href="#3">委托相关设计</a></h4><p><br><br>==<strong>Observer(观察者)设计模式</strong>==<br>观察者模式又叫做发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。<br>观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态上发生变化时，会通知所有观察者对象，使它们能够自动更新自己。<br>Observer模式通常可以用delegation+inheritance的方式去实现。话不多说，上示例代码：</p>
+<p>Source:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Subject&#123;</span><br><span class="line">    int m_value;</span><br><span class="line">    vector&lt;Observer*&gt; m_views;</span><br><span class="line">public:</span><br><span class="line">    void attach(Observer* obs)&#123;</span><br><span class="line">        m_views.push_back(obs);</span><br><span class="line">    &#125;</span><br><span class="line">    void set_val(int value)&#123;</span><br><span class="line">        m_value = value;</span><br><span class="line">        notify();</span><br><span class="line">    &#125;</span><br><span class="line">    void notify()&#123;</span><br><span class="line">        for(int i=0;i&lt;m_views.size();++i)</span><br><span class="line">            m_views[i]-&gt;update(this,m_value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Listener:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Observer&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void update(Subject* sub, int value) = 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>==<strong>Composite(组合)设计模式</strong>==<br>组合模式将对象组合成树形结构以表示“部分-整体”的层次结构。Composite使得用户对单个对象和组合对象的使用具有一致性。有时候又叫做部分-整体模式，它使我们树型结构的问题中，模糊了简单元素和复杂元素的概念，客户程序可以向处理简单元素一样来处理复杂元素,从而使得客户程序与复杂元素的内部结构解耦。<br>　　组合模式让你可以优化处理递归或分级数据结构。有许多关于分级数据结构的例子，使得组合模式非常有用武之地。下面是课程中的例子:<br><img src="/content/images/2016/05/composite1.jpg" alt="composite1"></p>
+<p>==<strong>Prototype(原型)设计模式</strong>==<br>以下内容转自：<a href="http://www.jellythink.com/archives/105" target="_blank" rel="noopener">http://www.jellythink.com/archives/105</a><br>在GOF的《设计模式：可复用面向对象软件的基础》中是这样说的：用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。这这个定义中，最重要的一个词是“拷贝”，也就是口头上的复制，而这个拷贝，也就是原型模式的精髓所在。<br>原型模式的UML表示：<br><img src="/content/images/2016/05/PrototypePattern.png" alt="prototype"></p>
+<p>与其它创建型模式的比较</p>
+<p>工厂方法模式、抽象工厂模式、建造者模式和原型模式都是创建型模式。工厂方法模式适用于生产较复杂，一个工厂生产单一的一种产品的时候；抽象工厂模式适用于一个工厂生产多个相互依赖的产品；建造者模式着重于复杂对象的一步一步创建，组装产品的过程，并在创建的过程中，可以控制每一个简单对象的创建；原型模式则更强调的是从自身复制自己，创建要给和自己一模一样的对象。</p>
+<pre><code>注：使用原型模式复制对象不会调用类的构造方法。因为对象的复制是通过调用Object类的clone方法来完成的，它直接在内存中复制数据，因此不会调用到类的构造方法。不但构造方法中的代码不会执行，甚至连访问权限都对原型模式无效。还记得单例模式吗？单例模式中，只要将构造方法的访问权限设置为private型，就可以实现单例。但是clone方法直接无视构造方法的权限，所以，单例模式与原型模式是冲突的，在使用时要特别注意。
+</code></pre><p>模式的应用场景：<br>       使用原型模式创建对象比直接new一个对象在性能上要好的多，因为Object类的clone方法是一个本地方法，它直接操作内存中的二进制流，特别是复制大对象时，性能的差别非常明显。</p>
+<p><strong>总结：</strong>侯老师本周主要介绍了类的三种重要的关系（组合，委托，继承）。然后通过这三种关系，跟我们分析了面向对象编程中的一些问题的解决方案以及其中的原理。在这期间还讨论了如何通过这三种关系的组合，来实现几种常见的设计模式：Adapter, Template Method, Observer, Composite和Prototype。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/05/23/shang-ke-bi-ji-for-geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3/" data-id="cjf6xd1aw000l39zpyx8m5ipe" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/06/05/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [GeekBand] C++面向对象高级编程（下）上课笔记 part.1
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/05/19/copyctor/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[上课笔记 for GeekBand] C++面向对象高级编程（上） part.2</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/24/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/10/hackerrank-dijkstra-shortest-reach-2-ru-he-tong-guo-yi-xing-dai-ma-bi-mian-timeout/">[Hackerrank] Dijkstra: Shortest Reach 2 &amp; 如何通过一行代码避免TIMEOUT</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/19/ru-he-zai-cczhong-huo-qu-shu-zhi-de-zui-da-huo-zhe-zui-xiao-zhi/">如何在C++/C中获取数值的最大或者最小值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/15/xi-tong-she-ji-yu-shi-jian-part-3/">系统设计与实践 part.3</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/07/xi-tong-she-ji-yu-shi-jian-part-2/">系统设计与实践 part.2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Alex Tang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

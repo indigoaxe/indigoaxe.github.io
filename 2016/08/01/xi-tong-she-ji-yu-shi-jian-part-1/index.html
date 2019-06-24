@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>系统设计与实践 part.1 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 了解系统设计2. 系统设计面试3. 系统设计中的七剑客  1. 了解系统设计  什么是系统设计(System Design)? System Design顾名思义，就是去设计一个system。通常来讲，设计一个万能的system是几乎不可能的，所以需要有具体的requirement， 根据requirement来tradeoff并决定使用某种架构。 为什么要学习System Design?">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统设计与实践 part.1">
+<meta property="og:url" content="http://yoursite.com/2016/08/01/xi-tong-she-ji-yu-shi-jian-part-1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. 了解系统设计2. 系统设计面试3. 系统设计中的七剑客  1. 了解系统设计  什么是系统设计(System Design)? System Design顾名思义，就是去设计一个system。通常来讲，设计一个万能的system是几乎不可能的，所以需要有具体的requirement， 根据requirement来tradeoff并决定使用某种架构。 为什么要学习System Design?">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2016-08-01T18:56:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="系统设计与实践 part.1">
+<meta name="twitter:description" content="1. 了解系统设计2. 系统设计面试3. 系统设计中的七剑客  1. 了解系统设计  什么是系统设计(System Design)? System Design顾名思义，就是去设计一个system。通常来讲，设计一个万能的system是几乎不可能的，所以需要有具体的requirement， 根据requirement来tradeoff并决定使用某种架构。 为什么要学习System Design?">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-xi-tong-she-ji-yu-shi-jian-part-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/01/xi-tong-she-ji-yu-shi-jian-part-1/" class="article-date">
+  <time datetime="2016-08-01T04:39:09.000Z" itemprop="datePublished">2016-08-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      系统设计与实践 part.1
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="#1">1. 了解系统设计</a><br><a href="#2">2. 系统设计面试</a><br><a href="#3">3. 系统设计中的七剑客</a></p>
+<hr>
+<h4 id="1">1. 了解系统设计</h4>
+
+<p><strong>什么是系统设计(System Design)?</strong></p>
+<p>System Design顾名思义，就是去设计一个system。通常来讲，设计一个万能的system是几乎不可能的，所以需要有具体的requirement， 根据requirement来tradeoff并决定使用某种架构。</p>
+<p><strong>为什么要学习System Design?</strong></p>
+<p>每个人学习System Design的动机不一样，但最常见的有两种原因:</p>
+<p>你在准备面试，你的dream company会考到System Design；<br>你是架构师或者想成为架构师 需要用到相关知识。<br>我的观点是，即使是第一种情况，也希望你能抽出不少于刷leetcode的时间来看System Design。因为System Design和刷题的本质区别是，进入公司以后，除非你每天还在刷题保持状态，否则你早晚是要都还给老师的。而System Design才是你能长期收益的 一石二鸟，何乐而不为呢？</p>
+<p><strong>学习System Design应该学习哪几块?</strong></p>
+<p>我个人的经验，需要学习三大块:</p>
+<p>Distributed System知识: 比如Sharding, Sticky sessions, etc。<br>架构知识: 有哪些架构是常用的？举个例子，Apache Storm的创始人Nathan Marz提出的Lambda Architecture就是一种典型的data processing架构 了解这些架构会对你搭建大型系统有很大帮助。<br>“积木”知识: 我管它叫积木，其实就是别人做好的轮子，拿来即用即可。但你需要了解该轮子的优缺点以及适用范围，比如SQS和kinesis的区别 ActiveMQ和Kafka的区别。</p>
+<p><strong>面试和实践需要学习的点一样么?</strong><br>Yes and no.<br>Yes的原因是两大块对于面试和实践都是非常有帮助的；<br>No的原因是对于面试而言，面试官的侧重点是Distributed System的知识。知道某些积木会有加分但不是必须。而对于实践而言，知道各种积木以及其优缺点反而更能发挥作用。</p>
+<p>以上内容引用自：<br>《System Design 101》<br><a href="https://zhuanlan.zhihu.com/p/21313382" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/21313382</a><br>作者：Joseph Holy</p>
+<hr>
+<h4 id="2">2. System Design面试</h4>
+
+<p><strong>在系统设计的面试中，一般是这么打分的：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Bad      No sense of requirement, no scoping</span><br><span class="line">Pool     Limited knowledge, common sense</span><br><span class="line">Good     Reasonable Solution, explain clearly</span><br><span class="line">Great    Out of expectation, well thoughtful, tradeoff</span><br></pre></td></tr></table></figure></p>
+<p><strong>最常见的题目有以下几个：</strong>  </p>
+<ol>
+<li>Tiny Url </li>
+<li>RateLimit </li>
+<li>Messenger / Chatroom </li>
+<li>Stats Server </li>
+<li>News Feed </li>
+<li>Web Crawler </li>
+<li>Location Based Service </li>
+<li>Web Application </li>
+<li>Word Count</li>
+</ol>
+<p><strong>我们拿最有代表性的Tiny Url来进行学习：</strong><br>题目 - Design a system to take user-provided URLs and transform them<br>to a shortened URLs that redirect back to original</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/01/xi-tong-she-ji-yu-shi-jian-part-1/" data-id="cjf6xd1b0000n39zpv4c6f8ne" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/08/07/xi-tong-she-ji-yu-shi-jian-part-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          系统设计与实践 part.2
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/23/pattern-part3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[GeekBand]C++设计模式 part.3</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/24/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/10/hackerrank-dijkstra-shortest-reach-2-ru-he-tong-guo-yi-xing-dai-ma-bi-mian-timeout/">[Hackerrank] Dijkstra: Shortest Reach 2 &amp; 如何通过一行代码避免TIMEOUT</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/19/ru-he-zai-cczhong-huo-qu-shu-zhi-de-zui-da-huo-zhe-zui-xiao-zhi/">如何在C++/C中获取数值的最大或者最小值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/15/xi-tong-she-ji-yu-shi-jian-part-3/">系统设计与实践 part.3</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/07/xi-tong-she-ji-yu-shi-jian-part-2/">系统设计与实践 part.2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Alex Tang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

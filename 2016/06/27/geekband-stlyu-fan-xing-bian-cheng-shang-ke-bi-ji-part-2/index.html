@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>[GeekBand] STL与泛型编程上课笔记 part.2 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. STL整体结构2. 仿函数，仿函数适配器3. 其他需要注意的问题4. 泛型算法      STL整体结构&amp;gt; 转自百度百科：从根本上说，STL是一些“容器”的集合，这些“容器”有list,vector,set,map等，STL也是算法和其他一些组件的集合。这里的“容器”和算法的集合指的是世界上很多聪明人很多年的杰作。STL的目的是标准化组件，这样就不用重新开发，可以使用现成的组件。STL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[GeekBand] STL与泛型编程上课笔记 part.2">
+<meta property="og:url" content="http://yoursite.com/2016/06/27/geekband-stlyu-fan-xing-bian-cheng-shang-ke-bi-ji-part-2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. STL整体结构2. 仿函数，仿函数适配器3. 其他需要注意的问题4. 泛型算法      STL整体结构&amp;gt; 转自百度百科：从根本上说，STL是一些“容器”的集合，这些“容器”有list,vector,set,map等，STL也是算法和其他一些组件的集合。这里的“容器”和算法的集合指的是世界上很多聪明人很多年的杰作。STL的目的是标准化组件，这样就不用重新开发，可以使用现成的组件。STL">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2016-06-27T17:24:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[GeekBand] STL与泛型编程上课笔记 part.2">
+<meta name="twitter:description" content="1. STL整体结构2. 仿函数，仿函数适配器3. 其他需要注意的问题4. 泛型算法      STL整体结构&amp;gt; 转自百度百科：从根本上说，STL是一些“容器”的集合，这些“容器”有list,vector,set,map等，STL也是算法和其他一些组件的集合。这里的“容器”和算法的集合指的是世界上很多聪明人很多年的杰作。STL的目的是标准化组件，这样就不用重新开发，可以使用现成的组件。STL">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-geekband-stlyu-fan-xing-bian-cheng-shang-ke-bi-ji-part-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/27/geekband-stlyu-fan-xing-bian-cheng-shang-ke-bi-ji-part-2/" class="article-date">
+  <time datetime="2016-06-27T06:00:59.000Z" itemprop="datePublished">2016-06-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [GeekBand] STL与泛型编程上课笔记 part.2
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="#1">1. STL整体结构</a><br><a href="#2">2. 仿函数，仿函数适配器</a><br><a href="#3">3. 其他需要注意的问题</a><br><a href="#4">4. 泛型算法</a>    </p>
+<hr>
+<h4 id="1">STL整体结构</h4><br>&gt; 转自百度百科：<br>从根本上说，STL是一些“容器”的集合，这些“容器”有list,vector,set,map等，STL也是算法和其他一些组件的集合。这里的“容器”和算法的集合指的是世界上很多聪明人很多年的杰作。STL的目的是标准化组件，这样就不用重新开发，可以使用现成的组件。STL现在是C++的一部分，因此不用额外安装什么。<br><br>STL主要由六部分组成，分别为容器(containers)、迭代器(iterators)、空间配置器(allocator)、配接器(adapters)、算法(algorithms)、仿函数(functors)。<br>它们之间的关系如下：<br><br><em>  容器通过内存分配器分配空间
+</em>  容器和算法分离<br><em>  算法通过迭代器访问容器
+</em>  仿函数协助算法完成不同的策略变化<br>*  适配器套接仿函数<br><br><br>————————–<br><br><h4 id="2">仿函数，仿函数适配器</h4>
+
+<p><strong>仿函数</strong>又称为函数对象（Function Object），其作用相当于一个函数指针。<br>在STL中，将<code>std::remove_if(v.begin().v.end(),ContainsString(L&quot;C++&quot;));</code>中类似于<code>ConstainString</code>这种形为函数指针的对象定义为仿函数，其实它是一个重载了括号运算符的Class。因此，自定义的仿函数必须重载<code>operator()</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct ContainString: </span><br><span class="line">public std::unary_function&lt;std::wstring, bool&gt;</span><br><span class="line">&#123;</span><br><span class="line">    ConstainString(const std::wstring&amp; wszMatch): </span><br><span class="line">        m_wszMatch(wszMatch)&#123;&#125;</span><br><span class="line">    bool operator()(const std::wstring&amp; wszStringToMatch) const</span><br><span class="line">    &#123;</span><br><span class="line">        return (wszStringToMatch.find(m_wszMatch)!=-1);</span><br><span class="line">    &#125;</span><br><span class="line">    std::wstring m_wszMatch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>仿函数存在的意义：  </p>
+<ol>
+<li>普通函数指针不能满足STL的抽象要求（参数和返回型别的定义问题）</li>
+<li>函数指针无法和STL其他组件交互</li>
+<li>仿函数可以作为模板实参来定义对象的某种默认行为：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//定义set的默认排序行为</span><br><span class="line">template&lt;typename _Kty, typename _pr = less&lt;_Kty&gt;,...&gt;</span><br><span class="line">class set&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>仿函数适配器</strong>。STL提供三种适配器：改变容器接口的容器适配器、改变迭代器接口的迭代器适配器以及改变仿函数接口的<strong>仿函数适配器</strong>。前两者都较为简单，而最后一种则是灵活性最大的，有了它我们可以构造非常复杂的表达式策略。</p>
+<p>在一些情况下仿函数可能无法匹配成合适的型别，这个时候我们就需要使用仿函数适配器：binder1st/binder2nd, mem_fun/men_fun_ref。例如，在一个给定的vector<int>中寻找不为零的元素。通常我们会想到使用<code>std::not_equal_to</code>这个仿函数，但是该函数接受两个参数。为了能在<code>std::find_if</code>中使用这个函数，我们这时候就需要绑定其中一个变量为0，以实现判断一个元素是否不为零的功能：</int></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;int&gt;::iterator it = std::find_if(v.begin(),v.end(),</span><br><span class="line">          std::bind1st(std::not_equal_to&lt;int&gt;(),0));</span><br><span class="line">//bind1st 封装了binder1st的调用复杂性：</span><br><span class="line">template&lt;class _Fn2, class_Ty&gt;</span><br><span class="line">inline binder1st&lt;_Fn2&gt; bind1st(const _Fn2&amp; _Func,const _Ty&amp; _Left)</span><br><span class="line">&#123;</span><br><span class="line">    typename _Fn2::first_argument_type_Val(_Left);</span><br><span class="line">     return (binder1st&lt;_Fn2&gt;(_Func,_Val));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于类的成员函数的适配，我们可以使用mem_fun/mem_fun_ref：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">template &lt;_Result, class _Ty&gt; inline</span><br><span class="line">mem_fun_t&lt;_Result,_Ty&gt; mem_fun(_Result (_Ty::*_Pm)() )</span><br><span class="line">&#123;</span><br><span class="line">    return (mem_fun_t&lt;_Result, _Ty&gt;(_Pm));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;class _Result, class _Ty&gt;</span><br><span class="line">class mem_fun_t : public unar_function&lt;_Ty *, _Result&gt;</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    explicit mem_fun_t(_Result (_Ty::*_Pm)())</span><br><span class="line">        : _Pmemfun(_Pm)  &#123; &#125;</span><br><span class="line">    _Result operator()(_Ty *_Pleft) const</span><br><span class="line">    &#123;</span><br><span class="line">        return ((_Pleft-&gt;*_Pmemfun)());</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    _Result (_Ty::*_Pmemfun());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="3">其他需要注意的问题</h4>
+
+<p>(1) 单线程情况下涉及对字符串的操作，首选std::string/wstring。<br>    多线程情况下要注意string是否带引用计数。在多线程环境下，避免分配和拷贝所节省下的开销转嫁到了并发控制上。一般考虑使用vector<char>/vector&lt;wchar_t&gt;，因为vector的实现是不带引用计数的。</char></p>
+<p>(2) 当用new创建的对象直接放入容器时，要在销毁容器前delete那些对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">v.push_back(new Person(&quot;TOM&quot;,1));</span><br><span class="line">...</span><br><span class="line">for(vector&lt;Person *&gt;::iterator it = v.begin(); it!=v.end();it++)</span><br><span class="line">&#123;</span><br><span class="line">    delete (*it);</span><br><span class="line">&#125;</span><br><span class="line">v.clear();</span><br></pre></td></tr></table></figure></p>
+<p>(3)尽量使用算法调用代替手写循环，如上面的删除，我们可以定义一个仿函数在for_each中实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">struct DeleteElement&#123;</span><br><span class="line">    template &lt;typename TElement&gt;</span><br><span class="line">    void operator() (const TElement* p) const </span><br><span class="line">    &#123;</span><br><span class="line">        delete p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">std::for_each(v.begin(),v.end(),DeleteElement());</span><br></pre></td></tr></table></figure></p>
+<p>(4) 可以通过swap为容器“缩水”：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;int&gt;(v).swap(v);//使capacity = size</span><br><span class="line">std::vector&lt;int&gt;().swap(v) //清除v并最小化其容量:capacity = size = 0</span><br></pre></td></tr></table></figure></p>
+<p>(5) 在有对象继承的情况下，建立指针的容器，而不是对象的容器。因为：a）容器装入的对象是原始对象的拷贝，如果对象很大，则有较大性能开销；b）由于继承的存在，拷贝会发生slicing，导致丢失数据。</p>
+<hr>
+<h4 id="3">泛型算法</h4>
+
+<p>简单列出STL为我们提供的算法：  </p>
+<p><strong>非变易性算法</strong><br>for_each 提供对于容器内每个元素进行循环操作<br>find 线性查找<br>find_fist_of 对于给定值的集合,在容器内线性查找<br>adjacent_find 线性查找邻近且相等的元素对<br>count 计算给定值的出现次数<br>mismatch 比较两个序列,找出第一个不相同元素的位置<br>equal 两个序列的判等操作,逐一比较元素是否相等<br>search 在一个序列中查找与另一个序列匹配的子序列<br>search_n 在序列中查找一系列符合给定值的元素<br>find_end 在一个序列中查找最后一个与另一个序列匹配的子序列 </p>
+<p><strong>变易性算法</strong><br>copy 复制元素到另外一个序列<br>swap 两个容器元素交换<br>transform 序列中的元素都用这个元素变换后的值代替<br>replace 替换给定值的元素<br>fill 填充给定值的元素<br>generate 用某函数的返回值来代替序列中的所有元素<br>remove 删除序列中等于某一给定之的所有元素<br>unique 删除所有连续相等的元素<br>reverse 将元素之间的位置关系取逆<br>rotate 循环移动序列中的元素<br>random_shuffle 随机排列元素<br>partition 按某一顺序重新排列元素 </p>
+<p><strong>有序队列算法</strong><br>sort,stable_sort,partial_sort 对元素排序<br>nth_element 查找第n个大的元素<br>binary_search lower_bound upper_bound equal_range 用二分查找搜索有序队列<br>merge 归并两个有序队列<br>includes set_union set_intersection set_difference set_sysmetric_difference 集合运算<br>push_heap pop_heap make_heap sort_heap 堆操作<br>min max min_element max_element 求最大,最小元素<br>lexicographical_compare 字典序比较<br>next_permutation prev_permutation 依据字典序生成排列 </p>
+<p><strong>通用数字算法</strong><br>accumulate 累加<br>inner_product 内积<br>partial_sum 累加部分元素<br>adjacent_difference 计算相邻元素的差,保存在另一个序列中 </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/06/27/geekband-stlyu-fan-xing-bian-cheng-shang-ke-bi-ji-part-2/" data-id="cjf6xd1ad000d39zpb9ziqwbm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/04/geekband-stlyu-fan-xing-bian-cheng-shang-ke-bi-ji-part-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [GeekBand] STL与泛型编程上课笔记 part.3
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/18/geekband-stlyu-fan-xing-bian-cheng-shang-ke-bi-ji-part-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[GeekBand] STL与泛型编程上课笔记 part.1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/24/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/10/hackerrank-dijkstra-shortest-reach-2-ru-he-tong-guo-yi-xing-dai-ma-bi-mian-timeout/">[Hackerrank] Dijkstra: Shortest Reach 2 &amp; 如何通过一行代码避免TIMEOUT</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/19/ru-he-zai-cczhong-huo-qu-shu-zhi-de-zui-da-huo-zhe-zui-xiao-zhi/">如何在C++/C中获取数值的最大或者最小值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/15/xi-tong-she-ji-yu-shi-jian-part-3/">系统设计与实践 part.3</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/07/xi-tong-she-ji-yu-shi-jian-part-2/">系统设计与实践 part.2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Alex Tang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

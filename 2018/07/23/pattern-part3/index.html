@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.Singleton 单件模式2. Flyweight 享元模式3. State 状态模式4. Memento 备忘录5. Composite 组合模式6. Iterator 迭代器7. Chain Of Resposibility 职责链8. Command 命令模式9. Vistor 访问者10. Interpreter分析器    对象性能类设计模式：   面向对象很好地解决了“抽象”的问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[GeekBand]C++设计模式 part.3">
+<meta property="og:url" content="http://yoursite.com/2018/07/23/pattern-part3/index.html">
+<meta property="og:site_name" content="IndigoAxe">
+<meta property="og:description" content="1.Singleton 单件模式2. Flyweight 享元模式3. State 状态模式4. Memento 备忘录5. Composite 组合模式6. Iterator 迭代器7. Chain Of Resposibility 职责链8. Command 命令模式9. Vistor 访问者10. Interpreter分析器    对象性能类设计模式：   面向对象很好地解决了“抽象”的问">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-25T17:56:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[GeekBand]C++设计模式 part.3">
+<meta name="twitter:description" content="1.Singleton 单件模式2. Flyweight 享元模式3. State 状态模式4. Memento 备忘录5. Composite 组合模式6. Iterator 迭代器7. Chain Of Resposibility 职责链8. Command 命令模式9. Vistor 访问者10. Interpreter分析器    对象性能类设计模式：   面向对象很好地解决了“抽象”的问">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/23/pattern-part3/">
+
+
+
+
+
+  <title>[GeekBand]C++设计模式 part.3 | IndigoAxe</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IndigoAxe</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/23/pattern-part3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alex Tang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IndigoAxe">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[GeekBand]C++设计模式 part.3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-23T08:21:08+08:00">
+                2018-07-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="#1">1.Singleton 单件模式</a><br><a href="#2">2. Flyweight 享元模式</a><br><a href="#3">3. State 状态模式</a><br><a href="#4">4. Memento 备忘录</a><br><a href="#5">5. Composite 组合模式</a><br><a href="#6">6. Iterator 迭代器</a><br><a href="#7">7. Chain Of Resposibility 职责链</a><br><a href="#8">8. Command 命令模式</a><br><a href="#9">9. Vistor 访问者</a><br><a href="#10">10. Interpreter分析器</a>  </p>
+<hr>
+<p>对象性能类设计模式：  </p>
+<p>面向对象很好地解决了“抽象”的问题，但是必不可免地要付出一定的代价。对于通常情况来讲，面向对象的成本大都可以忽略不计。但是某些情况，面向对象所带来的成本必须谨慎处理。<br>该类的典型模式 1) Singleton 2) Flyweight  </p>
+<hr>
+<h4 id="1">Singleton 单件模式</h4>
+
+<p>==<strong>定义</strong>==<br>保证一个类只有一个实例，并提供一个该实例的全局访问点。</p>
+<p>==<strong>动机</strong>==<br>在系统中，经常有这些一些特殊的类，必须保证它们在系统中只存在一个实例，才能确保它们的逻辑正确性、以及良好的效率。<br>如何绕过常规的构造器，保证一个类只有一个实例。<br>这应该是类设计者的责任，而不是使用者的责任。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//常规写法，线程不安全</span><br><span class="line">  Singleton* Singleton::getInstance()&#123;</span><br><span class="line">      if(m_instance == nullptr)&#123;</span><br><span class="line">          m_instance = new Singleton;</span><br><span class="line">      &#125;</span><br><span class="line">      return m_instance;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//加锁，但是代价太大</span><br><span class="line">  Singleton* Singleton::getInstance()&#123;</span><br><span class="line">      Lock lock;</span><br><span class="line">      if(m_instance == nullptr)&#123;</span><br><span class="line">          m_instance = new Singleton;</span><br><span class="line">      &#125;</span><br><span class="line">      return m_instance;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//双检查锁，但由于内存读写reorder不安全</span><br><span class="line">  Singleton* Singleton::getInstance()&#123;</span><br><span class="line">      if(m_instance == nullptr)&#123;</span><br><span class="line">          Lock lock;</span><br><span class="line">          if(m_instance == nullptr)&#123;</span><br><span class="line">              m_instance = new Singleton;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return m_instance;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>C++ 11 版本之后的跨平台实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">std::atomic&lt;Singleton*&gt; Singleton::m_instance;</span><br><span class="line">std::mutex Singleton::m_mutex;</span><br><span class="line"></span><br><span class="line">Singleton* Singleton::getInstance()&#123;</span><br><span class="line">    Singleton* tmp = m_instance.load(std::memory_order_relaxed);</span><br><span class="line">    std::atomic_thread_fence(std::memory_order_acquire); //获取内存fence</span><br><span class="line">    if(tmp == nullptr)&#123;</span><br><span class="line">        std::lock_guard&lt;std::mutex&gt; lock(m_mutex);</span><br><span class="line">        if(tmp == nullptr)&#123;</span><br><span class="line">            tmp = new Singleton;</span><br><span class="line">            m_instance = new Singleton();</span><br><span class="line">            std::atomic_thread_fence(std::memory_order_release); //释放内存fence</span><br><span class="line">            m_instance.store(tmp, std::memory_order_relaxed);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>==<strong>要点总结</strong>== </p>
+<ul>
+<li>Singleton模式中的实例构造器可以设置为protected以允许子类派生。</li>
+<li>Singleton模式一般不要支持拷贝构造函数和Clone接口，这会导致多个对象，违背了* Singleton模式的初衷。</li>
+<li>多线程安全的Singleton，应该注意双检查锁的正确实现。</li>
+</ul>
+<hr>
+<h4 id="2">Flyweight 享元模式</h4>
+
+<p>==<strong>定义</strong>==<br>运用共享技术（解决效率问题的常用手段）有效地支持大量细粒度的对象。</p>
+<p>==<strong>动机</strong>==<br>在软件系统采用纯粹对象方案的问题在于大量细粒度的对象会很快充斥在系统中，从而带来很高的运行时代价————主要指内存需求方面的代价。<br>如何在避免大量细粒度对象问题的同时，让外部客户程序仍然能够透明地使用面向对象的方式来进行操作？</p>
+<p>==<strong>要点总结</strong>==  </p>
+<ul>
+<li>面向对象很好地解决了抽象性的问题，但是作为一个运行在机器中的程序实体，我们需要考虑对象的代价问题。Flyweight主要用来解决代价问题，一般不触及面向对象的抽象性问题。</li>
+<li>Flyweight采用对象共享的做法来降低系统中对象的个数，从而降低细粒度对象给系统带来的内存压力。在具体实现方面，要注意对象状态的处理。</li>
+<li>对象数量太大从而导致对象内存开销加大————什么样的数量才算大？这需要我们根据具体的应用情况去评估。</li>
+</ul>
+<hr>
+<p><strong>状态变化类模式</strong><br>在组建构建过程中，某些对象的状态经常面临变化，如何对这些变化进行有效的管理？同时又维持高层模块的稳定？ 状态变化模式为这一问题提供了一种解决方案。<br>典型模式 1) State 2) Memento</p>
+<hr>
+<h4 id="3">State 状态模式</h4>
+
+<p>==<strong>定义</strong>==<br>允许一个对象在内部状态改变时改变它的行为，从而使对象看起来似乎修改了其行为。<br>结构</p>
+<p>==<strong>动机</strong>==<br>在软件构建过程中，某些对象的状态如果改变，其行为也会随之而发生改变，比如文档处于只读状态，其支持的行为和读写状态支持的行为就可能完全不同。<br>模式定义</p>
+<p>==<strong>要点总结</strong>==    </p>
+<ul>
+<li>State模式将所有与一个特定状态相关的行为都放入一个State的子类对象中，在对象状态切换时、切换相应的对象；但同时维持State的接口，这样实现了具体操作与状态装换之间的解耦。</li>
+<li>为不同的状态引入不同的对象使得状态转换变得更加明确，而且可以保证不会出现状态不一致的情况，因为转换时原子性的—-即要么彻底转换过来，要么不转换。</li>
+<li>如果Stat对象没有实例变量，那么各个上下文可以共享同一个State对象，从容节省对象开销。</li>
+</ul>
+<hr>
+<h4 id="4">Memento 备忘录</h4>
+
+<p>==<strong>定义</strong>==<br>在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可以将该对象恢复到原先保存的状态。</p>
+<p>==<strong>动机</strong>==<br>在软件构建过程中，某些对象的状态在转换过程中，可能由于某种需要，要求程序能够回溯到对象之前处于某个点时的状态。如果使用一些共有接口来让其他对象得到对象的状态，便会暴露对象的实现细节。</p>
+<p>==<strong>要点总结</strong>==</p>
+<ul>
+<li>备忘录（Memento）存储原发器（Originator）对象的内部状态，在需要时恢复原发器状态。</li>
+<li>Memento模式的核心是信息隐藏，即Originator需要向外接隐藏信息，保持其封装性。但同时又需要将状态保持到外界（Memento）。</li>
+<li>由于现代语言运行时（如C#、Java等）都具有相当的对象序列化支持，因此往往采用效率高、又容易正确实现的序列化方案来实现Memento模式。</li>
+</ul>
+<hr>
+<p><strong>数据结构</strong><br>常常有一些组件在内部具有特定的数据结构，如果让客户程序依赖这些特定的数据结构，将极大的破坏组件的复用。这时候，将这些特定数据结构封装在内部，在外部提供统一的接口，来实现与特定数据结构无关的访问。<br>典型模式  </p>
+<ul>
+<li>Composite</li>
+<li>Iterator</li>
+<li>Chain Of Resposibility</li>
+</ul>
+<hr>
+<h4 id="5">Composite 组合模式</h4>
+
+<p>==<strong>定义</strong>==<br>将对象组合成树形结构以表示部分-整体的层次结构。Composite使得用户对单个对象和组合对象的使用具有一致性（稳定）。</p>
+<p>==<strong>动机</strong>==<br>客户代码过多地依赖于对象容器复杂的内部实现结构，对象容器内部实现结构（而非抽象接口）的变化将引起客户代码的频繁变化，带来了代码的维护性、扩展性等弊端。<br>模式定义</p>
+<p>==<strong>要点总结</strong>==</p>
+<ul>
+<li>Composite模式采用树形结构来实现普遍存在的对象容器，从而将一对多的关系转换成一对一的关系，使得客户程序可以一致地处理对象和对象容器，无需关心处理的是单个的对象，还是组合的对象容器。</li>
+<li>将客户代码与复杂的对象容器结构解耦是Composite的核心思想，解耦之后，客户代码将与纯粹的抽象接口—-而非对象容器的内部实现结构—-发生依赖，从而更能应对变化。</li>
+<li>Composite模式在具体实现中，可以让父对象中的子对象反向追溯；如果父对象有频繁的遍历要求，可使用缓存技巧来改善效率。</li>
+</ul>
+<h4 id="6">Iterator 迭代器</h4>
+
+<p>==<strong>定义</strong>==<br>提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露（隔离变化，稳定）该对象的内部表示。</p>
+<p>==<strong>动机</strong>==<br>集合对象内部结构常常变化各异。但对于这些集合对象，我们希望在不暴露其内部结构的同事，可以让外部客户代码透明地访问其中包含的元素。同时这种透明遍历也为同一种算法在多种集合对象上进行操作提供了可能。</p>
+<p>==<strong>要点总结</strong>==  </p>
+<ul>
+<li>迭代抽象：访问一个聚合对象的内容而无需暴露它的内部表示。</li>
+<li>迭代多态：为遍历不同的集合结构提供一个统一的接口，从而支持同样的算法在不同的集合结构上进行操作。</li>
+<li>迭代器的健壮性考虑：遍历的同时更改迭代器所在的集合结构，会导致问题。</li>
+</ul>
+<hr>
+<h4 id="7">Chain Of Resposibility 职责链</h4>
+==**定义**==  
+使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递请求，直到有一个对象处理它为止。
+
+<p>==<strong>动机</strong>==<br>一个请求可能被多个对象处理，但是每个请求在运行时只能有一个接受者，如果显示指定，将必不可少地带来请求发送者与接受者的紧耦合。</p>
+<p>==<strong>要点总结</strong>==</p>
+<ul>
+<li>Chain Of Responsibility 模式的应用场合在于一个请求可能有多个接受者，但是最后真正的接受者只有一个，这个时候请求发送者与接受者的耦合有可能出现变化脆弱的症状，职责链的目的就是讲二者解耦，从而更好地应对变化。</li>
+<li>应用了Chain Of Responsibility模式后，对象的责任分派将更具灵活定，我们可以在运行时添加/修改请求的处理职责。</li>
+<li>如果请求传递到职责链的末尾扔得不到处理，应该有一个合理的缺省机制，这也是每一个接受对象的责任，而不是发出请求的对象的责任。</li>
+</ul>
+<hr>
+<p><strong>行为变化</strong><br>在组件的构建过程中，组件行为的变化经常导致组件本身剧烈的变化，行为变化模式将组件的行为和组件本身进行解耦，从而支持组件的行为变化，实现两者之间的松耦合。<br>典型模式 1)Command 2)Visitor</p>
+<hr>
+<h4 id="8">Command 命令模式</h4>
+
+<p>==<strong>定义</strong>==<br>将一个请求（行为）封装为一个对象，从而使你可用不同的请求对客户进行参数化；对请求排队或记录请求日志，以及支持可撤销的操作。</p>
+<p>==<strong>动机</strong>==<br>行为请求者与行为实现者通常呈现一种紧耦合。但在某些场合—-比如需要对行为进行记录、撤销/重做、事务等处理，这种无法抵御变化的紧耦合使不合适的。</p>
+<p>==<strong>要点总结</strong>==  </p>
+<ul>
+<li>Command模式的根本弟弟在于将行为请求者与行为实现者解耦，在面向对象语言中，常见的手段是将行为抽象为对象。</li>
+<li>实现Command接口的具体命令对象ConcreteCommand有时候根据需要可能会保存一些额外的信息。通过使用Composite模式，可以讲多个命令封装为一个符合命令MacroCommand。</li>
+<li>Command模式与C++中的函数对象有些类似，但两者定义行为接口的规范有所区别：* Command以面向对象中的接口–实现来定义行为接口说明，更严格，但有性能损失；C++函数对象以函数名来定义行为接口规范，更灵活，性能更高。</li>
+</ul>
+<hr>
+<h4 id="9">Vistor 访问者</h4>
+
+<p>==<strong>定义</strong>==<br>表示一个作用于某种对象结构中的各元素的操作。使得可以在不改变（稳定）各元素的类的前提下定义（扩展）作用于这些元素的新操作（变化）。</p>
+<p>==<strong>动机</strong>==<br>在软件构建过程中，由于需求的改变，某些类层次结构中常常需要增加新的行为（方法），如果直接在积累中做这样的改变，将会给予子类带来很繁重的变更负担，甚至破坏原有设计。</p>
+<p>==<strong>要点总结</strong>==</p>
+<ul>
+<li>Visitor模式通过所谓的双重分发（double dispatch）来实现在不更改（不添加新的操作–编译时）Element类层次结构的前提下，在运行时透明地为类层次结构上的各个类动态添加新的操作（支持变化）。</li>
+<li>所谓双重分发即Visitor模式中间包括了两个多态分发（注意其中的多态机制）：第一个为accept方法的多态解析；第二个为visitElementX方法的多态辨析。</li>
+<li>Visitor模式的最大缺点在于扩展类层次结构（添加新的Element子类），会导致Visitor类的改变。因此Visitor模式适用于Element类层次结构稳定，而其中的操作却经常面临频繁改动。</li>
+</ul>
+<hr>
+<p><strong>领域规则</strong><br>在特定领域中，某些变化虽然频繁，但可以抽象为某种规则。这时候，结合特定领域，将问题抽象为语法规则，从而给出在该领域下的一般性解决方案。<br>典型模式: Interpreter</p>
+<hr>
+<h4 id="10">Interpreter 分析器</h4>
+
+<p>==<strong>定义</strong>==<br>给定一个语言，定义它的文法的一种表示，并定义一种解释器，这个监视器使用该表示来解释语言中的句子。</p>
+<p>==<strong>动机</strong>==<br>在软件构建过程中，如果某一特定领域的问题比较复杂，类似的结构不断重复出现，如果使用普通的编程方式来实现将面临非常频繁的变化。</p>
+<p>==<strong>要点总结</strong>==  </p>
+<ul>
+<li>Interpreter模式的应用场合是Interprete模式应用中的难点，只有满足业务规则频繁变化，且类似的结构不断重复出现，并且容易抽象为语法规则的问题，才适合使用Interpreter模式。</li>
+<li>使用Interpreter模式来表示文法规则，从而可以使用面向对象技巧来方便地扩展文法。</li>
+<li>Interpreter模式比较适合简单的文法表示，对于复杂的文发表示，Interpreter模式会产生比较大的类层次结构，需要求助于语法分析生成器这样的标准工具。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/18/geekband-cshe-ji-mo-shi-part-2/" rel="next" title="[GeekBand] C++设计模式 part.2">
+                <i class="fa fa-chevron-left"></i> [GeekBand] C++设计模式 part.2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/01/xi-tong-she-ji-yu-shi-jian-part-1/" rel="prev" title="系统设计与实践 part.1">
+                系统设计与实践 part.1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Alex Tang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">Singleton 单件模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">Flyweight 享元模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3"><span class="nav-number">3.</span> <span class="nav-text">State 状态模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4"><span class="nav-number">4.</span> <span class="nav-text">Memento 备忘录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5"><span class="nav-number">5.</span> <span class="nav-text">Composite 组合模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6"><span class="nav-number">6.</span> <span class="nav-text">Iterator 迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7"><span class="nav-number">7.</span> <span class="nav-text">Chain Of Resposibility 职责链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8"><span class="nav-number">8.</span> <span class="nav-text">Command 命令模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9"><span class="nav-number">9.</span> <span class="nav-text">Vistor 访问者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10"><span class="nav-number">10.</span> <span class="nav-text">Interpreter 分析器</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alex Tang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

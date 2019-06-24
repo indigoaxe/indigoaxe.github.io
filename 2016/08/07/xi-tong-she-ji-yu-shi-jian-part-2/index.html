@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>系统设计与实践 part.2 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 分布式系统&amp;nbsp; &amp;nbsp; 1.1 什么是分布式系统？&amp;nbsp; &amp;nbsp; 1.2 分布式系统特点&amp;nbsp; &amp;nbsp; 1.3 ACID vs. BASE2. 数据库系统&amp;nbsp; &amp;nbsp; 2.1 设计原则:CAP理论&amp;nbsp; &amp;nbsp; 2.2 ACID vs. BASE&amp;nbsp; &amp;nbsp; 2.3 NoSQL数据库3. 大数据系统&amp;nbsp; &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统设计与实践 part.2">
+<meta property="og:url" content="http://yoursite.com/2016/08/07/xi-tong-she-ji-yu-shi-jian-part-2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. 分布式系统&amp;nbsp; &amp;nbsp; 1.1 什么是分布式系统？&amp;nbsp; &amp;nbsp; 1.2 分布式系统特点&amp;nbsp; &amp;nbsp; 1.3 ACID vs. BASE2. 数据库系统&amp;nbsp; &amp;nbsp; 2.1 设计原则:CAP理论&amp;nbsp; &amp;nbsp; 2.2 ACID vs. BASE&amp;nbsp; &amp;nbsp; 2.3 NoSQL数据库3. 大数据系统&amp;nbsp; &amp;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2016-08-07T07:31:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="系统设计与实践 part.2">
+<meta name="twitter:description" content="1. 分布式系统&amp;nbsp; &amp;nbsp; 1.1 什么是分布式系统？&amp;nbsp; &amp;nbsp; 1.2 分布式系统特点&amp;nbsp; &amp;nbsp; 1.3 ACID vs. BASE2. 数据库系统&amp;nbsp; &amp;nbsp; 2.1 设计原则:CAP理论&amp;nbsp; &amp;nbsp; 2.2 ACID vs. BASE&amp;nbsp; &amp;nbsp; 2.3 NoSQL数据库3. 大数据系统&amp;nbsp; &amp;">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-xi-tong-she-ji-yu-shi-jian-part-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/07/xi-tong-she-ji-yu-shi-jian-part-2/" class="article-date">
+  <time datetime="2016-08-07T01:04:03.000Z" itemprop="datePublished">2016-08-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      系统设计与实践 part.2
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="#1">1. 分布式系统</a><br>&nbsp; &nbsp; <a href="#1001">1.1 什么是分布式系统？</a><br>&nbsp; &nbsp; <a href="#1002">1.2 分布式系统特点</a><br>&nbsp; &nbsp; <a href="#1003">1.3 ACID vs. BASE</a><br><a href="#2">2. 数据库系统</a><br>&nbsp; &nbsp; <a href="#2001">2.1 设计原则:CAP理论</a><br>&nbsp; &nbsp; <a href="#2002">2.2 ACID vs. BASE</a><br>&nbsp; &nbsp; <a href="#2003">2.3 NoSQL数据库</a><br><a href="#3">3. 大数据系统</a><br>&nbsp; &nbsp; <a href="#3001">3.1 大数据基础: Hadoop</a><br>&nbsp; &nbsp; <a href="#3002">3.2 Google 大数据的三驾马车</a>  </p>
+<hr>
+<h4 id="1">1. 分布式系统</h4>
+
+<h6 id="1001">1.1 什么是分布式系统？</h6>
+
+<p>分布式系统是一大批服务器组成一个集合，对于用户来说这个集合仍然是一个整体连贯系统。<br>首先来看看三位大师对分布式系统的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A. Tanenbaum的定义：分布式网络的计算机中的组件之间协调动作通过消息进行通讯。    </span><br><span class="line">G. Coulouris的定义：当你知道有一台电脑崩溃，但是你的软件运行从来不会停止。</span><br><span class="line">Leslie Lamport的定义：分布式系统是这样系统：旨在支持应用程序和服务的开发，可以利用物理架构由多个自治的处理元素，不共享主内存，但通过网络发送异步消息合作。</span><br></pre></td></tr></table></figure></p>
+<p>分布式系统与分层应用区别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">分层的应用程序（例如，3层）是划分应用程序逻辑，是一种逻辑分层，而不是物理，而分布式系统DS是物理分层，和实际部署有关。</span><br></pre></td></tr></table></figure></p>
+<p>分布式系统与传统集中式系统相比：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">集中式系统是一种Scale out/in，纵向扩展，要么向上升级服务器到中大型机，要么升级多核，增加CPU核数，集中式纵向扩展适合计算聚合度比较高的数据，而分布式适合计算松散数据，非结构化或半结构化数据。无论采取哪种扩展伸缩方案，需要根据业务数据特点而定。</span><br><span class="line"></span><br><span class="line">任何分布式系统总是需要完成两个任务：计算和存储。计算和存储分离是分布式系统的重要特征。而通常在集中式或单机系统中，这两者是可能结合在一起，比如通过一个SQL语句实现查询后排序，查询是从存储中获得数据，排序是属于计算，因此这个SQL语句实际是将计算和存储耦合在一起。在应对大数据或大并发的情况下，这种方便的捆绑带来性能问题，而分布式计算和分布式存储虽然带来复杂性，但是也为系统的处理能力打开了上升拓展的空间。</span><br></pre></td></tr></table></figure></p>
+<h6 id="1002">1.2 分布式系统特点</h6>
+
+<p>并发性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">共享资源，采取ACID或Base原则，见：CAP定理。</span><br><span class="line">分布式系统设计遵循CAP定理， CAP是：Consistency(一致性), Availability(可用性), 和 Partition tolerance(分区容错性) 可靠性 简称，CAP定理认为，CAP三种之中，只能同时满足其中两种。</span><br></pre></td></tr></table></figure></p>
+<p>高可扩展性:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">是指系统能够在*运行过程中*自由地对系统内部节点或现有功能进行扩充，而*不影响*现有服务的运行。</span><br></pre></td></tr></table></figure></p>
+<p>可靠性/可用性:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">故障发现和处理以及恢复容错处理。在一个正常运作系统中存在一个时间比例的条件。 如果一个用户不能访问系统比例增大，它被认为是不可用。可用性公式：</span><br><span class="line">Availability = uptime / (uptime + downtime)</span><br><span class="line">容错failover是指一个系统在错误发生的情况下，仍然一切运行正常。表示这个系统是宽容错误的。</span><br></pre></td></tr></table></figure></p>
+<p>透明性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">访问透明度： 使用相同的操作本地和远程资源</span><br><span class="line">位置透明：访问资源无需知道其物理或网络位置</span><br><span class="line">并发透明度：多个进程可以同时运行访问使用共享资源，当不能干扰堵塞 它们的处理进程</span><br><span class="line">复制透明性： 资源的多个实例可以被用来复制以提高可靠性和性能，但无需由用户编制专门的应用程序来实现。</span><br><span class="line">故障透明度：出现软件硬件故障时，使用户和应用方案能继续完成他们的任务不受影响。</span><br><span class="line">移动透明度：允许在 系统存在移动的资源和客户。</span><br><span class="line">性能透明度：允许系统重新配置以 提高性能负荷变化</span><br><span class="line">缩放透明度：在应用程序结构没有变化的情况下能够在规模上扩展或伸缩系统，以提高吞吐量处理能力。</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="2">2. 数据库系统</h4>
+
+<h6 id="2001">2.1 设计原则:CAP理论</h6><br>CAP理论是分布式数据库中很重要的理论基础。CAP即Consistnecy 一致性，Avaliability 可用性，Partition-tolerance分区容忍性 的缩写。在分布式系统中，三者不可兼得，只能得到其中之二。所以就有了三个分类：CA数据库，CP数据库，AP数据库。<br><br>CA数据库不考虑分区容忍性，对应现实中是数据库就是普通的关系型数据库RDBMS，如MySQL, Oracle。<br>CP数据库考虑的是一致性和分区容忍性，这种数据库对分布式系统内的通信要求比较高，因为要保持数据的一致性，需要做大量的交互。目前常用的CP数据库：Bigtable，HBase。<br>AP数据库考虑的是实用性和分区容忍性，即外部访问数据，可以更快的得到回应。这时候，数据的一致性就可能得不到满足。比如一个数据，可能外部一个进程在改写这个数据，同时另一个进程在读这个数据，此时，数据显现是不一致的。但是有一点，就是数据库会满足一个最终一致性的概念，即过程可能是不一致的，但是到某一个终点，数据就会一致起来。比较出名的AP数据库：DynamoDB。<br><br><h6 id="2002">2.2 ACID vs. BASE</h6><br>转自：<a href="http://www.jdon.com/37625" target="_blank" rel="noopener">CAP原理和BASE思想</a><br><br>关系数据库的ACID模型拥有 高一致性 + 可用性 很难进行分区：<br>Atomicity原子性：一个事务中所有操作都必须全部完成，要么全部不完成。<br>Consistency一致性. 在事务开始或结束时，数据库应该在一致状态。<br>Isolation隔离性：事务将假定只有它自己在操作数据库，彼此不知晓。<br>Durability持久性：一旦事务完成，就不能返回。<br><br>==<strong>BASE思想</strong>==<br>主要强调基本的可用性，如果你需要高可用性，也就是纯粹的高性能，那么就要以一致性或容错性为牺牲，BASE思想的方案在性能上还是有潜力可挖的。<br><br>BASE模型反ACID模型，完全不同ACID模型，牺牲高一致性，获得可用性或可靠性：<br>Basically Available基本可用。支持分区失败(e.g. sharding碎片划分数据库)<br>Soft state软状态 状态可以有一段时间不同步，异步。<br>Eventually consistent最终一致，最终数据是一致的就可以了，而不是时时高一致。<br><br>BASE思想的主要实现有<br>1.按功能划分数据库<br>2.sharding碎片<br><br>BASE思想主要强调基本的可用性，如果你需要High 可用性，也就是纯粹的高性能，那么就要以一致性或容错性为牺牲，BASE思想的方案在性能上还是有潜力可挖的。<br><br>现在NoSQL运动丰富了拓展了BASE思想，可按照具体情况定制特别方案，比如忽视一致性，获得高可用性等等，NOSQL应该有下面两个流派：<br>1. Key-Value存储，如Amaze Dynamo等，可根据CAP三原则灵活选择不同倾向的数据库产品。<br>2. 领域模型 + 分布式缓存 + 存储 （Qi4j和NoSQL运动），可根据CAP三原则结合自己项目定制灵活的分布式方案，难度高。<br><br>这两者共同点：都是关系数据库SQL以外的可选方案，逻辑随着数据分布，任何模型都可以自己持久化，将数据处理和数据存储分离，将读和写分离，存储可以是异步或同步，取决于对一致性的要求程度。<br><br>不同点：NOSQL之类的Key-Value存储产品是和关系数据库头碰头的产品BOX，可以适合非Java如PHP RUBY等领域，是一种可以拿来就用的产品，而领域模型 + 分布式缓存 + 存储是一种复杂的架构解决方案，不是产品，但这种方式更灵活，更应该是架构师必须掌握的。<br><br><h6 id="2003">2.3 NoSQL数据库</h6>
+
+<p>参考阅读:<a href="http://old.sebug.net/paper/databases/nosql/Nosql.html" target="_blank" rel="noopener">NoSQL数据库笔谈</a></p>
+<hr>
+<h4 id="3">3. 大数据系统</h4>
+
+<p></p><h6 id="3001">3.1 大数据基础: Hadoop</h6><br>==Hadoop核心==<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hadoop的核心就是HDFS和MapReduce，而两者只是理论基础，不是具体可使用的高级应用，Hadoop旗下有很多经典子项目，比如HBase、Hive等，这些都是基于HDFS和MapReduce发展出来的。要想了解Hadoop，就必须知道HDFS和MapReduce是什么。</span><br></pre></td></tr></table></figure><p></p>
+<p>==HDFS==<br>HDFS(Hadoop Distributed File System，Hadoop分布式文件系统)，它是一个高度容错性的系统，适合部署在廉价的机器上。HDFS能提供高吞吐量的数据访问，适合那些有着超大数据集(large data set)的应用程序。<br>HDFS的设计特点是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、大数据文件，非常适合上T级别的大文件或者一堆大数据文件的存储，如果文件只有几个G甚至更小就没啥意思了。</span><br><span class="line">2、文件分块存储，HDFS会将一个完整的大文件平均分块存储到不同计算器上，它的意义在于读取文件时可以同时从多个主机取不同区块的文件，多主机读取比单主机读取效率要高得多得都。</span><br><span class="line">3、流式数据访问，一次写入多次读写，这种模式跟传统文件不同，它不支持动态改变文件内容，而是要求让文件一次写入就不做变化，要变化也只能在文件末添加内容。</span><br><span class="line">4、廉价硬件，HDFS可以应用在普通PC机上，这种机制能够让给一些公司用几十台廉价的计算机就可以撑起一个大数据集群。</span><br><span class="line">5、硬件故障，HDFS认为所有计算机都可能会出问题，为了防止某个主机失效读取不到该主机的块文件，它将同一个文件块副本分配到其它某几个主机上，如果其中一台主机失效，可以迅速找另一块副本取文件。</span><br></pre></td></tr></table></figure></p>
+<p>==HDFS的关键元素：==<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Block：将一个文件进行分块，通常是64M。</span><br><span class="line">NameNode：保存整个文件系统的目录信息、文件信息及分块信息，这是由唯一一台主机专门保存，当然这台主机如果出错，NameNode就失效了。在Hadoop2.*开始支持activity-standy模式----如果主NameNode失效，启动备用主机运行NameNode。</span><br><span class="line">DataNode：分布在廉价的计算机上，用于存储Block块文件。</span><br></pre></td></tr></table></figure></p>
+<p>==MapReduce==<br>通俗说MapReduce是一套从海量·源数据提取分析元素最后返回结果集的编程模型，将文件分布式存储到硬盘是第一步，而从海量数据中提取分析我们需要的内容就是MapReduce做的事了。</p>
+<p>参考阅读:<a href="http://tech.it168.com/a2011/1020/1261/000001261673_all.shtml" target="_blank" rel="noopener">深入浅出Hadoop： 高效处理大数据</a></p>
+<p></p><h6 id="3002">3.2 Google 大数据的三驾马车</h6><br>谈到分布式系统，就不得不提Google的三驾马车:<br>GFS(Google File System)[1],Mapreduce[2],Bigtable[3]。<br>参考阅读：<a href="http://storage.it168.com/a2011/0831/1240/000001240542.shtml" target="_blank" rel="noopener">分布式系统漫谈—— Google的三驾马车</a><p></p>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/07/xi-tong-she-ji-yu-shi-jian-part-2/" data-id="cjf6xd1b3000o39zp64cqefhr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/08/15/xi-tong-she-ji-yu-shi-jian-part-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          系统设计与实践 part.3
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/01/xi-tong-she-ji-yu-shi-jian-part-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">系统设计与实践 part.1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/24/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/10/hackerrank-dijkstra-shortest-reach-2-ru-he-tong-guo-yi-xing-dai-ma-bi-mian-timeout/">[Hackerrank] Dijkstra: Shortest Reach 2 &amp; 如何通过一行代码避免TIMEOUT</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/19/ru-he-zai-cczhong-huo-qu-shu-zhi-de-zui-da-huo-zhe-zui-xiao-zhi/">如何在C++/C中获取数值的最大或者最小值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/15/xi-tong-she-ji-yu-shi-jian-part-3/">系统设计与实践 part.3</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/07/xi-tong-she-ji-yu-shi-jian-part-2/">系统设计与实践 part.2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Alex Tang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

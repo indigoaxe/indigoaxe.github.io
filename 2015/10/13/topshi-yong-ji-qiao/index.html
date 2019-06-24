@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="######目录一、命令简介二、批处理OR交互模式？三、定制输出内容四、更新频率是快是慢？五、”我的Linux主机上怎么会只有很少的空闲内存?” 一、命令简介 TOP命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况。   1.使用格式： top [-] [d] [p] [q] [c] [C] [S] [s] [n]参数说明:d：  指定每两次屏幕信息刷新之间的时间间隔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TOP命令学习">
+<meta property="og:url" content="http://yoursite.com/2015/10/13/topshi-yong-ji-qiao/index.html">
+<meta property="og:site_name" content="IndigoAxe">
+<meta property="og:description" content="######目录一、命令简介二、批处理OR交互模式？三、定制输出内容四、更新频率是快是慢？五、”我的Linux主机上怎么会只有很少的空闲内存?” 一、命令简介 TOP命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况。   1.使用格式： top [-] [d] [p] [q] [c] [C] [S] [s] [n]参数说明:d：  指定每两次屏幕信息刷新之间的时间间隔">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-19T00:31:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TOP命令学习">
+<meta name="twitter:description" content="######目录一、命令简介二、批处理OR交互模式？三、定制输出内容四、更新频率是快是慢？五、”我的Linux主机上怎么会只有很少的空闲内存?” 一、命令简介 TOP命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况。   1.使用格式： top [-] [d] [p] [q] [c] [C] [S] [s] [n]参数说明:d：  指定每两次屏幕信息刷新之间的时间间隔">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/10/13/topshi-yong-ji-qiao/">
+
+
+
+
+
+  <title>TOP命令学习 | IndigoAxe</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IndigoAxe</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/13/topshi-yong-ji-qiao/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alex Tang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IndigoAxe">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TOP命令学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-13T05:59:29+08:00">
+                2015-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>######目录<br><a href="#1">一、命令简介</a><br><br><a href="#2">二、批处理OR交互模式？</a><br><br><a href="#3">三、定制输出内容</a><br><br><a href="#4">四、更新频率是快是慢？</a><br><br><a href="#5">五、”我的Linux主机上怎么会只有很少的空闲内存?”</a></p>
+<h6 id="1">一、命令简介</h6>
+TOP命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况。 
+
+<p><b>1.使用格式</b>：
+<code>top [-] [d] [p] [q] [c] [C] [S] [s] [n]</code><br>参数说明:<br><br>d：  指定每两次屏幕信息刷新之间的时间间隔。当然用户可以使用s交互命令来改变之。<br>p：  通过指定监控进程ID来仅仅监控某个进程的状态。<br>q：该选项将使top没有任何延迟的进行刷新。如果调用程序有超级用户权限，那么top将以尽可能高的优先级运行。<br>S： 指定累计模式<br>s ： 使top命令在安全模式中运行。这将去除交互命令所带来的潜在危险。<br>i：  使top不显示任何闲置或者僵死进程。<br>c：  显示整个命令行而不只是显示命令名</p>
+<p><b>2.统计信息详解</b></p>
+<p><b>执行命令结果：</b><br></p>
+<pre>top - 15:22:45 up  4:19,  5 users,  load average: 0.00, 0.03, 0.00
+Tasks:  60 total,   1 running,  59 sleeping,   0 stopped,   0 zombie
+Cpu(s):  3.8% us,  2.9% sy,  0.0% ni, 89.6% id,  3.3% wa,  0.4% hi,  0.0% si
+Mem:    515896k total,   495572k used,    20324k free,    13936k buffers
+Swap:   909676k total,        4k used,   909672k free,   377608k cached
+PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+  1 root      16   0  1544  476  404 S  0.0  0.1   0:01.35 init
+  2 root      34  19     0    0    0 S  0.0  0.0   0:00.02 ksoftirqd/0
+  3 root      10  -5     0    0    0 S  0.0  0.0   0:00.11 events/0 
+</pre>
+
+<p>统计信息区前五行是系统整体的统计信息。第一行是任务队列信息，同 uptime  命令的执行结果:</p>
+<pre>$ uptime
+ 13:22:30 up 8 min,  4 users,  load average: 0.14, 0.38, 0.25
+</pre>
+<p><b>其解析如下：</b></p>
+<table class="t_table" cellspacing="0">
+<tbody>
+<tr>
+<td>01:06:48</td>
+<td>当前时间</td>
+</tr>
+<tr>
+<td>up 1:22</td>
+<td>系统运行时间，格式为时:分</td>
+</tr>
+<tr>
+<td>1 user</td>
+<td>当前登录用户数</td>
+</tr>
+<tr>
+<td>load average: 0.06, 0.60, 0.48</td>
+<td>系统负载，即任务队列的平均长度.<br>三个数值分别为&nbsp;&nbsp;1分钟、5分钟、15分钟前到现在的平均值.</td>
+</tr>
+</tbody>
+</table>
+<b><span>第二、三行为进程和CPU的信息,当有多个CPU时，这些内容可能会超过两行.内容如下：</span></b>
+<table>
+<tbody>
+<tr>
+<td>Tasks: 29 total</td>
+<td>进程总数</td>
+</tr>
+<tr>
+<td>1 running</td>
+<td>正在运行的进程数</td>
+</tr>
+<tr>
+<td>28 sleeping</td>
+<td>睡眠的进程数</td>
+</tr>
+<tr>
+<td>0 stopped</td>
+<td>停止的进程数</td>
+</tr>
+<tr>
+<td>0 zombie</td>
+<td>僵尸进程数</td>
+</tr>
+<tr>
+<td>Cpu(s): 0.3% us</td>
+<td>用户空间占用CPU百分比</td>
+</tr>
+<tr>
+<td>1.0% sy</td>
+<td>内核空间占用CPU百分比</td>
+</tr>
+<tr>
+<td>0.0% ni</td>
+<td>用户进程空间内改变过优先级的进程占用CPU百分比</td>
+</tr>
+<tr>
+<td>98.7% id</td>
+<td>空闲CPU百分比</td>
+</tr>
+<tr>
+<td>0.0% wa</td>
+<td>等待输入输出的CPU时间百分比</td>
+</tr>
+<tr>
+<td>0.0% hi</td>
+<td>&nbsp;CPU服务于硬中断所耗费的时间总额</td>
+</tr>
+<tr>
+<td>0.0% si、0.0%st</td>
+<td>&nbsp;CPU服务于软中断所耗费的时间总额、Steal Time</td>
+</tr>
+</tbody>
+</table>
+<b><span>最后两行为内存信息。内容如下：</span></b>
+<table class="t_table" cellspacing="0">
+<tbody>
+<tr>
+<td>Mem: 191272k total</td>
+<td>物理内存总量</td>
+</tr>
+<tr>
+<td>173656k used</td>
+<td>使用的物理内存总量</td>
+</tr>
+<tr>
+<td>17616k free</td>
+<td>空闲内存总量</td>
+</tr>
+<tr>
+<td>22052k buffers</td>
+<td>用作内核缓存的内存量</td>
+</tr>
+<tr>
+<td>Swap: 192772k total</td>
+<td>交换区总量</td>
+</tr>
+<tr>
+<td>0k used</td>
+<td>使用的交换区总量</td>
+</tr>
+<tr>
+<td>192772k free</td>
+<td>空闲交换区总量</td>
+</tr>
+<tr>
+<td>123988k cached</td>
+<td>缓冲的交换区总量.<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;内存中的内容被换出到交换区,而后又被换入到内存,但使用过的交换区尚未被覆盖,<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;该数值即为这些内容已存在于内存中的交换区的大小.<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;相应的内存再次被换出时可不必再对交换区写入.</td>
+</tr>
+</tbody>
+</table>
+<b><br><span>进程信息区统计信息区域的下方显示了各个进程的详细信息。
+首先来认识一下各列的含义：</span></b>
+<table class="t_table" cellspacing="0">
+<tbody>
+<tr>
+<td>序号</td>
+<td>列名</td>
+<td>含义</td>
+</tr>
+<tr>
+<td>1</td>
+<td>PID</td>
+<td>进程id</td>
+</tr>
+<tr>
+<td>2</td>
+<td>PPID</td>
+<td>父进程id</td>
+</tr>
+<tr>
+<td>3</td>
+<td>RUSER</td>
+<td>Real user name</td>
+</tr>
+<tr>
+<td>4</td>
+<td>UID</td>
+<td>进程所有者的用户id</td>
+</tr>
+<tr>
+<td>5</td>
+<td>USER</td>
+<td>进程所有者的用户名</td>
+</tr>
+<tr>
+<td>6</td>
+<td>GROUP</td>
+<td>进程所有者的组名</td>
+</tr>
+<tr>
+<td>7</td>
+<td>TTY</td>
+<td>启动进程的终端名.不是从终端启动的进程则显示为 ?</td>
+</tr>
+<tr>
+<td>8</td>
+<td>PR</td>
+<td>优先级</td>
+</tr>
+<tr>
+<td>9</td>
+<td>NI</td>
+<td>nice值.负值表示高优先级，正值表示低优先级</td>
+</tr>
+<tr>
+<td>10</td>
+<td>P</td>
+<td>最后使用的CPU,仅在多CPU环境下有意义</td>
+</tr>
+<tr>
+<td>11</td>
+<td>%CPU</td>
+<td>上次更新到现在的CPU时间占用百分比</td>
+</tr>
+<tr>
+<td>12</td>
+<td>TIME</td>
+<td>进程使用的CPU时间总计,单位秒</td>
+</tr>
+<tr>
+<td>13</td>
+<td>TIME+</td>
+<td>进程使用的CPU时间总计,单位1/100秒</td>
+</tr>
+<tr>
+<td>14</td>
+<td>%MEM</td>
+<td>进程使用的物理内存百分比</td>
+</tr>
+<tr>
+<td>15</td>
+<td>VIRT</td>
+<td>进程使用的虚拟内存总量,单位kb,VIRT=SWAP+RES</td>
+</tr>
+<tr>
+<td>16</td>
+<td>SWAP</td>
+<td>进程使用的虚拟内存中,被换出的大小,单位kb.</td>
+</tr>
+<tr>
+<td>17</td>
+<td>RES</td>
+<td>进程使用的、未被换出的物理内存大小,单位kb,RES=CODE+DATA</td>
+</tr>
+<tr>
+<td>18</td>
+<td>CODE</td>
+<td>可执行代码占用的物理内存大小,单位kb</td>
+</tr>
+<tr>
+<td>19</td>
+<td>DATA</td>
+<td>可执行代码以外的部分(数据段+栈)占用的物理内存大小,单位kb</td>
+</tr>
+<tr>
+<td>20</td>
+<td>SHR</td>
+<td>共享内存大小,单位kb</td>
+</tr>
+<tr>
+<td>21</td>
+<td>nFLT</td>
+<td>页面错误次数</td>
+</tr>
+<tr>
+<td>22</td>
+<td>nDRT</td>
+<td>最后一次写入到现在,被修改过的页面数.</td>
+</tr>
+<tr>
+<td>23</td>
+<td>S</td>
+<td>进程状态:<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<strong>D</strong>=不可中断的睡眠状态<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<strong>R</strong>=运行<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<strong>S</strong>=睡眠<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<strong>T</strong>=跟踪/停止<br>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<strong>Z</strong>=僵尸进程</td>
+</tr>
+<tr>
+<td>24</td>
+<td>COMMAND</td>
+<td>命令名/命令行</td>
+</tr>
+<tr>
+<td>25</td>
+<td>WCHAN</td>
+<td>若该进程在睡眠,则显示睡眠中的系统函数名</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Flags</td>
+<td>任务标志,参考 sched.h</td>
+</tr>
+</tbody>
+</table>
+<p><br><span>　　默认情况下仅显示比较重要的&nbsp;&nbsp;PID、USER、PR、NI、VIRT、RES、SHR、S、%CPU、%MEM、TIME+、COMMAND &nbsp;几个列。</span></p>
+<p><span>　　可以通过下面的快捷键来更改显示内容：</span><br><span>　　更改显示内容通过&nbsp;</span><strong>f&nbsp;</strong><span>键可以选择显示的内容（按 f 键之后会显示列的列表，按 a-z&nbsp;&nbsp;即可显示或隐藏对应的列，最后按回车键确定）</span><br><span>　　按&nbsp;</span><strong>o</strong><span>&nbsp;键可以改变列的显示顺序（按小写的 a-z 可以将相应的列向右移动，而大写的 A-Z&nbsp;&nbsp;可以将相应的列向左移动，最后按回车键确定）</span><br><span>　　按大写的&nbsp;</span><strong>F</strong><span>&nbsp;或&nbsp;</span><strong>O</strong><span>&nbsp;键，然后按 a-z 可以将进程按照相应的列进行排序，而大写的&nbsp;&nbsp;</span><strong>R</strong><span>&nbsp;键可以将当前的排序倒转.</span></p>
+
+<h6 id="2">二、批处理OR交互模式</h6>
+TOP默认为交互模式。若需要对TOP的输出进行处理，可以使用批处理模式。
+<code>$top -b</code>
+但是该命令将会不断重复打印系统实时状态。如果需要限制次数，可以使用：<br>
+<code>$top -b -n 1</code>
+批处理模式可以方便地与<code>at</code>和<code>cron</code>结合使用：
+<pre>$ cat ./test.at
+TERM=linux top -b -n 1 >/tmp/top-report.txt
+$ at -f ./test.at now+1minutes</pre>
+注：在TOP命令前设置TERM变量是为了保证其正常运行。因为TOP运行时需要它，而at命令在定时调用时不会保留TERM变量。
+
+<h6 id="3">三、定制输出内容</h6>
+
+<p>有时，我们只对几个进程感兴趣，可能只是全部进程中的4个或5个。例如，如果你想要监测进程标识（PID）为4360和4358的进程，你需要键入：</p>
+<pre>$ top -p 4360,4358
+$ top -p 4360 -p 4358</pre>
+<p>看起来很简单，只需要使用 -p 列出所有需要的 PID，并使用逗号间隔或简单的多次使用 -p即可。<br>另一种可能是监测拥有特定用户标识（UID）的进程。应对此需求，你可以使用 -u 或 -U 选项。假设用户“johndoe”的 UID 为500，键入：</p>
+<pre>$ top -u johndoe
+$ top -u 500
+$ top -U johndoe</pre>
+<p>结论是，你既可以纯使用用户名，也可使用数字 UID。“-u，-U？这两者不同？”是的。同多数其它 GNU 工具一样，选项是大小写敏感的。-U 意味着 Top 将会搜索有效的、真实的、被保存的以及文件系统的 UID 进行匹配，而 -u 仅匹配有效的用户id。要知道，每一个 *nix 进程在运行时都是用有效用户标识（effective UID），而其中有些并不等同真实用户标识。多数情况是，对类似文件系统权限或操作系统功能这项的有效用户标识感兴趣的人将会检查它，而不是 UID。<br>不同于 -p 仅用于命令行选项，-U 和 -u 都可以在交互模式中使用。同你猜测的一样，键入‘U’或‘u’可以依据用户名过滤进程。同样的规则依然适用，‘u’为有效用户标识，‘U’为 真实/有效/保存/文件系统用户名。你将被要求键入用户名或数字 UID。</p>
+<h6 id="4">四、更新频率是快是慢？</h6>
+在回答这个问题之前，让我们先简单介绍一下，Top 是如何运行的。这里，Strace 能够帮助你：
+<pre>$ strace -o /tmp/trace.txt top -b -n </pre>
+使用你偏爱的文本编辑器打开 `/tmp/trace.txt`。你怎么想？一次调用有太多的活要做了，反正我是这么想的。Top 在每次遍历中必做的工作之一就是打开很多文件，并解析其内容，可以看看次数：
+<pre>$ grep open /tmp/hasil.txt | wc -l</pre>
+举例而言，我的 Linux 中，这个数量是304.仔细观察就会发现，Top 遍历 `/proc` 文件夹，以收集进程信息。`/proc` 本身是一个虚拟文件系统，意味着它并非存在于真实硬盘之中，而是由 Linux 内核凭空创建，保存在内存中的。在文件夹中，如`/proc/2097`（2097为 PID），Linux 内核将与之关联的信息打印到此文件中，而这里就是 Top 的消息来源。
+同时试一下：
+<pre>$ time top -b -n 1</pre>
+这样你就能了解到 Top 单轮工作有多快了。在我的系统中，大约为0.5-0.6秒。看“real”字段，不是“user”或“system”字段，因为“real”字段反应了 Top 工作需要的总时间。
+所以，有了这个认知之后，使用适度的更新间隔是明智的。基于文件系统访问内存也是需要时间的。经验法则是，对于多数用户来说，1到3秒的间隔就足够了。在命令行中使用-d，或在交互模式下按下“s”以设置。你可以使用类似2.5,4.1这样的小树。
+什么时候我们需要快于1秒的更新？
+时间段内需要更多的样本。应对这点要求，最好使用批处理模式，并将标准输出重定向到文件中，以便更好的分析。
+你并不在意 Top 消耗的额外CPU负荷。是的，虽然它很小，它依然需要负荷。如果你的 Linux 系统相对比较空闲，随意使用短间隔，如果不是，最好为重要的任务保留你的 CPU 时间。
+一个减少 Top 工作的办法是只监测特定的几个 PID。这样，Top 无需遍历 /proc 下所有的子文件夹。用户名过滤呢？并不会变得更好。用户名过滤会给Top带来额外工作量，因此将其与短间隔联合将会增加 CPU 负荷。
+当然，当你需要强制更新时，按下 Space 键，Top 将会刷新统计。
+
+<h6 id="5">五、"我的Linux主机上怎么会只有很少的空闲内存?"</h6>
+
+<p>有同样的问题? 不管你在主板上增加多少内存，你都会很快发现空闲内存减少的非常迅速. 空闲内存算错了? 不!
+在回答这个之前, 先查看一下top命令顶部显示的内存概要 (有可能你需要按 ‘m’来显示出来)。在这里，你可以看到两个区域: 缓冲（buffers）和缓存（cached）。 “缓冲（Buffers）” 代表有多少内存用来缓存磁盘块 “缓存（Cached）” 有一点类似 “缓冲（Buffers）”, 只是仅仅从文件读取缓存页面. 想透彻了解这部分,建议读一下Linux内核的书比如Robert M.Love写的《Linux Kernel Development》。</p>
+<p>这足够了解缓冲（buffers）和缓存（cached)代表系统缓存. 他们会根据linux内核机制动态增加或减少。<br>除去被缓存的消耗，程序和代码同样要占据RAM. 所以，最终空闲内存显示的是RAM中不被缓存和程序/代码占用的部分 一般来说，你也可以考虑缓存区域为另一部分“空闲”RAM，如果程序需要更多内存它会减少<br>从进程的角度来看，你可能想知道哪个区域代表真实的内存消耗，VIRT（virtual memory usage ）区域? 当然不是! 回顾一下，这个区域代表了进程地址空间里一切，包括相关的库。阅读top命令的源代码和proc.txt (在内核代码树中的Documentation/filesystem 文件夹内), 我的结论是RSS字段是进程内存消耗的最好的描述.我说“最好的”是因为你可以考虑它是近似而不是所有时间100%准确。</p>
+<p>以上内容部分转自：<a href="http://www.oschina.net/translate/using-top-more-efficiently" target="_blank" rel="noopener">《高效地使用 top》</a><br></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/20/understand-oracle-cursor/" rel="prev" title="PL/SQL 中的游标(CURSOR) - PART1">
+                PL/SQL 中的游标(CURSOR) - PART1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Alex Tang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">一、命令简介</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">二、批处理OR交互模式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3"><span class="nav-number">3.</span> <span class="nav-text">三、定制输出内容</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4"><span class="nav-number">4.</span> <span class="nav-text">四、更新频率是快是慢？</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5"><span class="nav-number">5.</span> <span class="nav-text">五、&quot;我的Linux主机上怎么会只有很少的空闲内存?&quot;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alex Tang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

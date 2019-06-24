@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>[Hackerrank] Dijkstra: Shortest Reach 2 &amp; 如何通过一行代码避免TIMEOUT | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="今天花了好长的时间解这道题的Case 7。 不管程序怎么优化，结果都是timeout。接着使用Mac自带的Instrument来分析，竟让发现是读取输入的时候最费时。实在摸不着头脑。最后在discussion里面看到有人说可以通过sync_with_stdio来解决这一个问题。试了一下，结果还真通过了。亏我还放弃了剩下的分数去看别人的实现方式（然而他们的code也通不过case7还得了60分，令人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Hackerrank] Dijkstra: Shortest Reach 2 &amp; 如何通过一行代码避免TIMEOUT">
+<meta property="og:url" content="http://yoursite.com/2016/09/10/hackerrank-dijkstra-shortest-reach-2-ru-he-tong-guo-yi-xing-dai-ma-bi-mian-timeout/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="今天花了好长的时间解这道题的Case 7。 不管程序怎么优化，结果都是timeout。接着使用Mac自带的Instrument来分析，竟让发现是读取输入的时候最费时。实在摸不着头脑。最后在discussion里面看到有人说可以通过sync_with_stdio来解决这一个问题。试了一下，结果还真通过了。亏我还放弃了剩下的分数去看别人的实现方式（然而他们的code也通不过case7还得了60分，令人">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2016-09-11T02:01:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Hackerrank] Dijkstra: Shortest Reach 2 &amp; 如何通过一行代码避免TIMEOUT">
+<meta name="twitter:description" content="今天花了好长的时间解这道题的Case 7。 不管程序怎么优化，结果都是timeout。接着使用Mac自带的Instrument来分析，竟让发现是读取输入的时候最费时。实在摸不着头脑。最后在discussion里面看到有人说可以通过sync_with_stdio来解决这一个问题。试了一下，结果还真通过了。亏我还放弃了剩下的分数去看别人的实现方式（然而他们的code也通不过case7还得了60分，令人">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-hackerrank-dijkstra-shortest-reach-2-ru-he-tong-guo-yi-xing-dai-ma-bi-mian-timeout" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/10/hackerrank-dijkstra-shortest-reach-2-ru-he-tong-guo-yi-xing-dai-ma-bi-mian-timeout/" class="article-date">
+  <time datetime="2016-09-10T03:48:46.000Z" itemprop="datePublished">2016-09-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [Hackerrank] Dijkstra: Shortest Reach 2 &amp; 如何通过一行代码避免TIMEOUT
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天花了好长的时间解<br><a href="https://www.hackerrank.com/challenges/dijkstrashortreach" target="_blank" rel="noopener">这道题</a><br>的Case 7。 不管程序怎么优化，结果都是timeout。接着使用Mac自带的Instrument来分析，竟让发现是读取输入的时候最费时。实在摸不着头脑。<br>最后在discussion里面看到有人说可以通过<code>sync_with_stdio</code>来解决这一个问题。试了一下，结果还真通过了。亏我还放弃了剩下的分数去看别人的实现方式（然而他们的code也通不过case7还得了60分，令人费解= =），知道真相的我泪流满面。不过作为一个菜鸟，学到了一些新的东西还是很高兴的。<br>搜了一下<code>sync_with_stdio</code>，原来：</p>
+<blockquote>
+<p><a href="http://www.hankcs.com/program/cpp/cin-tie-with-sync_with_stdio-acceleration-input-and-output.html" target="_blank" rel="noopener">引用:</a></p>
+</blockquote>
+<blockquote>
+<p>这个函数是一个“是否兼容stdio”的开关，C++为了兼容C，保证程序在使用了std::printf和std::cout的时候不发生混乱，将输出流绑到了一起。</p>
+</blockquote>
+<blockquote>
+<p>在ACM里，经常出现数据集超大造成 cin TLE的情况。这时候大部分人（包括原来我也是）认为这是cin的效率不及scanf的错，甚至还上升到C语言和C++语言的执行效率层面的无聊争论。其实像上文所说，这只是C++为了兼容而采取的保守措施。我们可以在IO之前将stdio解除绑定，这样做了之后要注意不要同时混用cout和printf之类。<br>在默认的情况下cin绑定的是cout，每次执行 &lt;&lt; 操作符的时候都要调用flush，这样会增加IO负担。可以通过tie(0)（0表示NULL）来解除cin与cout的绑定，进一步加快执行效率。</p>
+</blockquote>
+<p>下面是我的实现，其中利用了stl的priority_queue优先级队列来实现，提高了效率:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">typedef pair&lt; int, int &gt; pi;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    // Unbind </span><br><span class="line">    std::ios::sync_with_stdio(false); </span><br><span class="line">    int t;</span><br><span class="line">    cin &gt;&gt; t;</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        int N,M;</span><br><span class="line">        cin &gt;&gt; N &gt;&gt; M;</span><br><span class="line">        map&lt;int ,int&gt; nodes[N+1];</span><br><span class="line">        // read the edges</span><br><span class="line">        for(int i=0;i&lt;M;++i)&#123;</span><br><span class="line">            int e1,e2,d;</span><br><span class="line">            cin &gt;&gt; e1 &gt;&gt; e2 &gt;&gt; d;</span><br><span class="line">            if(nodes[e1].count(e2)==0 || nodes[e1][e2]&gt;d)&#123;</span><br><span class="line">                nodes[e1][e2] = d;</span><br><span class="line">                nodes[e2][e1] = d;            </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int S;</span><br><span class="line">        cin &gt;&gt; S;</span><br><span class="line">        bool vis[N+1];</span><br><span class="line">        int dis[N+1];</span><br><span class="line">        memset(vis,false,sizeof(vis));</span><br><span class="line">        for(int i=0;i&lt;=N;++i)&#123;</span><br><span class="line">            dis[i]=100000;</span><br><span class="line">        &#125;</span><br><span class="line">        dis[S] = 0;</span><br><span class="line">        // Use min heap so that the min value can be popped earlier </span><br><span class="line">        priority_queue&lt;pi, vector&lt;pi&gt;, greater&lt;pi&gt; &gt; q;</span><br><span class="line">        q.push(pi(0,S));</span><br><span class="line">        while(!q.empty())&#123;</span><br><span class="line">            int curr = q.top().second;</span><br><span class="line">            int curr_cost = q.top().first;</span><br><span class="line">            q.pop();</span><br><span class="line">            if(dis[curr]&lt;curr_cost) continue;</span><br><span class="line">            if(vis[curr]) continue;</span><br><span class="line">            vis[curr] = true;</span><br><span class="line">            for(auto &amp;m: nodes[curr])&#123;                </span><br><span class="line">                int fir = m.first;</span><br><span class="line">                int sec = m.second;   </span><br><span class="line">                if(!vis[fir] &amp;&amp; dis[curr] + sec &lt; dis[fir])&#123;</span><br><span class="line">                   dis[fir] = dis[curr]+sec; </span><br><span class="line">                   q.push(pi(dis[fir],fir));</span><br><span class="line">               &#125;      </span><br><span class="line">               </span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        for(int i=1;i&lt;=N;++i)&#123;</span><br><span class="line">            if(i!=S)&#123;</span><br><span class="line">                if(dis[i]==100000)</span><br><span class="line">                    cout &lt;&lt; &quot;-1 &quot;;</span><br><span class="line">                else</span><br><span class="line">                    cout &lt;&lt; dis[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">            &#125;                </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/09/10/hackerrank-dijkstra-shortest-reach-2-ru-he-tong-guo-yi-xing-dai-ma-bi-mian-timeout/" data-id="cjf6xd1ai000f39zppvwrbfiw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/06/24/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/19/ru-he-zai-cczhong-huo-qu-shu-zhi-de-zui-da-huo-zhe-zui-xiao-zhi/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">如何在C++/C中获取数值的最大或者最小值</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/24/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/10/hackerrank-dijkstra-shortest-reach-2-ru-he-tong-guo-yi-xing-dai-ma-bi-mian-timeout/">[Hackerrank] Dijkstra: Shortest Reach 2 &amp; 如何通过一行代码避免TIMEOUT</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/19/ru-he-zai-cczhong-huo-qu-shu-zhi-de-zui-da-huo-zhe-zui-xiao-zhi/">如何在C++/C中获取数值的最大或者最小值</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/15/xi-tong-she-ji-yu-shi-jian-part-3/">系统设计与实践 part.3</a>
+          </li>
+        
+          <li>
+            <a href="/2016/08/07/xi-tong-she-ji-yu-shi-jian-part-2/">系统设计与实践 part.2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Alex Tang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

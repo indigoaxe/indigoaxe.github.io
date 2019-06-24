@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第三周的主要内容有： 1. 组合与继承2. 虚函数与多态3. 委托相关设计    复合和继承关系下的构造和析构   组合与继承类与类之间主要有三种关系，在程序中，这三种关系能解决大部分问题：     Inheritance（继承） Composition（复合） Delegation（委托）  ==Inheritance（继承）==表示了一种is-a的关系，即子类继承了父类的部分：子类的遵循构造由">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[上课笔记 for GeekBand] C++面向对象高级编程（上） part.3">
+<meta property="og:url" content="http://yoursite.com/2018/05/23/shang-ke-bi-ji-for-geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3/index.html">
+<meta property="og:site_name" content="IndigoAxe">
+<meta property="og:description" content="第三周的主要内容有： 1. 组合与继承2. 虚函数与多态3. 委托相关设计    复合和继承关系下的构造和析构   组合与继承类与类之间主要有三种关系，在程序中，这三种关系能解决大部分问题：     Inheritance（继承） Composition（复合） Delegation（委托）  ==Inheritance（继承）==表示了一种is-a的关系，即子类继承了父类的部分：子类的遵循构造由">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/content/images/2018/05/interitance1.jpg">
+<meta property="og:image" content="http://yoursite.com/content/images/2018/05/composition1.jpg">
+<meta property="og:image" content="http://yoursite.com/content/images/2018/05/adapter.jpg">
+<meta property="og:image" content="http://yoursite.com/content/images/2018/05/delegation.jpg">
+<meta property="og:image" content="http://yoursite.com/content/images/2018/05/virtualmethod1.jpg">
+<meta property="og:image" content="http://yoursite.com/content/images/2018/05/composite1.jpg">
+<meta property="og:image" content="http://yoursite.com/content/images/2018/05/PrototypePattern.png">
+<meta property="og:updated_time" content="2018-05-26T19:17:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[上课笔记 for GeekBand] C++面向对象高级编程（上） part.3">
+<meta name="twitter:description" content="第三周的主要内容有： 1. 组合与继承2. 虚函数与多态3. 委托相关设计    复合和继承关系下的构造和析构   组合与继承类与类之间主要有三种关系，在程序中，这三种关系能解决大部分问题：     Inheritance（继承） Composition（复合） Delegation（委托）  ==Inheritance（继承）==表示了一种is-a的关系，即子类继承了父类的部分：子类的遵循构造由">
+<meta name="twitter:image" content="http://yoursite.com/content/images/2018/05/interitance1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/23/shang-ke-bi-ji-for-geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3/">
+
+
+
+
+
+  <title>[上课笔记 for GeekBand] C++面向对象高级编程（上） part.3 | IndigoAxe</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IndigoAxe</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/shang-ke-bi-ji-for-geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alex Tang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IndigoAxe">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[上课笔记 for GeekBand] C++面向对象高级编程（上） part.3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-23T07:45:26+08:00">
+                2018-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>第三周的主要内容有：</p>
+<p><a href="#1">1. 组合与继承</a><br><a href="#2">2. 虚函数与多态</a><br><a href="#3">3. 委托相关设计</a>  </p>
+<ol start="4">
+<li>复合和继承关系下的构造和析构</li>
+</ol>
+<hr>
+<h4 id="组合与继承"><a href="#组合与继承" class="headerlink" title="组合与继承"></a><a href="#1">组合与继承</a></h4><p>类与类之间主要有三种关系，在程序中，这三种关系能解决大部分问题：   </p>
+<ul>
+<li>Inheritance（继承）</li>
+<li>Composition（复合）</li>
+<li>Delegation（委托）</li>
+</ul>
+<p>==<strong>Inheritance（继承）</strong>==<br>表示了一种is-a的关系，即子类继承了父类的部分：<br><img src="/content/images/2018/05/interitance1.jpg" alt="inheritance1"><br>子类的遵循构造由内到外（从父类到子类），析构由外到内的规则。<br>注意：父类的析构函数必须是虚函数，否则会出现undifined behavior。  </p>
+<p>==<strong>Composition（复合）</strong>==<br>表示了一种has-a的关系，例如一间屋子里面有(has)许多房间，有屋子，就会有房间。而如果屋子被拆了(析构)，房间也会被“析构”。我们可以通过下图来直观地了解compositon。注意其中标红文字的部分，它们表示了编译器为派生类自动添加的代码。<br><img src="/content/images/2018/05/composition1.jpg" alt="composition"><br>利用composition来实现adapter设计模式:<br><img src="/content/images/2018/05/adapter.jpg" alt="adapter"></p>
+<p>==<strong>Delegation（委托）</strong>==<br>Delegation实际上是composition by reference。<br>这种实现方式又叫pimpl(pointer to implementation) 或是 handle/body。<br>Delegation是一种编译防火墙，如果把handle看作客户端，那么操作有改动的时候只需改动body，而不需要改动客户端。即客户端不需要重新编译，而只需要重新编译body部分。换而言之，delegation将某个类的成员函数交给另外一个类去实现，从客观上减少了该类的代码实现。例子如下:<br><img src="/content/images/2018/05/delegation.jpg" alt="delegation"></p>
+<hr>
+<h4 id="虚函数与多态"><a href="#虚函数与多态" class="headerlink" title="虚函数与多态"></a><a href="#2">虚函数与多态</a></h4><p>继承的强大，大多是靠虚函数来实现的。子类继承父类的成员变量会占用同样的内存空间，而对于父类的成员函数则继承的是调用权。函数的继承，有下面三种：<br><img src="/content/images/2018/05/virtualmethod1.jpg" alt="virtualmethod1"></p>
+<ul>
+<li>override = 重新定义</li>
+<li>如果把虚函数写成空函数，它跟纯虚函数还是有区别的。区别就在于子类必须override纯虚函数，而非纯虚函数则不用</li>
+<li>关于虚函数的使用，老师介绍了<strong>template method（模板方法）</strong>模式这一最常用的使用案例。  </li>
+<li><em>模板方法*</em>：准备一个抽象类，将部分逻辑以具体方法以及具体构造子的形式实现，然后声明一些抽象方法来迫使子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对剩余的逻辑有不同的实现。模版方法模式需要开发抽象类和具体子类的设计师之间的协作。一个设计师负责给出一个算法的轮廓和骨架，另一些设计师则负责给出这个算法的各个逻辑步骤。代表这些具体逻辑步骤的方法称做基本方法（primitive method）；而将这些基本法方法总汇起来的方法叫做模版方法（template method），这个设计模式的名字就是从此而来。  </li>
+</ul>
+<hr>
+<h4 id="委托相关设计"><a href="#委托相关设计" class="headerlink" title="委托相关设计"></a><a href="#3">委托相关设计</a></h4><br>
+==**Observer(观察者)设计模式**==  
+观察者模式又叫做发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。
+观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态上发生变化时，会通知所有观察者对象，使它们能够自动更新自己。  
+Observer模式通常可以用delegation+inheritance的方式去实现。话不多说，上示例代码：
+
+<p>Source:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Subject&#123;</span><br><span class="line">    int m_value;</span><br><span class="line">    vector&lt;Observer*&gt; m_views;</span><br><span class="line">public:</span><br><span class="line">    void attach(Observer* obs)&#123;</span><br><span class="line">        m_views.push_back(obs);</span><br><span class="line">    &#125;</span><br><span class="line">    void set_val(int value)&#123;</span><br><span class="line">        m_value = value;</span><br><span class="line">        notify();</span><br><span class="line">    &#125;</span><br><span class="line">    void notify()&#123;</span><br><span class="line">        for(int i=0;i&lt;m_views.size();++i)</span><br><span class="line">            m_views[i]-&gt;update(this,m_value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Listener:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Observer&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void update(Subject* sub, int value) = 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>==<strong>Composite(组合)设计模式</strong>==<br>组合模式将对象组合成树形结构以表示“部分-整体”的层次结构。Composite使得用户对单个对象和组合对象的使用具有一致性。有时候又叫做部分-整体模式，它使我们树型结构的问题中，模糊了简单元素和复杂元素的概念，客户程序可以向处理简单元素一样来处理复杂元素,从而使得客户程序与复杂元素的内部结构解耦。<br>　　组合模式让你可以优化处理递归或分级数据结构。有许多关于分级数据结构的例子，使得组合模式非常有用武之地。下面是课程中的例子:<br><img src="/content/images/2018/05/composite1.jpg" alt="composite1"></p>
+<p>==<strong>Prototype(原型)设计模式</strong>==<br>以下内容转自：<a href="http://www.jellythink.com/archives/105" target="_blank" rel="noopener">http://www.jellythink.com/archives/105</a><br>在GOF的《设计模式：可复用面向对象软件的基础》中是这样说的：用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。这这个定义中，最重要的一个词是“拷贝”，也就是口头上的复制，而这个拷贝，也就是原型模式的精髓所在。<br>原型模式的UML表示：<br><img src="/content/images/2018/05/PrototypePattern.png" alt="prototype"></p>
+<p>与其它创建型模式的比较</p>
+<p>工厂方法模式、抽象工厂模式、建造者模式和原型模式都是创建型模式。工厂方法模式适用于生产较复杂，一个工厂生产单一的一种产品的时候；抽象工厂模式适用于一个工厂生产多个相互依赖的产品；建造者模式着重于复杂对象的一步一步创建，组装产品的过程，并在创建的过程中，可以控制每一个简单对象的创建；原型模式则更强调的是从自身复制自己，创建要给和自己一模一样的对象。</p>
+<pre><code>注：使用原型模式复制对象不会调用类的构造方法。因为对象的复制是通过调用Object类的clone方法来完成的，它直接在内存中复制数据，因此不会调用到类的构造方法。不但构造方法中的代码不会执行，甚至连访问权限都对原型模式无效。还记得单例模式吗？单例模式中，只要将构造方法的访问权限设置为private型，就可以实现单例。但是clone方法直接无视构造方法的权限，所以，单例模式与原型模式是冲突的，在使用时要特别注意。</code></pre><p>模式的应用场景：<br>       使用原型模式创建对象比直接new一个对象在性能上要好的多，因为Object类的clone方法是一个本地方法，它直接操作内存中的二进制流，特别是复制大对象时，性能的差别非常明显。</p>
+<p><strong>总结：</strong>侯老师本周主要介绍了类的三种重要的关系（组合，委托，继承）。然后通过这三种关系，跟我们分析了面向对象编程中的一些问题的解决方案以及其中的原理。在这期间还讨论了如何通过这三种关系的组合，来实现几种常见的设计模式：Adapter, Template Method, Observer, Composite和Prototype。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/19/copyctor/" rel="next" title="[上课笔记 for GeekBand] C++面向对象高级编程（上） part.2">
+                <i class="fa fa-chevron-left"></i> [上课笔记 for GeekBand] C++面向对象高级编程（上） part.2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/05/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-1/" rel="prev" title="[GeekBand] C++面向对象高级编程（下）上课笔记 part.1">
+                [GeekBand] C++面向对象高级编程（下）上课笔记 part.1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Alex Tang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#组合与继承"><span class="nav-number">1.</span> <span class="nav-text">组合与继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚函数与多态"><span class="nav-number">2.</span> <span class="nav-text">虚函数与多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#委托相关设计"><span class="nav-number">3.</span> <span class="nav-text">委托相关设计</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alex Tang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
