@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/18/geekband-stlyu-fan-xing-bian-cheng-shang-ke-bi-ji-part-1/" itemprop="url">[GeekBand] STL与泛型编程上课笔记 part.1</a></h1>
+                <a class="post-title-link" href="/2018/06/18/geekband-stlyu-fan-xing-bian-cheng-shang-ke-bi-ji-part-1/" itemprop="url">STL与泛型编程part.1</a></h1>
         
 
         <div class="post-meta">
@@ -304,7 +304,7 @@
 <hr>
 <h4 id="1">函数模板与类模板</h4>
 
-<p>关于模板，之前课程的内容已经覆盖了不少。这方面内容，在之前的笔记也有讨论：<br><a href="http://runalex.com/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-1/" target="_blank" rel="noopener">C++面向对象高级编程（下）上课笔记 part.1</a></p>
+<p>关于模板，之前课程的内容已经覆盖了不少。这方面内容，在之前的笔记也有讨论：<br><a href="http://runalex.com/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-1/" target="_blank" rel="noopener">C++面向对象高级编程（下）part.1</a></p>
 <p>下面是关于函数模板的总结：</p>
 <blockquote>
 <p>对于不同的实参型别，模板函数定义了一族函数<br>  当传递模板实参的时候，函数目标根据实参的型别进行实例化<br>可以显示指定模板的实参型别<br>函数模板可以重载<br>当重载函数模板时，将改变限制在：显示指定模板参数<br>所有的重载版本的声明必须位于他们被调用的位置之前  </p>
@@ -414,7 +414,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/10/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-2/" itemprop="url">[GeekBand] C++面向对象高级编程（下）上课笔记 part.2</a></h1>
+                <a class="post-title-link" href="/2018/06/10/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-2/" itemprop="url">C++面向对象高级编程（下）part.2</a></h1>
         
 
         <div class="post-meta">
@@ -549,220 +549,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/05/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Alex Tang">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IndigoAxe">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/05/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-1/" itemprop="url">[GeekBand] C++面向对象高级编程（下）上课笔记 part.1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-05T02:57:44+08:00">
-                2018-06-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本周主要的内容：<br><a href="#1">1. Conversion function &amp; non-explicit one argument ctor<br>转换函数与非explicit单参数构造函数</a><br><a href="#2">2. Pointer-like &amp; function-like classes  仿指针和仿函数</a><br><a href="#3">3. Template模板</a><br><a href="#4">4. Specialization特化</a><br><a href="#5">5. 关于C++11的三个新特性</a><br><a href="#6">6. 再谈reference</a></p>
-<hr>
-<p>####<a href="#1">1. Conversion function &amp; non-explicit one argument ctor</a> </p>
-<p><strong>Conversion function</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Fraction&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    //分母默认为1</span><br><span class="line">    Fraction(int num, int den=1) : m_numerator(num), m_denominator(den) &#123; &#125; </span><br><span class="line">    //由于是转换函数，因此不可有参数。而返回类型与函数名是对应的，如这里的double，所以返回类型也不用写。</span><br><span class="line">    //转换时不会改变类成员变量，因此需要加const。</span><br><span class="line">    operator double() const &#123; </span><br><span class="line">        return (double)(m_numerator / m_denominator);</span><br><span class="line">    &#125;   </span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">int m_numerator;</span><br><span class="line">int m_denominator;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Fraction f(3,5);</span><br><span class="line">double d=4+f; //调用double转换函数</span><br></pre></td></tr></table></figure>
-
-<p><strong>标准库里的转换函数使用：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//这里使用了proxy设计模式</span><br><span class="line">template&lt;class Alloc&gt;</span><br><span class="line">class vector&lt;bool, Alloc&gt;&#123;</span><br><span class="line">public:</span><br><span class="line">    typedef __bit_reference reference; //reference作为代理，替代了bool的使用。</span><br><span class="line">protected:</span><br><span class="line">    reference operator[](size type n)&#123;</span><br><span class="line">        return *(begin() +diffenece_type(n));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">... </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">struct __bit_reference&#123;</span><br><span class="line">    unsigned int* p;</span><br><span class="line">    unsigned int mask;</span><br><span class="line">    ...</span><br><span class="line">public:</span><br><span class="line">    operator bool() const &#123; return !(!(*p * mask));&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p><strong>non-explicit one argument ctor</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Fraction&#123;</span><br><span class="line">public:</span><br><span class="line">    // 虽然这个构造函数有两个parameter,但是调用它所必须的参数只有一个，因此，因此这是一个non-explicit-one-argument ctor</span><br><span class="line">    Fraction（int num，int den=1）：m_numerator（num），m_denominator(den) &#123;  &#125;</span><br><span class="line">    Fraction operator+(constFraction&amp; f) &#123;</span><br><span class="line">        return</span><br><span class="line">    Fraction(...);</span><br><span class="line">private:</span><br><span class="line">    int m_numerator;</span><br><span class="line">    int m_denominator;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Fraction f(3,5);</span><br><span class="line">//调用non-explict ctor将4转为Fraction(4,1)，然后调用operator+</span><br><span class="line">Fraction d2 = f + 4;</span><br></pre></td></tr></table></figure>
-
-<p>在以上的例子中，如果给<code>Fraction</code>类加上以下成员函数，会报ambiguous的error。解决方案是在non-explicit one argument ctor前加<code>explict</code>关键字，告诉编译器不要自动将4转换为Fraction(4,1)，此时将会对f调用double转换函数。==<code>explicit</code>的主要用法就在这里（构造函数的前面）。==</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">operator double() const &#123; return (double)(m_numerator / m_denominator);&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>####<a href="#2">Pointer-like &amp; function-like classes 仿指针和仿函数</a>  </p>
-<p><strong>Pointer-like class</strong><br>模仿指针的使用方式，但是又加了一些功能，因此又叫智能指针。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//智能指针里一定有真正的指针</span><br><span class="line">//下面是简化版的智能指针</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class shared_ptr&#123;</span><br><span class="line">public:</span><br><span class="line">  //必要的操作符重载</span><br><span class="line">  T&amp; operator*()  const &#123; return *px;&#125;</span><br><span class="line">  T* operator-&gt;() const &#123; return  px;&#125;</span><br><span class="line"></span><br><span class="line">  shared_ptr(T* p) : px(p) &#123;&#125;</span><br><span class="line">private:</span><br><span class="line">  T* px;</span><br><span class="line">  long* pn;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">shared_ptr&lt;Foo&gt; sp(new Foo);</span><br><span class="line">Foo f(*sp);  //调用*操作符</span><br><span class="line">sp-&gt;method(); //调用-&gt;操作符，这里编译器自动其转化为px-&gt;method()。-&gt;符号的特别在于它会对其作用的结果继续进行操作，这是C++的语言特性。</span><br></pre></td></tr></table></figure>
-
-<p>迭代器也是一种智能指针：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">template &lt;class T&gt;</span><br><span class="line">struct __list_node&#123;</span><br><span class="line">    void* prev;</span><br><span class="line">    void* next;</span><br><span class="line">    T data;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;class T, class Ref, class Ptr&gt;</span><br><span class="line">struct __list_iterator&#123;</span><br><span class="line">    typedef __list_iterator&lt;T, Ref, Ptr&gt; self;</span><br><span class="line">    typedef Ptr pointer;</span><br><span class="line">    typedef Ref reference;</span><br><span class="line">    typedef __list_node&lt;T&gt;* link_type;</span><br><span class="line">    link_type node;</span><br><span class="line"></span><br><span class="line">    bool operator == (const self&amp; x) const &#123;return node == x.node;&#125;</span><br><span class="line">    bool operator != (const self&amp; x) const &#123;return node != x.node;&#125;</span><br><span class="line">    reference operator*() const &#123;return (*node&#125;.data;&#125;</span><br><span class="line">    pointer operator-&gt; const &#123;return &amp;(operator*());&#125;</span><br><span class="line">    self&amp; operator++() &#123;node = (link_type)((*node).next);return *this;&#125;  //前缀++ </span><br><span class="line">    self operator++(int) &#123;self tmp = *this; ++*this; return tmp;&#125;       //后缀++,调用实例i的后缀++时会自动转换为 i.operator++(0)。</span><br><span class="line">    self&amp; operator--() &#123;node = (link_type)((*node).prev;return *this;&#125;</span><br><span class="line">    self operator--(int) &#123;self tmp = *this; --*this; return tmp;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Function-like class</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//由于下面的类都重载了operator()()函数（括号运算符），因此都是函数式对象</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">struct identity&#123;</span><br><span class="line">  const T&amp;</span><br><span class="line">  operator()(const T&amp; x) const &#123;return x;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;class Pair&gt;</span><br><span class="line">struct select1st&#123;</span><br><span class="line">  const typename Pair::first_type&amp;</span><br><span class="line">  operator()(const Pair&amp; x) const &#123; return x.first; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;class Pair&gt;</span><br><span class="line">struct select2nd&#123;</span><br><span class="line">  const typename Pair::second&amp;</span><br><span class="line">  operator()(const Pair&amp; x) const &#123; return x.second; &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>####<a href="#3">Template模板</a><br>三种模板：<br><strong>1. Class templat</strong><br><strong>2.Function template</strong><br>编译器会对function template进行实参推导（argument deduction)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">template &lt;class T&gt;</span><br><span class="line">inline const T&amp; min(const T&amp;a, const T&amp; b)&#123;</span><br><span class="line">    return b &lt; a ? b : a; //若找不到bool T::operator &lt; (const T&amp;) const 会出现错误。</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stone r1(2,3),r2(3,3), r3;</span><br><span class="line">r3 = min(r1,r2);//这里的T被推导为stone</span><br><span class="line">```   </span><br><span class="line">**3.Member template**</span><br></pre></td></tr></table></figure>
-
-<p>//例一 pair<br>template &lt;class T1, class T2&gt;<br>struct pair{<br>    typedef T1 first_type;<br>    typedef T2 second_type;</p>
-<pre><code>T1 first;
-T2 second;
-
-pair():first(T1()), second(T2()) {}
-pair(const T1&amp; a, const T2&amp; b):first(a), second(b) {}
-
-template &lt;class U1, class U2&gt;
-pair(const pair&lt;U1, U2&gt;&amp; p): first(p.first), second(p.second) {}</code></pre><p>};</p>
-<p>class Base1{};<br>class Derived1: public Base1{};</p>
-<p>class Base2{};<br>class Derived2: public Base2{};</p>
-<p>pair&lt;Derived1, Derived2&gt; p;</p>
-<p>pair&lt;Base1, Base2&gt; p2(p); // 调用了成员模板</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>//例二 shared_ptr<br>template<typename _tp><br>class shared_ptr: public <strong>shared_ptr&lt;_Tp&gt;{<br>…<br>    template<typename _tp1><br>    explicit shared_ptr(_Tp1* __p)<br>      :</typename></strong>shared_ptr&lt;_Tp&gt;(__p){}<br>…<br>};</typename></p>
-<p>Base1* ptr = new Derived1; //up-cast</p>
-<p>shared_ptr<base1> sptr(new Derived1); // 模拟 up-cast</base1></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">------------------</span><br><span class="line"></span><br><span class="line">####[Specialization特化](#4)</span><br><span class="line"></span><br><span class="line">关于特化的理解和讨论，下面内容转载自：http://www.blogjava.net/bacoo/archive/2009/06/22/283480.html</span><br><span class="line"></span><br><span class="line">&gt;  对模板特化的理解：</span><br><span class="line">特化整体上分为全特化和偏特化，这一点大家都没有什么置疑，但是细分它们各包括哪几种状态就很难界定了，而且很多权威的书上都不一致，管它呢，反正我们能会用各种特化就可以了。</span><br><span class="line">下面就谈谈我个人对特化的划分和定义：</span><br><span class="line">所谓特化，就是将泛型的东东搞得具体化一些，从字面上来解释，就是为已有的模板参数进行一些使其特殊化的指定，使得以前不受任何约束的模板参数，或受到特定的修饰（例如const或者摇身一变成为了指针之类的东东，甚至是经过别的模板类包装之后的模板类型）或完全被指定了下来。&lt;br&gt;  </span><br><span class="line">这是网上某个人的一些看法：  </span><br><span class="line">模板有两种特化，全特化和偏特化（局部特化）。  </span><br><span class="line">模板函数只能全特化，没有偏特化（以后可能有）。  </span><br><span class="line">模板类是可以全特化和偏特化的。  </span><br><span class="line">全特化，就是模板中模板参数全被指定为确定的类型。  </span><br><span class="line">全特化也就是定义了一个全新的类型，全特化的类中的函数可以与模板类不一样。  </span><br><span class="line">偏特化，就是模板中的模板参数没有被全部确定，需要编译器在编译时进行确定。  </span><br><span class="line">在类型上加上const、&amp;、*（ cosnt int、int&amp;、int*、等等）并没有产生新的类型。只是类型被修饰了。模板在编译时，可以得到这些修饰信息。  </span><br><span class="line">&lt;br&gt;我个人也比较赞同这位仁兄的划分，全特化的标志就是产生出完全确定的东西，而不是还需要在编译期间去搜寻适合的特化实现，貌似在我的这种理解下，全特化的东西不论是类还是函数都有这样的特点，template &lt;&gt;然后是完全和模板类型没有一点关系的类实现或者函数定义，如果你要说，都完全确定下来了，那还搞什么模板呀，直接定义不就完事了？但是很多时候，我们既需要一个模板能应对各种情形，又需要它对于某个特定的类型（比如bool）有着特别的处理，这中情形下就是需要的了。&lt;br&gt;</span><br><span class="line">既然刚才提到了全特化的标志，那么再说说其他一些共性的东西：</span><br><span class="line">一个特化的模板类的标志：在定义类实现时加上了&lt;&gt;，比如class A&lt;int, T&gt;；而在定义一个模板类的时候，class A后面是没有&lt;&gt;的</span><br><span class="line">全特化的标志：template &lt;&gt;然后是完全和模板类型没有一点关系的类实现或者函数定义</span><br><span class="line">偏特化的标志：template &lt;typename T.....&gt;，就是说还剩下点东西，不像全特化&lt;&gt;整得那么彻底</span><br><span class="line"></span><br><span class="line">**模板偏特化有两种：**  </span><br><span class="line">1）个数的偏</span><br></pre></td></tr></table></figure>
-
-<p>template&lt;typename T, typename Alloc=……&gt;<br>class vector{ …… }</p>
-<p>…</p>
-<p>template<typename alloc="......"><br>class vector&lt;bool, Alloc&gt; { // 第一个模板参数被绑定<br>…</typename></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2）范围的偏</span><br></pre></td></tr></table></figure>
-
-<p>template<typename t><br>class C { …… };</typename></p>
-<p>template <typename u><br>class C&lt;U*&gt; { …… };</typename></p>
-<p>C<string> obj1;<br>C&lt;string*&gt; obj2; //特化的C </string></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**template template parameter模板模板参数**</span><br></pre></td></tr></table></figure>
-
-<p>template&lt;typename T,<br>         template <typename t><br>             class Container<br>        &gt;<br>class XCls{<br>private:<br>    Container<t> c;<br>public:<br>    …<br>};</t></typename></p>
-<p>template<typename t><br>using Lst = list&lt;T, allocator<t> &gt;;</t></typename></p>
-<p>XCls&lt;string, list&gt; mylst1;  // 错误, 因为没有指定allocator，而是使用默认的。<br>XCls&lt;string, Lst&gt;  mylst2;  // 正确</p>
-<p>// 注意，下面的例子不是模板模板参数<br>template&lt;class T, class Sequence = deque<t> &gt;<br>class stack {<br>    friend bool operator== &lt;&gt; (const stack&amp;,const stack&amp;);<br>    friend bool operator&lt;  &lt;&gt; (const stack&amp;,const stack&amp;);<br>protectd:<br>    Sequence c; //底层容器<br>…<br>};</t></p>
-<p>stack&lt;int, list<int> s2;//这里的第二个模板参数是写成固定的，是绑定了某个类的，并不是一个“模板”。</int></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------------------------------</span><br><span class="line"></span><br><span class="line">####[关于C++11的三个新特性](#5)  </span><br><span class="line"> </span><br><span class="line">一，variadic template可变模板参数。</span><br></pre></td></tr></table></figure>
-
-<p>// “…” 是一个pack(包)<br>template&lt;typename T, typename… Types&gt; // template parameters pack(模板参数包)<br>void print(const T&amp; firstArg, const Types&amp;… args){ // function parameter types pack(函数参数类型包)<br>    cout&lt;&lt;firstArg&lt;&lt;endl;<br>    print(args…); // function parameters pack(函数参数包)<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">可以使用sizeof...(args)返回参数的数量。</span><br><span class="line"></span><br><span class="line">二，auto 关键字，一个语法糖，方便开发者编写复杂的代码。</span><br></pre></td></tr></table></figure>
-
-<p>list<string>::iterator ite1;<br>ite1 = find(c.begin(),c.end(),target);</string></p>
-<p>auto ite2= find(c.begin(),c.end(),target); //省略了ite1复杂的声明</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">三，ranged-base for</span><br></pre></td></tr></table></figure>
-
-<p>for(int i : {2,3,5,7,9} ){ // 大括号的用法是列表初始化，也是c++11新的特性<br>    cout &lt;&lt; i &lt;&lt; endl;<br>}</p>
-<p>vector<double> vec;<br>…<br>for (auto  elem : vec) { … } // pass by value<br>for (auto&amp; elem : vec) { … } // pass by reference</double></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">--------------</span><br><span class="line">####[再谈reference](#6)</span><br><span class="line">关于reference要注意的点：  </span><br><span class="line"></span><br><span class="line">一，object和其reference的大小相同，地址也相同（都是编译器造成的假象，reference其实是一个指针）。因此，在下面的变量定义中，有1）`sizeof(r) == sizeof(x)`，2）`&amp;x == &amp;&amp;r;`</span><br></pre></td></tr></table></figure>
-
-<p>int  x = 0;<br>int&amp; r = x;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">二，reference是一种漂亮的pointer。它通常不用于声明变量，而用于==参数类型(parameters type)==和==返回类型(return type)==的描述。在参数类型中，尽量不要使用传指针的方式来调用函数。要尽量使用传值或者传应用的方式来使用函数。但是要注意下面的这种情况：</span><br></pre></td></tr></table></figure>
-
-<p>double func1(const double&amp; num) {…}<br>double funct(const double  num) {…}</p>
-<pre><code>以上两个函数被视为“same signature”，会导致ambiguity。但是函数后面的const也是函数签名的一部分，因此可以用来标识不同的函数。  
-
-关于函数签名，下面是**《C++ Templates》**中的解释：
-&gt; 
-只要具有不同的签名，两个函数就可以在同一个程序中同时存在  
-对于函数签名的定义如下：  
-1.非受限函数的名称或产生自模板的这类名称。  
-2.函数名称所属的类作用域或者名字空间作用域；如果函数名称是具有内部链接的，还包括该名称的声明所在的翻译单元。  
-3.函数的const，volatile或者const volatile限定符（前提是它是一个具有这类限定符的函数）  
-4.函数的参数的类型和个数，如果这个函数是产生自函数模板的，那么指的是模板参数被替换之前的类型  
-5.如果这个函数产生自模板，那么包括它的返回值  
-6.如果这个函数产生自模板，那么包括模板参数和模板实参  
-
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/shang-ke-bi-ji-for-geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -782,7 +568,7 @@ pair(const pair&lt;U1, U2&gt;&amp; p): first(p.first), second(p.second) {}</code
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/23/shang-ke-bi-ji-for-geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3/" itemprop="url">[上课笔记 for GeekBand] C++面向对象高级编程（上） part.3</a></h1>
+                <a class="post-title-link" href="/2018/05/23/shang-ke-bi-ji-for-geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3/" itemprop="url">C++面向对象高级编程（上） part.3</a></h1>
         
 
         <div class="post-meta">
@@ -943,7 +729,7 @@ Observer模式通常可以用delegation+inheritance的方式去实现。话不�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/19/copyctor/" itemprop="url">[上课笔记 for GeekBand] C++面向对象高级编程（上） part.2</a></h1>
+                <a class="post-title-link" href="/2018/05/19/copyctor/" itemprop="url">C++面向对象高级编程（上） part.2</a></h1>
         
 
         <div class="post-meta">
@@ -1151,7 +937,7 @@ Observer模式通常可以用delegation+inheritance的方式去实现。话不�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/18/shang-ke-bi-ji-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-1/" itemprop="url">[上课笔记 for GeekBand] C++面向对象高级编程（上）  part.1</a></h1>
+                <a class="post-title-link" href="/2018/05/18/shang-ke-bi-ji-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-1/" itemprop="url">C++面向对象高级编程（上）  part.1</a></h1>
         
 
         <div class="post-meta">
@@ -1256,6 +1042,220 @@ class Singleton
 </li>
 </ul>
 
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/05/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alex Tang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IndigoAxe">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/06/05/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-1/" itemprop="url">C++面向对象高级编程（下 part.1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-05T02:57:44+08:00">
+                2016-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本周主要的内容：<br><a href="#1">1. Conversion function &amp; non-explicit one argument ctor<br>转换函数与非explicit单参数构造函数</a><br><a href="#2">2. Pointer-like &amp; function-like classes  仿指针和仿函数</a><br><a href="#3">3. Template模板</a><br><a href="#4">4. Specialization特化</a><br><a href="#5">5. 关于C++11的三个新特性</a><br><a href="#6">6. 再谈reference</a></p>
+<hr>
+<p>####<a href="#1">1. Conversion function &amp; non-explicit one argument ctor</a> </p>
+<p><strong>Conversion function</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Fraction&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    //分母默认为1</span><br><span class="line">    Fraction(int num, int den=1) : m_numerator(num), m_denominator(den) &#123; &#125; </span><br><span class="line">    //由于是转换函数，因此不可有参数。而返回类型与函数名是对应的，如这里的double，所以返回类型也不用写。</span><br><span class="line">    //转换时不会改变类成员变量，因此需要加const。</span><br><span class="line">    operator double() const &#123; </span><br><span class="line">        return (double)(m_numerator / m_denominator);</span><br><span class="line">    &#125;   </span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">int m_numerator;</span><br><span class="line">int m_denominator;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Fraction f(3,5);</span><br><span class="line">double d=4+f; //调用double转换函数</span><br></pre></td></tr></table></figure>
+
+<p><strong>标准库里的转换函数使用：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//这里使用了proxy设计模式</span><br><span class="line">template&lt;class Alloc&gt;</span><br><span class="line">class vector&lt;bool, Alloc&gt;&#123;</span><br><span class="line">public:</span><br><span class="line">    typedef __bit_reference reference; //reference作为代理，替代了bool的使用。</span><br><span class="line">protected:</span><br><span class="line">    reference operator[](size type n)&#123;</span><br><span class="line">        return *(begin() +diffenece_type(n));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">... </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">struct __bit_reference&#123;</span><br><span class="line">    unsigned int* p;</span><br><span class="line">    unsigned int mask;</span><br><span class="line">    ...</span><br><span class="line">public:</span><br><span class="line">    operator bool() const &#123; return !(!(*p * mask));&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>non-explicit one argument ctor</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Fraction&#123;</span><br><span class="line">public:</span><br><span class="line">    // 虽然这个构造函数有两个parameter,但是调用它所必须的参数只有一个，因此，因此这是一个non-explicit-one-argument ctor</span><br><span class="line">    Fraction（int num，int den=1）：m_numerator（num），m_denominator(den) &#123;  &#125;</span><br><span class="line">    Fraction operator+(constFraction&amp; f) &#123;</span><br><span class="line">        return</span><br><span class="line">    Fraction(...);</span><br><span class="line">private:</span><br><span class="line">    int m_numerator;</span><br><span class="line">    int m_denominator;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Fraction f(3,5);</span><br><span class="line">//调用non-explict ctor将4转为Fraction(4,1)，然后调用operator+</span><br><span class="line">Fraction d2 = f + 4;</span><br></pre></td></tr></table></figure>
+
+<p>在以上的例子中，如果给<code>Fraction</code>类加上以下成员函数，会报ambiguous的error。解决方案是在non-explicit one argument ctor前加<code>explict</code>关键字，告诉编译器不要自动将4转换为Fraction(4,1)，此时将会对f调用double转换函数。==<code>explicit</code>的主要用法就在这里（构造函数的前面）。==</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">operator double() const &#123; return (double)(m_numerator / m_denominator);&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>####<a href="#2">Pointer-like &amp; function-like classes 仿指针和仿函数</a>  </p>
+<p><strong>Pointer-like class</strong><br>模仿指针的使用方式，但是又加了一些功能，因此又叫智能指针。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//智能指针里一定有真正的指针</span><br><span class="line">//下面是简化版的智能指针</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class shared_ptr&#123;</span><br><span class="line">public:</span><br><span class="line">  //必要的操作符重载</span><br><span class="line">  T&amp; operator*()  const &#123; return *px;&#125;</span><br><span class="line">  T* operator-&gt;() const &#123; return  px;&#125;</span><br><span class="line"></span><br><span class="line">  shared_ptr(T* p) : px(p) &#123;&#125;</span><br><span class="line">private:</span><br><span class="line">  T* px;</span><br><span class="line">  long* pn;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">shared_ptr&lt;Foo&gt; sp(new Foo);</span><br><span class="line">Foo f(*sp);  //调用*操作符</span><br><span class="line">sp-&gt;method(); //调用-&gt;操作符，这里编译器自动其转化为px-&gt;method()。-&gt;符号的特别在于它会对其作用的结果继续进行操作，这是C++的语言特性。</span><br></pre></td></tr></table></figure>
+
+<p>迭代器也是一种智能指针：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">template &lt;class T&gt;</span><br><span class="line">struct __list_node&#123;</span><br><span class="line">    void* prev;</span><br><span class="line">    void* next;</span><br><span class="line">    T data;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;class T, class Ref, class Ptr&gt;</span><br><span class="line">struct __list_iterator&#123;</span><br><span class="line">    typedef __list_iterator&lt;T, Ref, Ptr&gt; self;</span><br><span class="line">    typedef Ptr pointer;</span><br><span class="line">    typedef Ref reference;</span><br><span class="line">    typedef __list_node&lt;T&gt;* link_type;</span><br><span class="line">    link_type node;</span><br><span class="line"></span><br><span class="line">    bool operator == (const self&amp; x) const &#123;return node == x.node;&#125;</span><br><span class="line">    bool operator != (const self&amp; x) const &#123;return node != x.node;&#125;</span><br><span class="line">    reference operator*() const &#123;return (*node&#125;.data;&#125;</span><br><span class="line">    pointer operator-&gt; const &#123;return &amp;(operator*());&#125;</span><br><span class="line">    self&amp; operator++() &#123;node = (link_type)((*node).next);return *this;&#125;  //前缀++ </span><br><span class="line">    self operator++(int) &#123;self tmp = *this; ++*this; return tmp;&#125;       //后缀++,调用实例i的后缀++时会自动转换为 i.operator++(0)。</span><br><span class="line">    self&amp; operator--() &#123;node = (link_type)((*node).prev;return *this;&#125;</span><br><span class="line">    self operator--(int) &#123;self tmp = *this; --*this; return tmp;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Function-like class</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//由于下面的类都重载了operator()()函数（括号运算符），因此都是函数式对象</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">struct identity&#123;</span><br><span class="line">  const T&amp;</span><br><span class="line">  operator()(const T&amp; x) const &#123;return x;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;class Pair&gt;</span><br><span class="line">struct select1st&#123;</span><br><span class="line">  const typename Pair::first_type&amp;</span><br><span class="line">  operator()(const Pair&amp; x) const &#123; return x.first; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;class Pair&gt;</span><br><span class="line">struct select2nd&#123;</span><br><span class="line">  const typename Pair::second&amp;</span><br><span class="line">  operator()(const Pair&amp; x) const &#123; return x.second; &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>####<a href="#3">Template模板</a><br>三种模板：<br><strong>1. Class templat</strong><br><strong>2.Function template</strong><br>编译器会对function template进行实参推导（argument deduction)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">template &lt;class T&gt;</span><br><span class="line">inline const T&amp; min(const T&amp;a, const T&amp; b)&#123;</span><br><span class="line">    return b &lt; a ? b : a; //若找不到bool T::operator &lt; (const T&amp;) const 会出现错误。</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stone r1(2,3),r2(3,3), r3;</span><br><span class="line">r3 = min(r1,r2);//这里的T被推导为stone</span><br><span class="line">```   </span><br><span class="line">**3.Member template**</span><br></pre></td></tr></table></figure>
+
+<p>//例一 pair<br>template &lt;class T1, class T2&gt;<br>struct pair{<br>    typedef T1 first_type;<br>    typedef T2 second_type;</p>
+<pre><code>T1 first;
+T2 second;
+
+pair():first(T1()), second(T2()) {}
+pair(const T1&amp; a, const T2&amp; b):first(a), second(b) {}
+
+template &lt;class U1, class U2&gt;
+pair(const pair&lt;U1, U2&gt;&amp; p): first(p.first), second(p.second) {}</code></pre><p>};</p>
+<p>class Base1{};<br>class Derived1: public Base1{};</p>
+<p>class Base2{};<br>class Derived2: public Base2{};</p>
+<p>pair&lt;Derived1, Derived2&gt; p;</p>
+<p>pair&lt;Base1, Base2&gt; p2(p); // 调用了成员模板</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>//例二 shared_ptr<br>template<typename _tp><br>class shared_ptr: public <strong>shared_ptr&lt;_Tp&gt;{<br>…<br>    template<typename _tp1><br>    explicit shared_ptr(_Tp1* __p)<br>      :</typename></strong>shared_ptr&lt;_Tp&gt;(__p){}<br>…<br>};</typename></p>
+<p>Base1* ptr = new Derived1; //up-cast</p>
+<p>shared_ptr<base1> sptr(new Derived1); // 模拟 up-cast</base1></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">------------------</span><br><span class="line"></span><br><span class="line">####[Specialization特化](#4)</span><br><span class="line"></span><br><span class="line">关于特化的理解和讨论，下面内容转载自：http://www.blogjava.net/bacoo/archive/2009/06/22/283480.html</span><br><span class="line"></span><br><span class="line">&gt;  对模板特化的理解：</span><br><span class="line">特化整体上分为全特化和偏特化，这一点大家都没有什么置疑，但是细分它们各包括哪几种状态就很难界定了，而且很多权威的书上都不一致，管它呢，反正我们能会用各种特化就可以了。</span><br><span class="line">下面就谈谈我个人对特化的划分和定义：</span><br><span class="line">所谓特化，就是将泛型的东东搞得具体化一些，从字面上来解释，就是为已有的模板参数进行一些使其特殊化的指定，使得以前不受任何约束的模板参数，或受到特定的修饰（例如const或者摇身一变成为了指针之类的东东，甚至是经过别的模板类包装之后的模板类型）或完全被指定了下来。&lt;br&gt;  </span><br><span class="line">这是网上某个人的一些看法：  </span><br><span class="line">模板有两种特化，全特化和偏特化（局部特化）。  </span><br><span class="line">模板函数只能全特化，没有偏特化（以后可能有）。  </span><br><span class="line">模板类是可以全特化和偏特化的。  </span><br><span class="line">全特化，就是模板中模板参数全被指定为确定的类型。  </span><br><span class="line">全特化也就是定义了一个全新的类型，全特化的类中的函数可以与模板类不一样。  </span><br><span class="line">偏特化，就是模板中的模板参数没有被全部确定，需要编译器在编译时进行确定。  </span><br><span class="line">在类型上加上const、&amp;、*（ cosnt int、int&amp;、int*、等等）并没有产生新的类型。只是类型被修饰了。模板在编译时，可以得到这些修饰信息。  </span><br><span class="line">&lt;br&gt;我个人也比较赞同这位仁兄的划分，全特化的标志就是产生出完全确定的东西，而不是还需要在编译期间去搜寻适合的特化实现，貌似在我的这种理解下，全特化的东西不论是类还是函数都有这样的特点，template &lt;&gt;然后是完全和模板类型没有一点关系的类实现或者函数定义，如果你要说，都完全确定下来了，那还搞什么模板呀，直接定义不就完事了？但是很多时候，我们既需要一个模板能应对各种情形，又需要它对于某个特定的类型（比如bool）有着特别的处理，这中情形下就是需要的了。&lt;br&gt;</span><br><span class="line">既然刚才提到了全特化的标志，那么再说说其他一些共性的东西：</span><br><span class="line">一个特化的模板类的标志：在定义类实现时加上了&lt;&gt;，比如class A&lt;int, T&gt;；而在定义一个模板类的时候，class A后面是没有&lt;&gt;的</span><br><span class="line">全特化的标志：template &lt;&gt;然后是完全和模板类型没有一点关系的类实现或者函数定义</span><br><span class="line">偏特化的标志：template &lt;typename T.....&gt;，就是说还剩下点东西，不像全特化&lt;&gt;整得那么彻底</span><br><span class="line"></span><br><span class="line">**模板偏特化有两种：**  </span><br><span class="line">1）个数的偏</span><br></pre></td></tr></table></figure>
+
+<p>template&lt;typename T, typename Alloc=……&gt;<br>class vector{ …… }</p>
+<p>…</p>
+<p>template<typename alloc="......"><br>class vector&lt;bool, Alloc&gt; { // 第一个模板参数被绑定<br>…</typename></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2）范围的偏</span><br></pre></td></tr></table></figure>
+
+<p>template<typename t><br>class C { …… };</typename></p>
+<p>template <typename u><br>class C&lt;U*&gt; { …… };</typename></p>
+<p>C<string> obj1;<br>C&lt;string*&gt; obj2; //特化的C </string></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**template template parameter模板模板参数**</span><br></pre></td></tr></table></figure>
+
+<p>template&lt;typename T,<br>         template <typename t><br>             class Container<br>        &gt;<br>class XCls{<br>private:<br>    Container<t> c;<br>public:<br>    …<br>};</t></typename></p>
+<p>template<typename t><br>using Lst = list&lt;T, allocator<t> &gt;;</t></typename></p>
+<p>XCls&lt;string, list&gt; mylst1;  // 错误, 因为没有指定allocator，而是使用默认的。<br>XCls&lt;string, Lst&gt;  mylst2;  // 正确</p>
+<p>// 注意，下面的例子不是模板模板参数<br>template&lt;class T, class Sequence = deque<t> &gt;<br>class stack {<br>    friend bool operator== &lt;&gt; (const stack&amp;,const stack&amp;);<br>    friend bool operator&lt;  &lt;&gt; (const stack&amp;,const stack&amp;);<br>protectd:<br>    Sequence c; //底层容器<br>…<br>};</t></p>
+<p>stack&lt;int, list<int> s2;//这里的第二个模板参数是写成固定的，是绑定了某个类的，并不是一个“模板”。</int></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------------------------------</span><br><span class="line"></span><br><span class="line">####[关于C++11的三个新特性](#5)  </span><br><span class="line"> </span><br><span class="line">一，variadic template可变模板参数。</span><br></pre></td></tr></table></figure>
+
+<p>// “…” 是一个pack(包)<br>template&lt;typename T, typename… Types&gt; // template parameters pack(模板参数包)<br>void print(const T&amp; firstArg, const Types&amp;… args){ // function parameter types pack(函数参数类型包)<br>    cout&lt;&lt;firstArg&lt;&lt;endl;<br>    print(args…); // function parameters pack(函数参数包)<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">可以使用sizeof...(args)返回参数的数量。</span><br><span class="line"></span><br><span class="line">二，auto 关键字，一个语法糖，方便开发者编写复杂的代码。</span><br></pre></td></tr></table></figure>
+
+<p>list<string>::iterator ite1;<br>ite1 = find(c.begin(),c.end(),target);</string></p>
+<p>auto ite2= find(c.begin(),c.end(),target); //省略了ite1复杂的声明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">三，ranged-base for</span><br></pre></td></tr></table></figure>
+
+<p>for(int i : {2,3,5,7,9} ){ // 大括号的用法是列表初始化，也是c++11新的特性<br>    cout &lt;&lt; i &lt;&lt; endl;<br>}</p>
+<p>vector<double> vec;<br>…<br>for (auto  elem : vec) { … } // pass by value<br>for (auto&amp; elem : vec) { … } // pass by reference</double></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">--------------</span><br><span class="line">####[再谈reference](#6)</span><br><span class="line">关于reference要注意的点：  </span><br><span class="line"></span><br><span class="line">一，object和其reference的大小相同，地址也相同（都是编译器造成的假象，reference其实是一个指针）。因此，在下面的变量定义中，有1）`sizeof(r) == sizeof(x)`，2）`&amp;x == &amp;&amp;r;`</span><br></pre></td></tr></table></figure>
+
+<p>int  x = 0;<br>int&amp; r = x;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">二，reference是一种漂亮的pointer。它通常不用于声明变量，而用于==参数类型(parameters type)==和==返回类型(return type)==的描述。在参数类型中，尽量不要使用传指针的方式来调用函数。要尽量使用传值或者传应用的方式来使用函数。但是要注意下面的这种情况：</span><br></pre></td></tr></table></figure>
+
+<p>double func1(const double&amp; num) {…}<br>double funct(const double  num) {…}</p>
+<pre><code>以上两个函数被视为“same signature”，会导致ambiguity。但是函数后面的const也是函数签名的一部分，因此可以用来标识不同的函数。  
+
+关于函数签名，下面是**《C++ Templates》**中的解释：
+&gt; 
+只要具有不同的签名，两个函数就可以在同一个程序中同时存在  
+对于函数签名的定义如下：  
+1.非受限函数的名称或产生自模板的这类名称。  
+2.函数名称所属的类作用域或者名字空间作用域；如果函数名称是具有内部链接的，还包括该名称的声明所在的翻译单元。  
+3.函数的const，volatile或者const volatile限定符（前提是它是一个具有这类限定符的函数）  
+4.函数的参数的类型和个数，如果这个函数是产生自函数模板的，那么指的是模板参数被替换之前的类型  
+5.如果这个函数产生自模板，那么包括它的返回值  
+6.如果这个函数产生自模板，那么包括模板参数和模板实参  
+
+</code></pre>
           
         
       
