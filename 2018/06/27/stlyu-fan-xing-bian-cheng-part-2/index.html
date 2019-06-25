@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. STL整体结构2. 仿函数，仿函数适配器3. 其他需要注意的问题4. 泛型算法      STL整体结构 &amp;gt; 转自百度百科：   从根本上说，STL是一些“容器”的集合，这些“容器”有list,vector,set,map等，STL也是算法和其他一些组件的集合。这里的“容器”和算法的集合指的是世界上很多聪明人很多年的杰作。STL的目的是标准化组件，这样就不用重新开发，可以使用现成的组件。ST">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STL与泛型编程part.2">
+<meta property="og:url" content="http://yoursite.com/2018/06/27/stlyu-fan-xing-bian-cheng-part-2/index.html">
+<meta property="og:site_name" content="IndigoAxe">
+<meta property="og:description" content="1. STL整体结构2. 仿函数，仿函数适配器3. 其他需要注意的问题4. 泛型算法      STL整体结构 &amp;gt; 转自百度百科：   从根本上说，STL是一些“容器”的集合，这些“容器”有list,vector,set,map等，STL也是算法和其他一些组件的集合。这里的“容器”和算法的集合指的是世界上很多聪明人很多年的杰作。STL的目的是标准化组件，这样就不用重新开发，可以使用现成的组件。ST">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-27T17:24:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="STL与泛型编程part.2">
+<meta name="twitter:description" content="1. STL整体结构2. 仿函数，仿函数适配器3. 其他需要注意的问题4. 泛型算法      STL整体结构 &amp;gt; 转自百度百科：   从根本上说，STL是一些“容器”的集合，这些“容器”有list,vector,set,map等，STL也是算法和其他一些组件的集合。这里的“容器”和算法的集合指的是世界上很多聪明人很多年的杰作。STL的目的是标准化组件，这样就不用重新开发，可以使用现成的组件。ST">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/27/stlyu-fan-xing-bian-cheng-part-2/">
+
+
+
+
+
+  <title>STL与泛型编程part.2 | IndigoAxe</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IndigoAxe</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/27/stlyu-fan-xing-bian-cheng-part-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alex Tang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IndigoAxe">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">STL与泛型编程part.2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-27T14:00:59+08:00">
+                2018-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="#1">1. STL整体结构</a><br><a href="#2">2. 仿函数，仿函数适配器</a><br><a href="#3">3. 其他需要注意的问题</a><br><a href="#4">4. 泛型算法</a>    </p>
+<hr>
+<h4 id="1">STL整体结构</h4>
+> 转自百度百科：  
+从根本上说，STL是一些“容器”的集合，这些“容器”有list,vector,set,map等，STL也是算法和其他一些组件的集合。这里的“容器”和算法的集合指的是世界上很多聪明人很多年的杰作。STL的目的是标准化组件，这样就不用重新开发，可以使用现成的组件。STL现在是C++的一部分，因此不用额外安装什么。
+
+<p>STL主要由六部分组成，分别为容器(containers)、迭代器(iterators)、空间配置器(allocator)、配接器(adapters)、算法(algorithms)、仿函数(functors)。<br>它们之间的关系如下：  </p>
+<ul>
+<li>容器通过内存分配器分配空间</li>
+<li>容器和算法分离</li>
+<li>算法通过迭代器访问容器</li>
+<li>仿函数协助算法完成不同的策略变化</li>
+<li>适配器套接仿函数</li>
+</ul>
+<hr>
+<h4 id="2">仿函数，仿函数适配器</h4>
+
+<p><strong>仿函数</strong>又称为函数对象（Function Object），其作用相当于一个函数指针。<br>在STL中，将<code>std::remove_if(v.begin().v.end(),ContainsString(L&quot;C++&quot;));</code>中类似于<code>ConstainString</code>这种形为函数指针的对象定义为仿函数，其实它是一个重载了括号运算符的Class。因此，自定义的仿函数必须重载<code>operator()</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct ContainString: </span><br><span class="line">public std::unary_function&lt;std::wstring, bool&gt;</span><br><span class="line">&#123;</span><br><span class="line">    ConstainString(const std::wstring&amp; wszMatch): </span><br><span class="line">        m_wszMatch(wszMatch)&#123;&#125;</span><br><span class="line">    bool operator()(const std::wstring&amp; wszStringToMatch) const</span><br><span class="line">    &#123;</span><br><span class="line">        return (wszStringToMatch.find(m_wszMatch)!=-1);</span><br><span class="line">    &#125;</span><br><span class="line">    std::wstring m_wszMatch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>仿函数存在的意义：  </p>
+<ol>
+<li>普通函数指针不能满足STL的抽象要求（参数和返回型别的定义问题）</li>
+<li>函数指针无法和STL其他组件交互</li>
+<li>仿函数可以作为模板实参来定义对象的某种默认行为：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//定义set的默认排序行为</span><br><span class="line">template&lt;typename _Kty, typename _pr = less&lt;_Kty&gt;,...&gt;</span><br><span class="line">class set&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><strong>仿函数适配器</strong>。STL提供三种适配器：改变容器接口的容器适配器、改变迭代器接口的迭代器适配器以及改变仿函数接口的<strong>仿函数适配器</strong>。前两者都较为简单，而最后一种则是灵活性最大的，有了它我们可以构造非常复杂的表达式策略。</p>
+<p>在一些情况下仿函数可能无法匹配成合适的型别，这个时候我们就需要使用仿函数适配器：binder1st/binder2nd, mem_fun/men_fun_ref。例如，在一个给定的vector<int>中寻找不为零的元素。通常我们会想到使用<code>std::not_equal_to</code>这个仿函数，但是该函数接受两个参数。为了能在<code>std::find_if</code>中使用这个函数，我们这时候就需要绑定其中一个变量为0，以实现判断一个元素是否不为零的功能：</int></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;int&gt;::iterator it = std::find_if(v.begin(),v.end(),</span><br><span class="line">          std::bind1st(std::not_equal_to&lt;int&gt;(),0));</span><br><span class="line">//bind1st 封装了binder1st的调用复杂性：</span><br><span class="line">template&lt;class _Fn2, class_Ty&gt;</span><br><span class="line">inline binder1st&lt;_Fn2&gt; bind1st(const _Fn2&amp; _Func,const _Ty&amp; _Left)</span><br><span class="line">&#123;</span><br><span class="line">    typename _Fn2::first_argument_type_Val(_Left);</span><br><span class="line">     return (binder1st&lt;_Fn2&gt;(_Func,_Val));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于类的成员函数的适配，我们可以使用mem_fun/mem_fun_ref：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">template &lt;_Result, class _Ty&gt; inline</span><br><span class="line">mem_fun_t&lt;_Result,_Ty&gt; mem_fun(_Result (_Ty::*_Pm)() )</span><br><span class="line">&#123;</span><br><span class="line">    return (mem_fun_t&lt;_Result, _Ty&gt;(_Pm));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;class _Result, class _Ty&gt;</span><br><span class="line">class mem_fun_t : public unar_function&lt;_Ty *, _Result&gt;</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    explicit mem_fun_t(_Result (_Ty::*_Pm)())</span><br><span class="line">        : _Pmemfun(_Pm)  &#123; &#125;</span><br><span class="line">    _Result operator()(_Ty *_Pleft) const</span><br><span class="line">    &#123;</span><br><span class="line">        return ((_Pleft-&gt;*_Pmemfun)());</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    _Result (_Ty::*_Pmemfun());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="3">其他需要注意的问题</h4>
+
+<p>(1) 单线程情况下涉及对字符串的操作，首选std::string/wstring。<br>    多线程情况下要注意string是否带引用计数。在多线程环境下，避免分配和拷贝所节省下的开销转嫁到了并发控制上。一般考虑使用vector<char>/vector<wchar_t>，因为vector的实现是不带引用计数的。</wchar_t></char></p>
+<p>(2) 当用new创建的对象直接放入容器时，要在销毁容器前delete那些对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">v.push_back(new Person(&quot;TOM&quot;,1));</span><br><span class="line">...</span><br><span class="line">for(vector&lt;Person *&gt;::iterator it = v.begin(); it!=v.end();it++)</span><br><span class="line">&#123;</span><br><span class="line">    delete (*it);</span><br><span class="line">&#125;</span><br><span class="line">v.clear();</span><br></pre></td></tr></table></figure>
+
+<p>(3)尽量使用算法调用代替手写循环，如上面的删除，我们可以定义一个仿函数在for_each中实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">struct DeleteElement&#123;</span><br><span class="line">    template &lt;typename TElement&gt;</span><br><span class="line">    void operator() (const TElement* p) const </span><br><span class="line">    &#123;</span><br><span class="line">        delete p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">std::for_each(v.begin(),v.end(),DeleteElement());</span><br></pre></td></tr></table></figure>
+
+<p>(4) 可以通过swap为容器“缩水”：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;int&gt;(v).swap(v);//使capacity = size</span><br><span class="line">std::vector&lt;int&gt;().swap(v) //清除v并最小化其容量:capacity = size = 0</span><br></pre></td></tr></table></figure>
+
+<p>(5) 在有对象继承的情况下，建立指针的容器，而不是对象的容器。因为：a）容器装入的对象是原始对象的拷贝，如果对象很大，则有较大性能开销；b）由于继承的存在，拷贝会发生slicing，导致丢失数据。</p>
+<hr>
+<h4 id="3">泛型算法</h4>
+
+<p>简单列出STL为我们提供的算法：  </p>
+<p><strong>非变易性算法</strong><br>for_each 提供对于容器内每个元素进行循环操作<br>find 线性查找<br>find_fist_of 对于给定值的集合,在容器内线性查找<br>adjacent_find 线性查找邻近且相等的元素对<br>count 计算给定值的出现次数<br>mismatch 比较两个序列,找出第一个不相同元素的位置<br>equal 两个序列的判等操作,逐一比较元素是否相等<br>search 在一个序列中查找与另一个序列匹配的子序列<br>search_n 在序列中查找一系列符合给定值的元素<br>find_end 在一个序列中查找最后一个与另一个序列匹配的子序列 </p>
+<p><strong>变易性算法</strong><br>copy 复制元素到另外一个序列<br>swap 两个容器元素交换<br>transform 序列中的元素都用这个元素变换后的值代替<br>replace 替换给定值的元素<br>fill 填充给定值的元素<br>generate 用某函数的返回值来代替序列中的所有元素<br>remove 删除序列中等于某一给定之的所有元素<br>unique 删除所有连续相等的元素<br>reverse 将元素之间的位置关系取逆<br>rotate 循环移动序列中的元素<br>random_shuffle 随机排列元素<br>partition 按某一顺序重新排列元素 </p>
+<p><strong>有序队列算法</strong><br>sort,stable_sort,partial_sort 对元素排序<br>nth_element 查找第n个大的元素<br>binary_search lower_bound upper_bound equal_range 用二分查找搜索有序队列<br>merge 归并两个有序队列<br>includes set_union set_intersection set_difference set_sysmetric_difference 集合运算<br>push_heap pop_heap make_heap sort_heap 堆操作<br>min max min_element max_element 求最大,最小元素<br>lexicographical_compare 字典序比较<br>next_permutation prev_permutation 依据字典序生成排列 </p>
+<p><strong>通用数字算法</strong><br>accumulate 累加<br>inner_product 内积<br>partial_sum 累加部分元素<br>adjacent_difference 计算相邻元素的差,保存在另一个序列中 </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/18/stlyu-fan-xing-bian-cheng-part-1/" rel="next" title="STL与泛型编程part.1">
+                <i class="fa fa-chevron-left"></i> STL与泛型编程part.1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/04/stlyu-fan-xing-bian-cheng-part-3/" rel="prev" title="STL与泛型编程part.3">
+                STL与泛型编程part.3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Alex Tang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">STL整体结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">仿函数，仿函数适配器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3"><span class="nav-number">3.</span> <span class="nav-text">其他需要注意的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3"><span class="nav-number">4.</span> <span class="nav-text">泛型算法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alex Tang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

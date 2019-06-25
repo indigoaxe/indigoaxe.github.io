@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/18/geekband-stlyu-fan-xing-bian-cheng-shang-ke-bi-ji-part-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/18/stlyu-fan-xing-bian-cheng-part-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Alex Tang">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/18/geekband-stlyu-fan-xing-bian-cheng-shang-ke-bi-ji-part-1/" itemprop="url">STL与泛型编程part.1</a></h1>
+                <a class="post-title-link" href="/2018/06/18/stlyu-fan-xing-bian-cheng-part-1/" itemprop="url">STL与泛型编程part.1</a></h1>
         
 
         <div class="post-meta">
@@ -304,7 +304,7 @@
 <hr>
 <h4 id="1">函数模板与类模板</h4>
 
-<p>关于模板，之前课程的内容已经覆盖了不少。这方面内容，在之前的笔记也有讨论：<br><a href="http://runalex.com/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-1/" target="_blank" rel="noopener">C++面向对象高级编程（下）part.1</a></p>
+<p>关于模板，之前课程的内容已经覆盖了不少。这方面内容，在之前的笔记也有讨论：<br><a href="http://blog.indigoaxe.com/cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-part-1/" target="_blank" rel="noopener">C++面向对象高级编程（下）part.1</a></p>
 <p>下面是关于函数模板的总结：</p>
 <blockquote>
 <p>对于不同的实参型别，模板函数定义了一族函数<br>  当传递模板实参的时候，函数目标根据实参的型别进行实例化<br>可以显示指定模板的实参型别<br>函数模板可以重载<br>当重载函数模板时，将改变限制在：显示指定模板参数<br>所有的重载版本的声明必须位于他们被调用的位置之前  </p>
@@ -395,7 +395,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/10/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/10/cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-part-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Alex Tang">
@@ -414,7 +414,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/10/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-2/" itemprop="url">C++面向对象高级编程（下）part.2</a></h1>
+                <a class="post-title-link" href="/2018/06/10/cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-part-2/" itemprop="url">C++面向对象高级编程（下）part.2</a></h1>
         
 
         <div class="post-meta">
@@ -468,7 +468,9 @@
           
             <p>本周课程主要讨论的话题<br><a href="#1">1.  对象模型</a><br><a href="#2">2. Const</a><br><a href="#3">3. 关于new和delete</a></p>
 <hr>
-<p>####<a href="#1">对象模型</a><br>关于C++对象模型，有一篇博客写得很详尽，该文需要反复阅读：<a href="http://www.cnblogs.com/skynet/p/3343726.html" target="_blank" rel="noopener">http://www.cnblogs.com/skynet/p/3343726.html</a>  - C++ 对象模型 by 吴秦</p>
+<h4>[对象模型](#1)  </h4>
+关于C++对象模型，有一篇博客写得很详尽，该文需要反复阅读：http://www.cnblogs.com/skynet/p/3343726.html  - C++ 对象模型 by 吴秦
+
 <p>关于C++模型，上面的文章是这么介绍的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">在此模型中，non static 数据成员被放置到对象内部，static数据成员， static and nonstatic 函数成员均被放到对象之外。对于虚函数的支持则分两步完成：</span><br><span class="line"></span><br><span class="line">    1. 每一个class产生一堆指向虚函数的指针，放在表格之中。这个表格称之为虚函数表（virtual table，vtbl）。</span><br><span class="line"></span><br><span class="line">    2. 每一个对象被添加了一个指针，指向相关的虚函数表vtbl。通常这个指针被称为vptr。vptr的设定（setting）和重置（resetting）都由每一个class的**构造函数，析构函数和拷贝赋值运算符**自动完成。</span><br><span class="line"></span><br><span class="line">另外，虚函数表地址的前面设置了一个指向type_info的指针，RTTI（Run Time Type Identification）运行时类型识别是有编译器在编译器生成的特殊类型信息，包括对象继承关系，对象本身的描述，RTTI是为多态而生成的信息，所以只有具有虚函数的对象在会生成。</span><br><span class="line"></span><br><span class="line">这个模型的优点在于它的空间和存取时间的效率；缺点如下：如果应用程序本身未改变，但当所使用的类的non static数据成员添加删除或修改时，需要重新编译。</span><br></pre></td></tr></table></figure>
 
@@ -478,14 +480,16 @@
 
 <p>此外，侯老师对动态绑定的讲解中有提到动态绑定可以看做是：<br><code>(* (p-&gt;vptr)[n])</code> 或 <code>(* p-&gt;vptr[n])</code>，以此类推虚函数调用是这样的：<code>(* p-&gt;vptr[n])(this)</code>。(注：此处的this非常重要！）</p>
 <hr>
-<p><a href="#2">Const</a>  </p>
+<h4> [Const](#2) </h4>
+
 <p>当成员函数的const和non-const版本同时存在，<br>const object只会（只能）调用const版本，<br>non-const object只会（只能）调用non-const版本。</p>
 <p>例:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// class template std::basic_string&lt;...&gt;</span><br><span class="line">// 有如下两个member functions:</span><br><span class="line"></span><br><span class="line">charT operator[] (size_type pos) const </span><br><span class="line">&#123; ...... /* 不必考虑 COW*/&#125;</span><br><span class="line"></span><br><span class="line">reference</span><br><span class="line">operator operator[] (size_type pos) </span><br><span class="line">&#123; ...... /* 必须考虑 COW*/ &#125;</span><br></pre></td></tr></table></figure>
 
 <p>COW - Copy-On-Write 写时复制。关于写时复制，《More Effective C++》中的条款29有提到。简单的说就是：<br>在复制一个对象的时候并不是真正的把原先的对象复制到内存的另外一个位置上，而是在新对象的内存映射表中设置一个指针，指向源对象的位置，并把那块内存的Copy-On-Write位设置为1。<br>这样，在对新的对象执行读操作的时候，内存数据不发生任何变动，直接执行读操作；而在对新的对象执行写操作时，将真正的对象复制到新的内存地址中，并修改新对象的内存映射表指向这个新的位置，并在新的内存位置上执行写操作。</p>
 <hr>
-<p><a href="#3">关于new和delete</a></p>
+<h4>[关于new和delete](#3)</h4>
+
 <p>首先关于new，我们要知道new operator与operator new之间是有区别的。在<code>string *str = new string(&quot;hello&quot;);</code>里的new是所谓的new operator。这个操作符的行为在C++中是固定的，无法被改变。它的行为分成两步：第一步，为对象分配足够的内存空间；第二，调用该对象的constructor为其进行初始化。无论如何，new operator操作都是由这两步组成的。</p>
 <p>而我们能改变的，是new operator中的第一步，即分配内存。new operator是通过调用operator new函数（通常声明为<code>void *operator new(size_t size);</code>）来进行这一操作的。operator delete也是相似的。对于operator new/delete，我们可以进行重写或重载：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void *Foo::operator new(size_t size)&#123;</span><br><span class="line">    return (Foo*)malloc(size);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void *Foo::operator delete(void* phead, size_t size)&#123;</span><br><span class="line">    free(phead);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -549,7 +553,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/shang-ke-bi-ji-for-geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Alex Tang">
@@ -568,7 +572,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/23/shang-ke-bi-ji-for-geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3/" itemprop="url">C++面向对象高级编程（上） part.3</a></h1>
+                <a class="post-title-link" href="/2018/05/23/cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-3/" itemprop="url">C++面向对象高级编程（上） part.3</a></h1>
         
 
         <div class="post-meta">
@@ -626,7 +630,9 @@
 <li>复合和继承关系下的构造和析构</li>
 </ol>
 <hr>
-<h4 id="组合与继承"><a href="#组合与继承" class="headerlink" title="组合与继承"></a><a href="#1">组合与继承</a></h4><p>类与类之间主要有三种关系，在程序中，这三种关系能解决大部分问题：   </p>
+<h4> [组合与继承](#1)</h4>
+类与类之间主要有三种关系，在程序中，这三种关系能解决大部分问题：   
+
 <ul>
 <li>Inheritance（继承）</li>
 <li>Composition（复合）</li>
@@ -636,15 +642,17 @@
 <p>==<strong>Composition（复合）</strong>==<br>表示了一种has-a的关系，例如一间屋子里面有(has)许多房间，有屋子，就会有房间。而如果屋子被拆了(析构)，房间也会被“析构”。我们可以通过下图来直观地了解compositon。注意其中标红文字的部分，它们表示了编译器为派生类自动添加的代码。<br><img src="/content/images/2018/05/composition1.jpg" alt="composition"><br>利用composition来实现adapter设计模式:<br><img src="/content/images/2018/05/adapter.jpg" alt="adapter"></p>
 <p>==<strong>Delegation（委托）</strong>==<br>Delegation实际上是composition by reference。<br>这种实现方式又叫pimpl(pointer to implementation) 或是 handle/body。<br>Delegation是一种编译防火墙，如果把handle看作客户端，那么操作有改动的时候只需改动body，而不需要改动客户端。即客户端不需要重新编译，而只需要重新编译body部分。换而言之，delegation将某个类的成员函数交给另外一个类去实现，从客观上减少了该类的代码实现。例子如下:<br><img src="/content/images/2018/05/delegation.jpg" alt="delegation"></p>
 <hr>
-<h4 id="虚函数与多态"><a href="#虚函数与多态" class="headerlink" title="虚函数与多态"></a><a href="#2">虚函数与多态</a></h4><p>继承的强大，大多是靠虚函数来实现的。子类继承父类的成员变量会占用同样的内存空间，而对于父类的成员函数则继承的是调用权。函数的继承，有下面三种：<br><img src="/content/images/2018/05/virtualmethod1.jpg" alt="virtualmethod1"></p>
-<ul>
-<li>override = 重新定义</li>
-<li>如果把虚函数写成空函数，它跟纯虚函数还是有区别的。区别就在于子类必须override纯虚函数，而非纯虚函数则不用</li>
-<li>关于虚函数的使用，老师介绍了<strong>template method（模板方法）</strong>模式这一最常用的使用案例。  </li>
-<li><em>模板方法*</em>：准备一个抽象类，将部分逻辑以具体方法以及具体构造子的形式实现，然后声明一些抽象方法来迫使子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对剩余的逻辑有不同的实现。模版方法模式需要开发抽象类和具体子类的设计师之间的协作。一个设计师负责给出一个算法的轮廓和骨架，另一些设计师则负责给出这个算法的各个逻辑步骤。代表这些具体逻辑步骤的方法称做基本方法（primitive method）；而将这些基本法方法总汇起来的方法叫做模版方法（template method），这个设计模式的名字就是从此而来。  </li>
-</ul>
+<h4> [虚函数与多态](#2)</h4>
+继承的强大，大多是靠虚函数来实现的。子类继承父类的成员变量会占用同样的内存空间，而对于父类的成员函数则继承的是调用权。函数的继承，有下面三种：
+![virtualmethod1](/content/images/2018/05/virtualmethod1.jpg)
+* override = 重新定义
+* 如果把虚函数写成空函数，它跟纯虚函数还是有区别的。区别就在于子类必须override纯虚函数，而非纯虚函数则不用
+* 关于虚函数的使用，老师介绍了**template method（模板方法）**模式这一最常用的使用案例。  
+**模板方法**：准备一个抽象类，将部分逻辑以具体方法以及具体构造子的形式实现，然后声明一些抽象方法来迫使子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对剩余的逻辑有不同的实现。模版方法模式需要开发抽象类和具体子类的设计师之间的协作。一个设计师负责给出一个算法的轮廓和骨架，另一些设计师则负责给出这个算法的各个逻辑步骤。代表这些具体逻辑步骤的方法称做基本方法（primitive method）；而将这些基本法方法总汇起来的方法叫做模版方法（template method），这个设计模式的名字就是从此而来。  
+
 <hr>
-<h4 id="委托相关设计"><a href="#委托相关设计" class="headerlink" title="委托相关设计"></a><a href="#3">委托相关设计</a></h4><br>
+<h4> [委托相关设计](#3)  </h4>
+<br>
 ==**Observer(观察者)设计模式**==  
 观察者模式又叫做发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。
 观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态上发生变化时，会通知所有观察者对象，使它们能够自动更新自己。  
@@ -710,7 +718,7 @@ Observer模式通常可以用delegation+inheritance的方式去实现。话不�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/19/copyctor/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/19/cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Alex Tang">
@@ -729,7 +737,7 @@ Observer模式通常可以用delegation+inheritance的方式去实现。话不�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/19/copyctor/" itemprop="url">C++面向对象高级编程（上） part.2</a></h1>
+                <a class="post-title-link" href="/2018/05/19/cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-2/" itemprop="url">C++面向对象高级编程（上） part.2</a></h1>
         
 
         <div class="post-meta">
@@ -918,7 +926,7 @@ Observer模式通常可以用delegation+inheritance的方式去实现。话不�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/18/shang-ke-bi-ji-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/18/cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Alex Tang">
@@ -937,7 +945,7 @@ Observer模式通常可以用delegation+inheritance的方式去实现。话不�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/18/shang-ke-bi-ji-cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-1/" itemprop="url">C++面向对象高级编程（上）  part.1</a></h1>
+                <a class="post-title-link" href="/2018/05/18/cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-1/" itemprop="url">C++面向对象高级编程（上）  part.1</a></h1>
         
 
         <div class="post-meta">
@@ -1000,24 +1008,23 @@ Observer模式通常可以用delegation+inheritance的方式去实现。话不�
 </ol>
 <p>下面是这一周的课程笔记。因为有一些课程内容已经比较熟悉，所以只会挑一些需要强调的或者不太熟悉的内容来做作记录。</p>
 <hr>
-<h4 id="C-的学习"><a href="#C-的学习" class="headerlink" title="==C++的学习=="></a>==C++的学习==</h4><ul>
-<li><p><strong>两大部分，首先学习Object Based(基于对象)，然后是 Object Oriented(面向对象)。</strong></p>
-<p> 关于这两种编写对象的方式有一个很简单的区分：<br><br> Object Based - Class without pointer members<br><br> Object Orient - Class with pointer members<br></p>
-<p>关于这个内容，在《深度探索C++对象模型》第一章有进一步的讨论：</p>
+<h5>==C++的学习==</h5>
+* **两大部分，首先学习Object Based(基于对象)，然后是 Object Oriented(面向对象)。**
+
+<p>   关于这两种编写对象的方式有一个很简单的区分：<br><br>   Object Based - Class without pointer members<br><br>   Object Orient - Class with pointer members<br></p>
+<p> 关于这个内容，在《深度探索C++对象模型》第一章有进一步的讨论：</p>
 <blockquote>
 <p>  Object-oriented支持Polymorphism,而Object-based不支持Polymorphism.主要的区别就在于此。支持多态的代价是额外的间接性–不论是在“内存的获得”或是在“类型的决断”上。<br>C++通过class的pointers和references来支持多态，这种程序设计风格就叫面向对象。<br>C++也支持具体的ADT程序风格，被称为基于对象，它只支持封装，不支持类型的扩充。<br>一个Object-based设计可能比一个对等的Object-oriented设计速度更快而且空间更紧凑。速度快是因为所有的函数引发操作都在编译时期解析完成，不需要设置virtual机制；空间紧凑则是因为每一个class object不需要负担传统上为了支持virtual机制而需要的额外负担。不过，Object-based设计比较没有弹性。</p>
 </blockquote>
-</li>
-</ul>
 <p>注：ADT- Abstract Data Type 抽象数据类型,是一个实现包括储存数据元素的存储结构以及实现基本操作的算法。</p>
 <ul>
 <li><strong>学习一门语言主要学的是这门语言的两个部分：语言和标准库。</strong></li>
 </ul>
 <hr>
-<p>#####==构造函数==</p>
-<ul>
-<li><p><strong>构造函数和析构函数可以被显式地调用，但是不建议这么使用，因为有可能会导致内存泄漏。</strong></p>
-<pre><code>这是因为，在已创建的对象上显式地调用构造函数时, 其所指向的动态内存将会被更新。然而对象生命周期结束时析构函数所释放掉的是最后一次分配的动态内存, 也就是说之前隐式构造函数所分配的那块内存被泄漏了。而显式调用析构函数，则会导致隐式调用析构函数时重复释放同一块内存。</code></pre></li>
+<h5>==构造函数==</h5>
+* **构造函数和析构函数可以被显式地调用，但是不建议这么使用，因为有可能会导致内存泄漏。**
+
+<pre><code>这是因为，在已创建的对象上显式地调用构造函数时, 其所指向的动态内存将会被更新。然而对象生命周期结束时析构函数所释放掉的是最后一次分配的动态内存, 也就是说之前隐式构造函数所分配的那块内存被泄漏了。而显式调用析构函数，则会导致隐式调用析构函数时重复释放同一块内存。</code></pre><ul>
 <li><p><strong>将constructor设为private,可以用于实现singleton。</strong></p>
 <pre><code>//常见的singleton类的声明
 class Singleton
@@ -1034,12 +1041,11 @@ class Singleton
 <pre><code>注: 用mutable关键字修饰类成员变量，可以突破const的限制，在常量成员函数中修改成员变量。</code></pre></li>
 </ul>
 <hr>
-<p>####==参数传递与返回值==</p>
-<ul>
-<li><p><strong>使用函数时，尽量传递引用(by referrence)参数和返回引用值。这样可以提高程序运行的效率，是C++的优势之一。</strong></p>
-<pre><code>注意，不要返回局部对象的引用或指针。可以用return typename()的方式利用临时未命名的变量返回一个值。</code></pre></li>
-<li><p><strong>相同class的各个object互为友元。</strong></p>
-</li>
+<h5>==参数传递与返回值==</h5>
+* **使用函数时，尽量传递引用(by referrence)参数和返回引用值。这样可以提高程序运行的效率，是C++的优势之一。**
+
+<pre><code>注意，不要返回局部对象的引用或指针。可以用return typename()的方式利用临时未命名的变量返回一个值。</code></pre><ul>
+<li><strong>相同class的各个object互为友元。</strong></li>
 </ul>
 
           
@@ -1089,7 +1095,7 @@ class Singleton
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/05/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/05/cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-part-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Alex Tang">
@@ -1108,7 +1114,7 @@ class Singleton
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/06/05/geekband-cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-shang-ke-bi-ji-part-1/" itemprop="url">C++面向对象高级编程（下 part.1</a></h1>
+                <a class="post-title-link" href="/2016/06/05/cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-part-1/" itemprop="url">C++面向对象高级编程（下) part.1</a></h1>
         
 
         <div class="post-meta">
@@ -1162,7 +1168,8 @@ class Singleton
           
             <p>本周主要的内容：<br><a href="#1">1. Conversion function &amp; non-explicit one argument ctor<br>转换函数与非explicit单参数构造函数</a><br><a href="#2">2. Pointer-like &amp; function-like classes  仿指针和仿函数</a><br><a href="#3">3. Template模板</a><br><a href="#4">4. Specialization特化</a><br><a href="#5">5. 关于C++11的三个新特性</a><br><a href="#6">6. 再谈reference</a></p>
 <hr>
-<p>####<a href="#1">1. Conversion function &amp; non-explicit one argument ctor</a> </p>
+<h4>[1. Conversion function & non-explicit one argument ctor](#1) </h4>
+
 <p><strong>Conversion function</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Fraction&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    //分母默认为1</span><br><span class="line">    Fraction(int num, int den=1) : m_numerator(num), m_denominator(den) &#123; &#125; </span><br><span class="line">    //由于是转换函数，因此不可有参数。而返回类型与函数名是对应的，如这里的double，所以返回类型也不用写。</span><br><span class="line">    //转换时不会改变类成员变量，因此需要加const。</span><br><span class="line">    operator double() const &#123; </span><br><span class="line">        return (double)(m_numerator / m_denominator);</span><br><span class="line">    &#125;   </span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">int m_numerator;</span><br><span class="line">int m_denominator;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Fraction f(3,5);</span><br><span class="line">double d=4+f; //调用double转换函数</span><br></pre></td></tr></table></figure>
 
@@ -1176,7 +1183,8 @@ class Singleton
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">operator double() const &#123; return (double)(m_numerator / m_denominator);&#125;</span><br></pre></td></tr></table></figure>
 
 <hr>
-<p>####<a href="#2">Pointer-like &amp; function-like classes 仿指针和仿函数</a>  </p>
+<h4>[Pointer-like & function-like classes 仿指针和仿函数](#2)  </h4>
+
 <p><strong>Pointer-like class</strong><br>模仿指针的使用方式，但是又加了一些功能，因此又叫智能指针。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//智能指针里一定有真正的指针</span><br><span class="line">//下面是简化版的智能指针</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">class shared_ptr&#123;</span><br><span class="line">public:</span><br><span class="line">  //必要的操作符重载</span><br><span class="line">  T&amp; operator*()  const &#123; return *px;&#125;</span><br><span class="line">  T* operator-&gt;() const &#123; return  px;&#125;</span><br><span class="line"></span><br><span class="line">  shared_ptr(T* p) : px(p) &#123;&#125;</span><br><span class="line">private:</span><br><span class="line">  T* px;</span><br><span class="line">  long* pn;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">shared_ptr&lt;Foo&gt; sp(new Foo);</span><br><span class="line">Foo f(*sp);  //调用*操作符</span><br><span class="line">sp-&gt;method(); //调用-&gt;操作符，这里编译器自动其转化为px-&gt;method()。-&gt;符号的特别在于它会对其作用的结果继续进行操作，这是C++的语言特性。</span><br></pre></td></tr></table></figure>
 
@@ -1187,7 +1195,11 @@ class Singleton
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//由于下面的类都重载了operator()()函数（括号运算符），因此都是函数式对象</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">struct identity&#123;</span><br><span class="line">  const T&amp;</span><br><span class="line">  operator()(const T&amp; x) const &#123;return x;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;class Pair&gt;</span><br><span class="line">struct select1st&#123;</span><br><span class="line">  const typename Pair::first_type&amp;</span><br><span class="line">  operator()(const Pair&amp; x) const &#123; return x.first; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;class Pair&gt;</span><br><span class="line">struct select2nd&#123;</span><br><span class="line">  const typename Pair::second&amp;</span><br><span class="line">  operator()(const Pair&amp; x) const &#123; return x.second; &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <hr>
-<p>####<a href="#3">Template模板</a><br>三种模板：<br><strong>1. Class templat</strong><br><strong>2.Function template</strong><br>编译器会对function template进行实参推导（argument deduction)</p>
+<h4>[Template模板](#3)  </h4>
+三种模板：  
+**1. Class templat**  
+**2.Function template**  
+编译器会对function template进行实参推导（argument deduction)
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">template &lt;class T&gt;</span><br><span class="line">inline const T&amp; min(const T&amp;a, const T&amp; b)&#123;</span><br><span class="line">    return b &lt; a ? b : a; //若找不到bool T::operator &lt; (const T&amp;) const 会出现错误。</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stone r1(2,3),r2(3,3), r3;</span><br><span class="line">r3 = min(r1,r2);//这里的T被推导为stone</span><br><span class="line">```   </span><br><span class="line">**3.Member template**</span><br></pre></td></tr></table></figure>
 
 <p>//例一 pair<br>template &lt;class T1, class T2&gt;<br>struct pair{<br>    typedef T1 first_type;<br>    typedef T2 second_type;</p>
@@ -1208,7 +1220,7 @@ pair(const pair&lt;U1, U2&gt;&amp; p): first(p.first), second(p.second) {}</code
 <p>//例二 shared_ptr<br>template<typename _tp><br>class shared_ptr: public <strong>shared_ptr&lt;_Tp&gt;{<br>…<br>    template<typename _tp1><br>    explicit shared_ptr(_Tp1* __p)<br>      :</typename></strong>shared_ptr&lt;_Tp&gt;(__p){}<br>…<br>};</typename></p>
 <p>Base1* ptr = new Derived1; //up-cast</p>
 <p>shared_ptr<base1> sptr(new Derived1); // 模拟 up-cast</base1></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">------------------</span><br><span class="line"></span><br><span class="line">####[Specialization特化](#4)</span><br><span class="line"></span><br><span class="line">关于特化的理解和讨论，下面内容转载自：http://www.blogjava.net/bacoo/archive/2009/06/22/283480.html</span><br><span class="line"></span><br><span class="line">&gt;  对模板特化的理解：</span><br><span class="line">特化整体上分为全特化和偏特化，这一点大家都没有什么置疑，但是细分它们各包括哪几种状态就很难界定了，而且很多权威的书上都不一致，管它呢，反正我们能会用各种特化就可以了。</span><br><span class="line">下面就谈谈我个人对特化的划分和定义：</span><br><span class="line">所谓特化，就是将泛型的东东搞得具体化一些，从字面上来解释，就是为已有的模板参数进行一些使其特殊化的指定，使得以前不受任何约束的模板参数，或受到特定的修饰（例如const或者摇身一变成为了指针之类的东东，甚至是经过别的模板类包装之后的模板类型）或完全被指定了下来。&lt;br&gt;  </span><br><span class="line">这是网上某个人的一些看法：  </span><br><span class="line">模板有两种特化，全特化和偏特化（局部特化）。  </span><br><span class="line">模板函数只能全特化，没有偏特化（以后可能有）。  </span><br><span class="line">模板类是可以全特化和偏特化的。  </span><br><span class="line">全特化，就是模板中模板参数全被指定为确定的类型。  </span><br><span class="line">全特化也就是定义了一个全新的类型，全特化的类中的函数可以与模板类不一样。  </span><br><span class="line">偏特化，就是模板中的模板参数没有被全部确定，需要编译器在编译时进行确定。  </span><br><span class="line">在类型上加上const、&amp;、*（ cosnt int、int&amp;、int*、等等）并没有产生新的类型。只是类型被修饰了。模板在编译时，可以得到这些修饰信息。  </span><br><span class="line">&lt;br&gt;我个人也比较赞同这位仁兄的划分，全特化的标志就是产生出完全确定的东西，而不是还需要在编译期间去搜寻适合的特化实现，貌似在我的这种理解下，全特化的东西不论是类还是函数都有这样的特点，template &lt;&gt;然后是完全和模板类型没有一点关系的类实现或者函数定义，如果你要说，都完全确定下来了，那还搞什么模板呀，直接定义不就完事了？但是很多时候，我们既需要一个模板能应对各种情形，又需要它对于某个特定的类型（比如bool）有着特别的处理，这中情形下就是需要的了。&lt;br&gt;</span><br><span class="line">既然刚才提到了全特化的标志，那么再说说其他一些共性的东西：</span><br><span class="line">一个特化的模板类的标志：在定义类实现时加上了&lt;&gt;，比如class A&lt;int, T&gt;；而在定义一个模板类的时候，class A后面是没有&lt;&gt;的</span><br><span class="line">全特化的标志：template &lt;&gt;然后是完全和模板类型没有一点关系的类实现或者函数定义</span><br><span class="line">偏特化的标志：template &lt;typename T.....&gt;，就是说还剩下点东西，不像全特化&lt;&gt;整得那么彻底</span><br><span class="line"></span><br><span class="line">**模板偏特化有两种：**  </span><br><span class="line">1）个数的偏</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">------------------</span><br><span class="line"></span><br><span class="line">&lt;h4&gt;[Specialization特化](#4)</span><br><span class="line"></span><br><span class="line">关于特化的理解和讨论，下面内容转载自：http://www.blogjava.net/bacoo/archive/2009/06/22/283480.html</span><br><span class="line"></span><br><span class="line">&gt;  对模板特化的理解：</span><br><span class="line">特化整体上分为全特化和偏特化，这一点大家都没有什么置疑，但是细分它们各包括哪几种状态就很难界定了，而且很多权威的书上都不一致，管它呢，反正我们能会用各种特化就可以了。</span><br><span class="line">下面就谈谈我个人对特化的划分和定义：</span><br><span class="line">所谓特化，就是将泛型的东东搞得具体化一些，从字面上来解释，就是为已有的模板参数进行一些使其特殊化的指定，使得以前不受任何约束的模板参数，或受到特定的修饰（例如const或者摇身一变成为了指针之类的东东，甚至是经过别的模板类包装之后的模板类型）或完全被指定了下来。&lt;br&gt;  </span><br><span class="line">这是网上某个人的一些看法：  </span><br><span class="line">模板有两种特化，全特化和偏特化（局部特化）。  </span><br><span class="line">模板函数只能全特化，没有偏特化（以后可能有）。  </span><br><span class="line">模板类是可以全特化和偏特化的。  </span><br><span class="line">全特化，就是模板中模板参数全被指定为确定的类型。  </span><br><span class="line">全特化也就是定义了一个全新的类型，全特化的类中的函数可以与模板类不一样。  </span><br><span class="line">偏特化，就是模板中的模板参数没有被全部确定，需要编译器在编译时进行确定。  </span><br><span class="line">在类型上加上const、&amp;、*（ cosnt int、int&amp;、int*、等等）并没有产生新的类型。只是类型被修饰了。模板在编译时，可以得到这些修饰信息。  </span><br><span class="line">&lt;br&gt;我个人也比较赞同这位仁兄的划分，全特化的标志就是产生出完全确定的东西，而不是还需要在编译期间去搜寻适合的特化实现，貌似在我的这种理解下，全特化的东西不论是类还是函数都有这样的特点，template &lt;&gt;然后是完全和模板类型没有一点关系的类实现或者函数定义，如果你要说，都完全确定下来了，那还搞什么模板呀，直接定义不就完事了？但是很多时候，我们既需要一个模板能应对各种情形，又需要它对于某个特定的类型（比如bool）有着特别的处理，这中情形下就是需要的了。&lt;br&gt;</span><br><span class="line">既然刚才提到了全特化的标志，那么再说说其他一些共性的东西：</span><br><span class="line">一个特化的模板类的标志：在定义类实现时加上了&lt;&gt;，比如class A&lt;int, T&gt;；而在定义一个模板类的时候，class A后面是没有&lt;&gt;的</span><br><span class="line">全特化的标志：template &lt;&gt;然后是完全和模板类型没有一点关系的类实现或者函数定义</span><br><span class="line">偏特化的标志：template &lt;typename T.....&gt;，就是说还剩下点东西，不像全特化&lt;&gt;整得那么彻底</span><br><span class="line"></span><br><span class="line">**模板偏特化有两种：**  </span><br><span class="line">1）个数的偏</span><br></pre></td></tr></table></figure>
 
 <p>template&lt;typename T, typename Alloc=……&gt;<br>class vector{ …… }</p>
 <p>…</p>
@@ -1225,7 +1237,7 @@ pair(const pair&lt;U1, U2&gt;&amp; p): first(p.first), second(p.second) {}</code
 <p>XCls&lt;string, list&gt; mylst1;  // 错误, 因为没有指定allocator，而是使用默认的。<br>XCls&lt;string, Lst&gt;  mylst2;  // 正确</p>
 <p>// 注意，下面的例子不是模板模板参数<br>template&lt;class T, class Sequence = deque<t> &gt;<br>class stack {<br>    friend bool operator== &lt;&gt; (const stack&amp;,const stack&amp;);<br>    friend bool operator&lt;  &lt;&gt; (const stack&amp;,const stack&amp;);<br>protectd:<br>    Sequence c; //底层容器<br>…<br>};</t></p>
 <p>stack&lt;int, list<int> s2;//这里的第二个模板参数是写成固定的，是绑定了某个类的，并不是一个“模板”。</int></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------------------------------</span><br><span class="line"></span><br><span class="line">####[关于C++11的三个新特性](#5)  </span><br><span class="line"> </span><br><span class="line">一，variadic template可变模板参数。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------------------------------</span><br><span class="line"></span><br><span class="line">&lt;h4&gt;[关于C++11的三个新特性](#5)  </span><br><span class="line"> </span><br><span class="line">一，variadic template可变模板参数。</span><br></pre></td></tr></table></figure>
 
 <p>// “…” 是一个pack(包)<br>template&lt;typename T, typename… Types&gt; // template parameters pack(模板参数包)<br>void print(const T&amp; firstArg, const Types&amp;… args){ // function parameter types pack(函数参数类型包)<br>    cout&lt;&lt;firstArg&lt;&lt;endl;<br>    print(args…); // function parameters pack(函数参数包)<br>}</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">可以使用sizeof...(args)返回参数的数量。</span><br><span class="line"></span><br><span class="line">二，auto 关键字，一个语法糖，方便开发者编写复杂的代码。</span><br></pre></td></tr></table></figure>
@@ -1236,7 +1248,7 @@ pair(const pair&lt;U1, U2&gt;&amp; p): first(p.first), second(p.second) {}</code
 
 <p>for(int i : {2,3,5,7,9} ){ // 大括号的用法是列表初始化，也是c++11新的特性<br>    cout &lt;&lt; i &lt;&lt; endl;<br>}</p>
 <p>vector<double> vec;<br>…<br>for (auto  elem : vec) { … } // pass by value<br>for (auto&amp; elem : vec) { … } // pass by reference</double></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">--------------</span><br><span class="line">####[再谈reference](#6)</span><br><span class="line">关于reference要注意的点：  </span><br><span class="line"></span><br><span class="line">一，object和其reference的大小相同，地址也相同（都是编译器造成的假象，reference其实是一个指针）。因此，在下面的变量定义中，有1）`sizeof(r) == sizeof(x)`，2）`&amp;x == &amp;&amp;r;`</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">--------------</span><br><span class="line">&lt;h4&gt;[再谈reference](#6)&lt;/h4&gt;</span><br><span class="line">关于reference要注意的点：  </span><br><span class="line"></span><br><span class="line">一，object和其reference的大小相同，地址也相同（都是编译器造成的假象，reference其实是一个指针）。因此，在下面的变量定义中，有1）`sizeof(r) == sizeof(x)`，2）`&amp;x == &amp;&amp;r;`</span><br></pre></td></tr></table></figure>
 
 <p>int  x = 0;<br>int&amp; r = x;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">二，reference是一种漂亮的pointer。它通常不用于声明变量，而用于==参数类型(parameters type)==和==返回类型(return type)==的描述。在参数类型中，尽量不要使用传指针的方式来调用函数。要尽量使用传值或者传应用的方式来使用函数。但是要注意下面的这种情况：</span><br></pre></td></tr></table></figure>
@@ -1540,7 +1552,9 @@ pair(const pair&lt;U1, U2&gt;&amp; p): first(p.first), second(p.second) {}</code
       
         
           
-            <p>######1. 游标是什么</p>
+            <p><a href="#1">1. 游标是什么</a><br><a href="#2">2. 游标的种类及属性</a><br><a href="#3">3. OPEN、FETCH 和CLOSE</a>  </p>
+<h4 id="1">1. 游标是什么</h4>
+
 <p>首先我们先来了解一下游标。游标<b>是系统为用户开设的一个数据缓冲区，存放SQL语句的执行结果。<br></b> Oracle 在执行SQL语句时，总是需要创建一块内存区域，这块内存区域称为上下文区域。在这个区域中包含了处理语句的信息：</p>
 <ul>
 <li>指向共享池中被分析SQL语句的指针</li>
@@ -1554,8 +1568,11 @@ pair(const pair&lt;U1, U2&gt;&amp; p): first(p.first), second(p.second) {}</code
 <li>“9 rows selected.” 则代表着<b>语句处理的行数</b></li>
 </ul>
 <p>在进行游标操作的过程中，可以将游标看成是指向数据表中数据的指针，但是在后台，游标实际是指向一块内存区域。而只有在游标被打开后，游标相关的查询语句才会被执行，然后将结果保存到内存中。</p>
-<p>#####2. 游标的种类及属性</p>
-<p>######2.1 游标种类<br>游标总的来说分为两种，一种是静态游标，另外一种是动态游标。我们可以把静态游标与动态游标分别理解为是常亮与变量的区别。静态游标一经定义就无法被改变，而动态游标可以被灵活地使用。下面来具体介绍它们。</p>
+<h4 id="1">2. 游标的种类及属性</h4>
+
+<h5>2.1 游标种类</h5>
+游标总的来说分为两种，一种是静态游标，另外一种是动态游标。我们可以把静态游标与动态游标分别理解为是常亮与变量的区别。静态游标一经定义就无法被改变，而动态游标可以被灵活地使用。下面来具体介绍它们。
+
 <p>2.1.1 静态游标<br>静态游标</p>
 <ul>
 <li>显式游标：就是有明确声明来定义的游标，它被定义后，使用时需要显式地打开（open）。</li>
@@ -1581,7 +1598,9 @@ pair(const pair&lt;U1, U2&gt;&amp; p): first(p.first), second(p.second) {}</code
 <p>如果TYPE语句中未指定RETURN子句，则可以连续地打开多次，分别赋予不同的查询SELECT子句。因此指定了RETURN子句的游标类型又称为强类型游标类型。</p>
 <p>NOTE:<br>1) Oracle提供了一个预定义的弱类型游标类型，名为<code>SYS_REFCURSOR</code>。在上面的例子中，可使用<code>SYS_REFCURSOR</code>来代替<code>l_gen_type</code>的定义<code>l_gen_cur SYS_REFCURSOR;</code>。
 2) 重新打开一个游标变量以前不需要关闭它，当用不同的查询语句打开同一个游标变量的时候，上一个查询将被丢弃掉。</p>
-<p>######2.2 属性<br>通过上面的示例，可以发现其中使用到了一些游标的属性来帮助我们更好的利用游标。下面是游标的主要属性：</p>
+<h5>2.2 属性</h5>
+通过上面的示例，可以发现其中使用到了一些游标的属性来帮助我们更好的利用游标。下面是游标的主要属性：
+
 <ul>
 <li><code>%ISOPEN</code> 用于判断对应游标是否打开</li>
 <li><code>%FOUND</code>  用于检查是否从结果集中提取到了数据。在调用<code>FETCH</code>之前，该属性值是<code>NULL</code>。调用<code>FETCH</code>之后该属性的值只能为<code>false</code> 或是 <code>true</code></li>
@@ -1596,8 +1615,10 @@ pair(const pair&lt;U1, U2&gt;&amp; p): first(p.first), second(p.second) {}</code
 <li>当<code>UPDATE</code>或<code>DELETE</code> 语句的<code>where</code> 子句未找到时触发 <code>SQL%NOTFOUND</code></li>
 <li>在光标的提取(Fetch)循环中要用 <code>%NOTFOUND</code> 或<code>%FOUND</code> 来确定循环的退出条件，不要用<code>NO_DATA_FOUND</code>。</li>
 </ul>
-<p>#####3、OPEN、FETCH 和CLOSE</p>
-<p>######3.1. OPEN<br>定义游标后,在PL/SQL语句块的执行区首先要打开游标。在游标被打开时，将会发生如下所示的几个动作：</p>
+<h4 id="3">3、OPEN、FETCH 和CLOSE</h4>
+<h5>3.1. OPEN</h5>
+定义游标后,在PL/SQL语句块的执行区首先要打开游标。在游标被打开时，将会发生如下所示的几个动作：
+
 <ul>
 <li>检验绑定变量的值</li>
 <li>基于查询的语句确定游标的活动集</li>
@@ -1606,13 +1627,15 @@ pair(const pair&lt;U1, U2&gt;&amp; p): first(p.first), second(p.second) {}</code
 <p>打开游标的语法为：<code>OPEN cursor_name [(parameter_values</code><br>下面是示例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DECLARE</span><br><span class="line">  CURSOR l_tab_cursor (p_rownum IN NUMBER) return dba_tables%ROWTYPE</span><br><span class="line">  IS </span><br><span class="line">    SELECT * FROM dba_tables where rownum&lt;p_rownum;</span><br><span class="line">BEGIN</span><br><span class="line">  OPEN l_tab_cursor (10);  --打开游标并传入参数</span><br><span class="line">END;</span><br></pre></td></tr></table></figure>
 
-<p>######3.2 FETCH<br><code>FETCH</code>可以一次一行地提取游标数据。如果想一次性接受所有或部分的结果到一个数组或一个PL/SQL表中，可以使用<code>BULK COLLECT</code>子句。<br><br>FETCH的语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FETCH cursor_name [BULK COLLECT] INTO variable_name(s) | PL/SQL_record [LIMIT limit_num];</span><br></pre></td></tr></table></figure>
+<h5>3.2 FETCH</h5>
+`FETCH`可以一次一行地提取游标数据。如果想一次性接受所有或部分的结果到一个数组或一个PL/SQL表中，可以使用`BULK COLLECT`子句。<br>
+FETCH的语法：
 
-<p>BULK COLLECT LIMIT 使用示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">--根据dba_tables前二十条记录(rownum&lt;20)中的table_name（以一行四个的格式）。</span><br><span class="line">DECLARE</span><br><span class="line">  TYPE l_dbatab_type IS VARRAY(4) OF dba_tables%ROWTYPE;  --定义变长数组类型</span><br><span class="line">  l_dbatab_tab l_dbatab_type;                              --定义变长数组变量</span><br><span class="line">  CURSOR l_dbatab_cur</span><br><span class="line">  IS</span><br><span class="line">    SELECT * FROM dba_tables where rownum&lt;20;</span><br><span class="line">  l_rows INT :=4;                                         --LIMIT行数</span><br><span class="line">  l_count INT :=0;                                        --计数器</span><br><span class="line">BEGIN</span><br><span class="line">  OPEN l_dbatab_cur;</span><br><span class="line">  LOOP </span><br><span class="line">    --每次提取四行数据到变长数组中</span><br><span class="line">    FETCH l_dbatab_cur BULK COLLECT INTO l_dbatab_tab LIMIT l_rows;</span><br><span class="line">    EXIT WHEN l_dbatab_cur%NOTFOUND;</span><br><span class="line">    DBMS_OUTPUT.PUT(&apos;Table name is: &apos;) ;</span><br><span class="line">    FOR i IN 1 .. (l_dbatab_cur%ROWCOUNT - l_count)</span><br><span class="line">    LOOP</span><br><span class="line">      DBMS_OUTPUT.PUT(l_dbatab_tab(i).table_name||&apos; &apos;); --输出表名</span><br><span class="line">    END LOOP;</span><br><span class="line">    DBMS_OUTPUT.NEW_LINE;</span><br><span class="line">    l_count := l_dbatab_cur%ROWCOUNT;   --更新计数器 </span><br><span class="line">  END LOOP;</span><br><span class="line">  CLOSE l_dbatab_cur;</span><br><span class="line">END;</span><br><span class="line"></span><br><span class="line">运行结果：</span><br><span class="line">Table name is: OBJ$ CCOL$ CLU$ SEG$</span><br><span class="line">Table name is: ICOL$ FILE$ IND$ CON$</span><br><span class="line">Table name is: UET$ TS$ CDEF$ FET$</span><br><span class="line">Table name is: PROXY_DATA$ BOOTSTRAP$ COL$ TAB$</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">FETCH cursor_name [BULK COLLECT] INTO variable_name(s) | PL/SQL_record [LIMIT limit_num];</span><br><span class="line"></span><br><span class="line">BULK COLLECT LIMIT 使用示例：</span><br><span class="line"></span><br><span class="line">--根据dba_tables前二十条记录(rownum&lt;20)中的table_name（以一行四个的格式）。</span><br><span class="line">DECLARE</span><br><span class="line">  TYPE l_dbatab_type IS VARRAY(4) OF dba_tables%ROWTYPE;  --定义变长数组类型</span><br><span class="line">  l_dbatab_tab l_dbatab_type;                              --定义变长数组变量</span><br><span class="line">  CURSOR l_dbatab_cur</span><br><span class="line">  IS</span><br><span class="line">    SELECT * FROM dba_tables where rownum&lt;20;</span><br><span class="line">  l_rows INT :=4;                                         --LIMIT行数</span><br><span class="line">  l_count INT :=0;                                        --计数器</span><br><span class="line">BEGIN</span><br><span class="line">  OPEN l_dbatab_cur;</span><br><span class="line">  LOOP </span><br><span class="line">    --每次提取四行数据到变长数组中</span><br><span class="line">    FETCH l_dbatab_cur BULK COLLECT INTO l_dbatab_tab LIMIT l_rows;</span><br><span class="line">    EXIT WHEN l_dbatab_cur%NOTFOUND;</span><br><span class="line">    DBMS_OUTPUT.PUT(&apos;Table name is: &apos;) ;</span><br><span class="line">    FOR i IN 1 .. (l_dbatab_cur%ROWCOUNT - l_count)</span><br><span class="line">    LOOP</span><br><span class="line">      DBMS_OUTPUT.PUT(l_dbatab_tab(i).table_name||&apos; &apos;); --输出表名</span><br><span class="line">    END LOOP;</span><br><span class="line">    DBMS_OUTPUT.NEW_LINE;</span><br><span class="line">    l_count := l_dbatab_cur%ROWCOUNT;   --更新计数器 </span><br><span class="line">  END LOOP;</span><br><span class="line">  CLOSE l_dbatab_cur;</span><br><span class="line">END;</span><br><span class="line"></span><br><span class="line">运行结果：</span><br><span class="line">Table name is: OBJ$ CCOL$ CLU$ SEG$</span><br><span class="line">Table name is: ICOL$ FILE$ IND$ CON$</span><br><span class="line">Table name is: UET$ TS$ CDEF$ FET$</span><br><span class="line">Table name is: PROXY_DATA$ BOOTSTRAP$ COL$ TAB$</span><br></pre></td></tr></table></figure>
 
-<p>######3.3 CLOSE<br>使用完游标后应立即关闭它，以利于相关资源回收。关闭游标的语法很简单：<br><br><code>CLOSE cursor_name;</code></p>
+<h5>3.3 CLOSE</h5>
+
+<p>使用完游标后应立即关闭它，以利于相关资源回收。关闭游标的语法很简单：<br><br><code>CLOSE cursor_name;</code></p>
 <p>TO BE CONTINUE…</p>
 
           
@@ -1733,7 +1756,12 @@ pair(const pair&lt;U1, U2&gt;&amp; p): first(p.first), second(p.second) {}</code
       
         
           
-            <p>######目录<br><a href="#1">一、命令简介</a><br><br><a href="#2">二、批处理OR交互模式？</a><br><br><a href="#3">三、定制输出内容</a><br><br><a href="#4">四、更新频率是快是慢？</a><br><br><a href="#5">五、”我的Linux主机上怎么会只有很少的空闲内存?”</a></p>
+            <h4>目录</h4>
+[一、命令简介](#1)<br>
+[二、批处理OR交互模式？](#2)<br>
+[三、定制输出内容](#3)<br>
+[四、更新频率是快是慢？](#4)<br>
+[五、"我的Linux主机上怎么会只有很少的空闲内存?"](#5)
 <h6 id="1">一、命令简介</h6>
 TOP命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况。 
 

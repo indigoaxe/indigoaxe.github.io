@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="1. 了解系统设计2. 系统设计面试3. 系统设计中的七剑客  1. 了解系统设计  什么是系统设计(System Design)? System Design顾名思义，就是去设计一个system。通常来讲，设计一个万能的system是几乎不可能的，所以需要有具体的requirement， 根据requirement来tradeoff并决定使用某种架构。 为什么要学习System Design?">
+<meta name="description" content="本周的课程内容为：  C++编程简介  头文件与类的声明  构造函数  参数传递与返回值 操作符重载与临时对象 复习complex类的实现过程  下面是这一周的课程笔记。因为有一些课程内容已经比较熟悉，所以只会挑一些需要强调的或者不太熟悉的内容来做作记录。  ==C++的学习== * **两大部分，首先学习Object Based(基于对象)，然后是 Object Oriented(面向对象)。*">
 <meta property="og:type" content="article">
-<meta property="og:title" content="系统设计与实践 part.1">
-<meta property="og:url" content="http://yoursite.com/2018/08/01/xi-tong-she-ji-yu-shi-jian-part-1/index.html">
+<meta property="og:title" content="C++面向对象高级编程（上）  part.1">
+<meta property="og:url" content="http://yoursite.com/2018/05/18/cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-1/index.html">
 <meta property="og:site_name" content="IndigoAxe">
-<meta property="og:description" content="1. 了解系统设计2. 系统设计面试3. 系统设计中的七剑客  1. 了解系统设计  什么是系统设计(System Design)? System Design顾名思义，就是去设计一个system。通常来讲，设计一个万能的system是几乎不可能的，所以需要有具体的requirement， 根据requirement来tradeoff并决定使用某种架构。 为什么要学习System Design?">
+<meta property="og:description" content="本周的课程内容为：  C++编程简介  头文件与类的声明  构造函数  参数传递与返回值 操作符重载与临时对象 复习complex类的实现过程  下面是这一周的课程笔记。因为有一些课程内容已经比较熟悉，所以只会挑一些需要强调的或者不太熟悉的内容来做作记录。  ==C++的学习== * **两大部分，首先学习Object Based(基于对象)，然后是 Object Oriented(面向对象)。*">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-01T18:56:14.000Z">
+<meta property="og:updated_time" content="2018-05-19T05:49:50.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="系统设计与实践 part.1">
-<meta name="twitter:description" content="1. 了解系统设计2. 系统设计面试3. 系统设计中的七剑客  1. 了解系统设计  什么是系统设计(System Design)? System Design顾名思义，就是去设计一个system。通常来讲，设计一个万能的system是几乎不可能的，所以需要有具体的requirement， 根据requirement来tradeoff并决定使用某种架构。 为什么要学习System Design?">
+<meta name="twitter:title" content="C++面向对象高级编程（上）  part.1">
+<meta name="twitter:description" content="本周的课程内容为：  C++编程简介  头文件与类的声明  构造函数  参数传递与返回值 操作符重载与临时对象 复习complex类的实现过程  下面是这一周的课程笔记。因为有一些课程内容已经比较熟悉，所以只会挑一些需要强调的或者不太熟悉的内容来做作记录。  ==C++的学习== * **两大部分，首先学习Object Based(基于对象)，然后是 Object Oriented(面向对象)。*">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/01/xi-tong-she-ji-yu-shi-jian-part-1/">
+  <link rel="canonical" href="http://yoursite.com/2018/05/18/cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-1/">
 
 
 
 
 
-  <title>系统设计与实践 part.1 | IndigoAxe</title>
+  <title>C++面向对象高级编程（上）  part.1 | IndigoAxe</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/xi-tong-she-ji-yu-shi-jian-part-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/18/cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Alex Tang">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">系统设计与实践 part.1</h1>
+          <h1 class="post-title" itemprop="name headline">C++面向对象高级编程（上）  part.1</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-01T12:39:09+08:00">
-                2018-08-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-18T06:37:20+08:00">
+                2018-05-18
               </time>
             
 
@@ -299,39 +299,56 @@
       
 
       
-        <p><a href="#1">1. 了解系统设计</a><br><a href="#2">2. 系统设计面试</a><br><a href="#3">3. 系统设计中的七剑客</a></p>
-<hr>
-<h4 id="1">1. 了解系统设计</h4>
-
-<p><strong>什么是系统设计(System Design)?</strong></p>
-<p>System Design顾名思义，就是去设计一个system。通常来讲，设计一个万能的system是几乎不可能的，所以需要有具体的requirement， 根据requirement来tradeoff并决定使用某种架构。</p>
-<p><strong>为什么要学习System Design?</strong></p>
-<p>每个人学习System Design的动机不一样，但最常见的有两种原因:</p>
-<p>你在准备面试，你的dream company会考到System Design；<br>你是架构师或者想成为架构师 需要用到相关知识。<br>我的观点是，即使是第一种情况，也希望你能抽出不少于刷leetcode的时间来看System Design。因为System Design和刷题的本质区别是，进入公司以后，除非你每天还在刷题保持状态，否则你早晚是要都还给老师的。而System Design才是你能长期收益的 一石二鸟，何乐而不为呢？</p>
-<p><strong>学习System Design应该学习哪几块?</strong></p>
-<p>我个人的经验，需要学习三大块:</p>
-<p>Distributed System知识: 比如Sharding, Sticky sessions, etc。<br>架构知识: 有哪些架构是常用的？举个例子，Apache Storm的创始人Nathan Marz提出的Lambda Architecture就是一种典型的data processing架构 了解这些架构会对你搭建大型系统有很大帮助。<br>“积木”知识: 我管它叫积木，其实就是别人做好的轮子，拿来即用即可。但你需要了解该轮子的优缺点以及适用范围，比如SQS和kinesis的区别 ActiveMQ和Kafka的区别。</p>
-<p><strong>面试和实践需要学习的点一样么?</strong><br>Yes and no.<br>Yes的原因是两大块对于面试和实践都是非常有帮助的；<br>No的原因是对于面试而言，面试官的侧重点是Distributed System的知识。知道某些积木会有加分但不是必须。而对于实践而言，知道各种积木以及其优缺点反而更能发挥作用。</p>
-<p>以上内容引用自：<br>《System Design 101》<br><a href="https://zhuanlan.zhihu.com/p/21313382" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/21313382</a><br>作者：Joseph Holy</p>
-<hr>
-<h4 id="2">2. System Design面试</h4>
-
-<p><strong>在系统设计的面试中，一般是这么打分的：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Bad      No sense of requirement, no scoping</span><br><span class="line">Pool     Limited knowledge, common sense</span><br><span class="line">Good     Reasonable Solution, explain clearly</span><br><span class="line">Great    Out of expectation, well thoughtful, tradeoff</span><br></pre></td></tr></table></figure>
-
-<p><strong>最常见的题目有以下几个：</strong>  </p>
+        <p>本周的课程内容为：<br></p>
 <ol>
-<li>Tiny Url </li>
-<li>RateLimit </li>
-<li>Messenger / Chatroom </li>
-<li>Stats Server </li>
-<li>News Feed </li>
-<li>Web Crawler </li>
-<li>Location Based Service </li>
-<li>Web Application </li>
-<li>Word Count</li>
+<li>C++编程简介 </li>
+<li>头文件与类的声明 </li>
+<li>构造函数 </li>
+<li>参数传递与返回值</li>
+<li>操作符重载与临时对象</li>
+<li>复习complex类的实现过程</li>
 </ol>
-<p><strong>我们拿最有代表性的Tiny Url来进行学习：</strong><br>题目 - Design a system to take user-provided URLs and transform them<br>to a shortened URLs that redirect back to original</p>
+<p>下面是这一周的课程笔记。因为有一些课程内容已经比较熟悉，所以只会挑一些需要强调的或者不太熟悉的内容来做作记录。</p>
+<hr>
+<h5>==C++的学习==</h5>
+* **两大部分，首先学习Object Based(基于对象)，然后是 Object Oriented(面向对象)。**
+
+<p>   关于这两种编写对象的方式有一个很简单的区分：<br><br>   Object Based - Class without pointer members<br><br>   Object Orient - Class with pointer members<br></p>
+<p> 关于这个内容，在《深度探索C++对象模型》第一章有进一步的讨论：</p>
+<blockquote>
+<p>  Object-oriented支持Polymorphism,而Object-based不支持Polymorphism.主要的区别就在于此。支持多态的代价是额外的间接性–不论是在“内存的获得”或是在“类型的决断”上。<br>C++通过class的pointers和references来支持多态，这种程序设计风格就叫面向对象。<br>C++也支持具体的ADT程序风格，被称为基于对象，它只支持封装，不支持类型的扩充。<br>一个Object-based设计可能比一个对等的Object-oriented设计速度更快而且空间更紧凑。速度快是因为所有的函数引发操作都在编译时期解析完成，不需要设置virtual机制；空间紧凑则是因为每一个class object不需要负担传统上为了支持virtual机制而需要的额外负担。不过，Object-based设计比较没有弹性。</p>
+</blockquote>
+<p>注：ADT- Abstract Data Type 抽象数据类型,是一个实现包括储存数据元素的存储结构以及实现基本操作的算法。</p>
+<ul>
+<li><strong>学习一门语言主要学的是这门语言的两个部分：语言和标准库。</strong></li>
+</ul>
+<hr>
+<h5>==构造函数==</h5>
+* **构造函数和析构函数可以被显式地调用，但是不建议这么使用，因为有可能会导致内存泄漏。**
+
+<pre><code>这是因为，在已创建的对象上显式地调用构造函数时, 其所指向的动态内存将会被更新。然而对象生命周期结束时析构函数所释放掉的是最后一次分配的动态内存, 也就是说之前隐式构造函数所分配的那块内存被泄漏了。而显式调用析构函数，则会导致隐式调用析构函数时重复释放同一块内存。</code></pre><ul>
+<li><p><strong>将constructor设为private,可以用于实现singleton。</strong></p>
+<pre><code>//常见的singleton类的声明
+class Singleton
+  {
+     private:
+       static Singleton* pInstance;//静态成员，保存对象的唯一实例
+       Singleton();//私有化构造函数，使其无法在类外实例化
+     public:
+       static Singleton* Instance();
+       //void Destroy();
+       static void Destroy();
+   };</code></pre></li>
+<li><p><strong>可以声明为常量成员函数的，一定要加const。</strong></p>
+<pre><code>注: 用mutable关键字修饰类成员变量，可以突破const的限制，在常量成员函数中修改成员变量。</code></pre></li>
+</ul>
+<hr>
+<h5>==参数传递与返回值==</h5>
+* **使用函数时，尽量传递引用(by referrence)参数和返回引用值。这样可以提高程序运行的效率，是C++的优势之一。**
+
+<pre><code>注意，不要返回局部对象的引用或指针。可以用return typename()的方式利用临时未命名的变量返回一个值。</code></pre><ul>
+<li><strong>相同class的各个object互为友元。</strong></li>
+</ul>
 
       
     </div>
@@ -356,8 +373,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/23/pattern-part3/" rel="next" title="C++设计模式 part.3">
-                <i class="fa fa-chevron-left"></i> C++设计模式 part.3
+              <a href="/2016/06/05/cmian-xiang-dui-xiang-gao-ji-bian-cheng-xia-part-1/" rel="next" title="C++面向对象高级编程（下) part.1">
+                <i class="fa fa-chevron-left"></i> C++面向对象高级编程（下) part.1
               </a>
             
           </div>
@@ -366,8 +383,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/07/xi-tong-she-ji-yu-shi-jian-part-2/" rel="prev" title="系统设计与实践 part.2">
-                系统设计与实践 part.2 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/19/cmian-xiang-dui-xiang-gao-ji-bian-cheng-shang-part-2/" rel="prev" title="C++面向对象高级编程（上） part.2">
+                C++面向对象高级编程（上） part.2 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -482,7 +499,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">1. 了解系统设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">2. System Design面试</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">==C++的学习==</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">==构造函数==</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">3.</span> <span class="nav-text">==参数传递与返回值==</span></a></li></ol></div>
             
 
           </div>

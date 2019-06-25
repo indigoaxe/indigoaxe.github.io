@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="######1. 游标是什么 首先我们先来了解一下游标。游标是系统为用户开设的一个数据缓冲区，存放SQL语句的执行结果。 Oracle 在执行SQL语句时，总是需要创建一块内存区域，这块内存区域称为上下文区域。在这个区域中包含了处理语句的信息：  指向共享池中被分析SQL语句的指针 查询返回的结果集 当前语句已经处理了多少行  如图，其中:  select语句即是已分析的SQL语句 中间的数据内容">
+<meta name="description" content="1. 游标是什么2. 游标的种类及属性3. OPEN、FETCH 和CLOSE   1. 游标是什么  首先我们先来了解一下游标。游标是系统为用户开设的一个数据缓冲区，存放SQL语句的执行结果。 Oracle 在执行SQL语句时，总是需要创建一块内存区域，这块内存区域称为上下文区域。在这个区域中包含了处理语句的信息：  指向共享池中被分析SQL语句的指针 查询返回的结果集 当前语句已经处理了多少行">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PL&#x2F;SQL 中的游标(CURSOR) - PART1">
 <meta property="og:url" content="http://yoursite.com/2015/10/20/understand-oracle-cursor/index.html">
 <meta property="og:site_name" content="IndigoAxe">
-<meta property="og:description" content="######1. 游标是什么 首先我们先来了解一下游标。游标是系统为用户开设的一个数据缓冲区，存放SQL语句的执行结果。 Oracle 在执行SQL语句时，总是需要创建一块内存区域，这块内存区域称为上下文区域。在这个区域中包含了处理语句的信息：  指向共享池中被分析SQL语句的指针 查询返回的结果集 当前语句已经处理了多少行  如图，其中:  select语句即是已分析的SQL语句 中间的数据内容">
+<meta property="og:description" content="1. 游标是什么2. 游标的种类及属性3. OPEN、FETCH 和CLOSE   1. 游标是什么  首先我们先来了解一下游标。游标是系统为用户开设的一个数据缓冲区，存放SQL语句的执行结果。 Oracle 在执行SQL语句时，总是需要创建一块内存区域，这块内存区域称为上下文区域。在这个区域中包含了处理语句的信息：  指向共享池中被分析SQL语句的指针 查询返回的结果集 当前语句已经处理了多少行">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/content/images/2015/10/cursor_construct-1.png">
 <meta property="og:updated_time" content="2015-10-26T02:07:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PL&#x2F;SQL 中的游标(CURSOR) - PART1">
-<meta name="twitter:description" content="######1. 游标是什么 首先我们先来了解一下游标。游标是系统为用户开设的一个数据缓冲区，存放SQL语句的执行结果。 Oracle 在执行SQL语句时，总是需要创建一块内存区域，这块内存区域称为上下文区域。在这个区域中包含了处理语句的信息：  指向共享池中被分析SQL语句的指针 查询返回的结果集 当前语句已经处理了多少行  如图，其中:  select语句即是已分析的SQL语句 中间的数据内容">
+<meta name="twitter:description" content="1. 游标是什么2. 游标的种类及属性3. OPEN、FETCH 和CLOSE   1. 游标是什么  首先我们先来了解一下游标。游标是系统为用户开设的一个数据缓冲区，存放SQL语句的执行结果。 Oracle 在执行SQL语句时，总是需要创建一块内存区域，这块内存区域称为上下文区域。在这个区域中包含了处理语句的信息：  指向共享池中被分析SQL语句的指针 查询返回的结果集 当前语句已经处理了多少行">
 <meta name="twitter:image" content="http://yoursite.com/content/images/2015/10/cursor_construct-1.png">
 
 
@@ -301,7 +301,9 @@
       
 
       
-        <p>######1. 游标是什么</p>
+        <p><a href="#1">1. 游标是什么</a><br><a href="#2">2. 游标的种类及属性</a><br><a href="#3">3. OPEN、FETCH 和CLOSE</a>  </p>
+<h4 id="1">1. 游标是什么</h4>
+
 <p>首先我们先来了解一下游标。游标<b>是系统为用户开设的一个数据缓冲区，存放SQL语句的执行结果。<br></b> Oracle 在执行SQL语句时，总是需要创建一块内存区域，这块内存区域称为上下文区域。在这个区域中包含了处理语句的信息：</p>
 <ul>
 <li>指向共享池中被分析SQL语句的指针</li>
@@ -315,8 +317,11 @@
 <li>“9 rows selected.” 则代表着<b>语句处理的行数</b></li>
 </ul>
 <p>在进行游标操作的过程中，可以将游标看成是指向数据表中数据的指针，但是在后台，游标实际是指向一块内存区域。而只有在游标被打开后，游标相关的查询语句才会被执行，然后将结果保存到内存中。</p>
-<p>#####2. 游标的种类及属性</p>
-<p>######2.1 游标种类<br>游标总的来说分为两种，一种是静态游标，另外一种是动态游标。我们可以把静态游标与动态游标分别理解为是常亮与变量的区别。静态游标一经定义就无法被改变，而动态游标可以被灵活地使用。下面来具体介绍它们。</p>
+<h4 id="1">2. 游标的种类及属性</h4>
+
+<h5>2.1 游标种类</h5>
+游标总的来说分为两种，一种是静态游标，另外一种是动态游标。我们可以把静态游标与动态游标分别理解为是常亮与变量的区别。静态游标一经定义就无法被改变，而动态游标可以被灵活地使用。下面来具体介绍它们。
+
 <p>2.1.1 静态游标<br>静态游标</p>
 <ul>
 <li>显式游标：就是有明确声明来定义的游标，它被定义后，使用时需要显式地打开（open）。</li>
@@ -342,7 +347,9 @@
 <p>如果TYPE语句中未指定RETURN子句，则可以连续地打开多次，分别赋予不同的查询SELECT子句。因此指定了RETURN子句的游标类型又称为强类型游标类型。</p>
 <p>NOTE:<br>1) Oracle提供了一个预定义的弱类型游标类型，名为<code>SYS_REFCURSOR</code>。在上面的例子中，可使用<code>SYS_REFCURSOR</code>来代替<code>l_gen_type</code>的定义<code>l_gen_cur SYS_REFCURSOR;</code>。
 2) 重新打开一个游标变量以前不需要关闭它，当用不同的查询语句打开同一个游标变量的时候，上一个查询将被丢弃掉。</p>
-<p>######2.2 属性<br>通过上面的示例，可以发现其中使用到了一些游标的属性来帮助我们更好的利用游标。下面是游标的主要属性：</p>
+<h5>2.2 属性</h5>
+通过上面的示例，可以发现其中使用到了一些游标的属性来帮助我们更好的利用游标。下面是游标的主要属性：
+
 <ul>
 <li><code>%ISOPEN</code> 用于判断对应游标是否打开</li>
 <li><code>%FOUND</code>  用于检查是否从结果集中提取到了数据。在调用<code>FETCH</code>之前，该属性值是<code>NULL</code>。调用<code>FETCH</code>之后该属性的值只能为<code>false</code> 或是 <code>true</code></li>
@@ -357,8 +364,10 @@
 <li>当<code>UPDATE</code>或<code>DELETE</code> 语句的<code>where</code> 子句未找到时触发 <code>SQL%NOTFOUND</code></li>
 <li>在光标的提取(Fetch)循环中要用 <code>%NOTFOUND</code> 或<code>%FOUND</code> 来确定循环的退出条件，不要用<code>NO_DATA_FOUND</code>。</li>
 </ul>
-<p>#####3、OPEN、FETCH 和CLOSE</p>
-<p>######3.1. OPEN<br>定义游标后,在PL/SQL语句块的执行区首先要打开游标。在游标被打开时，将会发生如下所示的几个动作：</p>
+<h4 id="3">3、OPEN、FETCH 和CLOSE</h4>
+<h5>3.1. OPEN</h5>
+定义游标后,在PL/SQL语句块的执行区首先要打开游标。在游标被打开时，将会发生如下所示的几个动作：
+
 <ul>
 <li>检验绑定变量的值</li>
 <li>基于查询的语句确定游标的活动集</li>
@@ -367,13 +376,15 @@
 <p>打开游标的语法为：<code>OPEN cursor_name [(parameter_values</code><br>下面是示例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DECLARE</span><br><span class="line">  CURSOR l_tab_cursor (p_rownum IN NUMBER) return dba_tables%ROWTYPE</span><br><span class="line">  IS </span><br><span class="line">    SELECT * FROM dba_tables where rownum&lt;p_rownum;</span><br><span class="line">BEGIN</span><br><span class="line">  OPEN l_tab_cursor (10);  --打开游标并传入参数</span><br><span class="line">END;</span><br></pre></td></tr></table></figure>
 
-<p>######3.2 FETCH<br><code>FETCH</code>可以一次一行地提取游标数据。如果想一次性接受所有或部分的结果到一个数组或一个PL/SQL表中，可以使用<code>BULK COLLECT</code>子句。<br><br>FETCH的语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FETCH cursor_name [BULK COLLECT] INTO variable_name(s) | PL/SQL_record [LIMIT limit_num];</span><br></pre></td></tr></table></figure>
+<h5>3.2 FETCH</h5>
+`FETCH`可以一次一行地提取游标数据。如果想一次性接受所有或部分的结果到一个数组或一个PL/SQL表中，可以使用`BULK COLLECT`子句。<br>
+FETCH的语法：
 
-<p>BULK COLLECT LIMIT 使用示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">--根据dba_tables前二十条记录(rownum&lt;20)中的table_name（以一行四个的格式）。</span><br><span class="line">DECLARE</span><br><span class="line">  TYPE l_dbatab_type IS VARRAY(4) OF dba_tables%ROWTYPE;  --定义变长数组类型</span><br><span class="line">  l_dbatab_tab l_dbatab_type;                              --定义变长数组变量</span><br><span class="line">  CURSOR l_dbatab_cur</span><br><span class="line">  IS</span><br><span class="line">    SELECT * FROM dba_tables where rownum&lt;20;</span><br><span class="line">  l_rows INT :=4;                                         --LIMIT行数</span><br><span class="line">  l_count INT :=0;                                        --计数器</span><br><span class="line">BEGIN</span><br><span class="line">  OPEN l_dbatab_cur;</span><br><span class="line">  LOOP </span><br><span class="line">    --每次提取四行数据到变长数组中</span><br><span class="line">    FETCH l_dbatab_cur BULK COLLECT INTO l_dbatab_tab LIMIT l_rows;</span><br><span class="line">    EXIT WHEN l_dbatab_cur%NOTFOUND;</span><br><span class="line">    DBMS_OUTPUT.PUT(&apos;Table name is: &apos;) ;</span><br><span class="line">    FOR i IN 1 .. (l_dbatab_cur%ROWCOUNT - l_count)</span><br><span class="line">    LOOP</span><br><span class="line">      DBMS_OUTPUT.PUT(l_dbatab_tab(i).table_name||&apos; &apos;); --输出表名</span><br><span class="line">    END LOOP;</span><br><span class="line">    DBMS_OUTPUT.NEW_LINE;</span><br><span class="line">    l_count := l_dbatab_cur%ROWCOUNT;   --更新计数器 </span><br><span class="line">  END LOOP;</span><br><span class="line">  CLOSE l_dbatab_cur;</span><br><span class="line">END;</span><br><span class="line"></span><br><span class="line">运行结果：</span><br><span class="line">Table name is: OBJ$ CCOL$ CLU$ SEG$</span><br><span class="line">Table name is: ICOL$ FILE$ IND$ CON$</span><br><span class="line">Table name is: UET$ TS$ CDEF$ FET$</span><br><span class="line">Table name is: PROXY_DATA$ BOOTSTRAP$ COL$ TAB$</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">FETCH cursor_name [BULK COLLECT] INTO variable_name(s) | PL/SQL_record [LIMIT limit_num];</span><br><span class="line"></span><br><span class="line">BULK COLLECT LIMIT 使用示例：</span><br><span class="line"></span><br><span class="line">--根据dba_tables前二十条记录(rownum&lt;20)中的table_name（以一行四个的格式）。</span><br><span class="line">DECLARE</span><br><span class="line">  TYPE l_dbatab_type IS VARRAY(4) OF dba_tables%ROWTYPE;  --定义变长数组类型</span><br><span class="line">  l_dbatab_tab l_dbatab_type;                              --定义变长数组变量</span><br><span class="line">  CURSOR l_dbatab_cur</span><br><span class="line">  IS</span><br><span class="line">    SELECT * FROM dba_tables where rownum&lt;20;</span><br><span class="line">  l_rows INT :=4;                                         --LIMIT行数</span><br><span class="line">  l_count INT :=0;                                        --计数器</span><br><span class="line">BEGIN</span><br><span class="line">  OPEN l_dbatab_cur;</span><br><span class="line">  LOOP </span><br><span class="line">    --每次提取四行数据到变长数组中</span><br><span class="line">    FETCH l_dbatab_cur BULK COLLECT INTO l_dbatab_tab LIMIT l_rows;</span><br><span class="line">    EXIT WHEN l_dbatab_cur%NOTFOUND;</span><br><span class="line">    DBMS_OUTPUT.PUT(&apos;Table name is: &apos;) ;</span><br><span class="line">    FOR i IN 1 .. (l_dbatab_cur%ROWCOUNT - l_count)</span><br><span class="line">    LOOP</span><br><span class="line">      DBMS_OUTPUT.PUT(l_dbatab_tab(i).table_name||&apos; &apos;); --输出表名</span><br><span class="line">    END LOOP;</span><br><span class="line">    DBMS_OUTPUT.NEW_LINE;</span><br><span class="line">    l_count := l_dbatab_cur%ROWCOUNT;   --更新计数器 </span><br><span class="line">  END LOOP;</span><br><span class="line">  CLOSE l_dbatab_cur;</span><br><span class="line">END;</span><br><span class="line"></span><br><span class="line">运行结果：</span><br><span class="line">Table name is: OBJ$ CCOL$ CLU$ SEG$</span><br><span class="line">Table name is: ICOL$ FILE$ IND$ CON$</span><br><span class="line">Table name is: UET$ TS$ CDEF$ FET$</span><br><span class="line">Table name is: PROXY_DATA$ BOOTSTRAP$ COL$ TAB$</span><br></pre></td></tr></table></figure>
 
-<p>######3.3 CLOSE<br>使用完游标后应立即关闭它，以利于相关资源回收。关闭游标的语法很简单：<br><br><code>CLOSE cursor_name;</code></p>
+<h5>3.3 CLOSE</h5>
+
+<p>使用完游标后应立即关闭它，以利于相关资源回收。关闭游标的语法很简单：<br><br><code>CLOSE cursor_name;</code></p>
 <p>TO BE CONTINUE…</p>
 
       
@@ -463,8 +474,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -506,6 +526,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">1. 游标是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">2.</span> <span class="nav-text">2. 游标的种类及属性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 游标种类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3"><span class="nav-number">3.</span> <span class="nav-text">3、OPEN、FETCH 和CLOSE</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. OPEN</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 FETCH</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 CLOSE</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
